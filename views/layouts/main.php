@@ -31,7 +31,7 @@ AppAsset::register($this);
 <div class="wrap">
     <?php
     NavBar::begin([
-        'brandLabel' => Yii::$app->name,
+        'brandLabel' => 'CuwIdi',
         'brandUrl' => Yii::$app->homeUrl,
         'options' => [
             'class' => 'navbar-inverse navbar-fixed-top',
@@ -40,20 +40,27 @@ AppAsset::register($this);
     ]);
     echo Nav::widget([
         'options' => [
-                'class' => 'navbar-nav navbar-right',
+                'class' => 'navbar-nav navbar-left',
                 'style' => 'color: #FFFFFF; background-color: #000000;',
         ],
         'items' => [
-            ['label' => 'Проекты', 'url' => ['/site/view-projects']],
-            ['label' => 'Магазин', 'url' => ['/site/store']],
-            Yii::$app->user->isGuest ? (
-                    ['label' => 'Зарегистрироваться', 'url' => ['/site/sing-up']]
-            ) : (
-                    ['label' => 'Профиль', 'url' => ['/site/profile']]
-            ),
+            ['label' => 'Идеи', 'url' => ['/site/ideas']],
             ['label' => 'Связь', 'url' => ['/site/contact']],
+        ],
+    ]);
+    echo Nav::widget([
+        'options' => [
+            'class' => 'navbar-nav navbar-right',
+            'style' => 'color: #FFFFFF; background-color: #000000;',
+        ],
+        'items' => [
             Yii::$app->user->isGuest ? (
-                ['label' => 'Войти', 'url' => ['/site/login']]
+            ['label' => 'Зарегистрироваться', 'url' => ['/site/sing-up']]
+            ) : (
+            ['label' => 'Профиль', 'url' => ['/site/profile']]
+            ),
+            Yii::$app->user->isGuest ? (
+            ['label' => 'Войти', 'url' => ['/site/login']]
             ) : (
                 '<li>'
                 . Html::beginForm(['/site/logout'], 'post')
@@ -64,7 +71,15 @@ AppAsset::register($this);
                 . Html::endForm()
                 . '</li>'
             ),
-
+        ],
+    ]);
+    echo Nav::widget([
+        'options' => [
+                'class' => 'navbar-nav navbar-right',
+                'style' => 'color: #FFFFFF; background-color: #000000;',
+        ],
+        'items' => [
+                ['label' => 'Поиск', 'url' => ['/site/global-search']],
         ],
     ]);
     NavBar::end();
