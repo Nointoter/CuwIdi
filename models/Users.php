@@ -4,7 +4,7 @@ namespace app\models;
 
 use yii\db\ActiveRecord;
 
-class User extends ActiveRecord implements \yii\web\IdentityInterface
+class Users extends ActiveRecord implements \yii\web\IdentityInterface
 {
     public $authKey;
     public $accessToken;
@@ -17,9 +17,9 @@ class User extends ActiveRecord implements \yii\web\IdentityInterface
     /**
      * {@inheritdoc}
      */
-    public static function findIdentity($id)
+    public static function findIdentity($id_users)
     {
-        return static::findOne($id);
+        return static::findOne($id_users);
     }
 
     /**
@@ -46,7 +46,7 @@ class User extends ActiveRecord implements \yii\web\IdentityInterface
      */
     public function getId()
     {
-        return $this->id;
+        return $this->id_users;
     }
 
     /**

@@ -554,6 +554,7 @@ class SiteController extends Controller
      *
      * @return Response|string
      */
+
     public function actionContact()
     {
         $model = new ContactForm();

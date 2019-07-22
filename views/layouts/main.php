@@ -55,12 +55,12 @@ AppAsset::register($this);
         ],
         'items' => [
             Yii::$app->user->isGuest ? (
-            ['label' => 'Зарегистрироваться', 'url' => ['/site/sing-up']]
+            ['label' => 'Зарегистрироваться', 'url' => ['/users/sing-up']]
             ) : (
-            ['label' => 'Профиль', 'url' => ['/site/profile']]
+            ['label' => 'Профиль', 'url' => ['/users/profile']]
             ),
             Yii::$app->user->isGuest ? (
-            ['label' => 'Войти', 'url' => ['/site/login']]
+            ['label' => 'Войти', 'url' => ['/users/login']]
             ) : (
                 '<li>'
                 . Html::beginForm(['/site/logout'], 'post')
@@ -97,7 +97,7 @@ AppAsset::register($this);
 <footer class="modal-footer">
     <div class="containe">
         <p class="pull-left"><a class="invisible"">____</p>
-        <p class="pull-left"><a class="btn-link" href=<?= Url::toRoute("site/about")?>>&copy; NoinCorp <?= date('Y') ?></p>
+        <p class="pull-left"><a class="btn-link" href=<?= Url::toRoute("site/about")?>>&copy; Noin <?= date('Y') ?></p>
         <p class="pull-left"><a class="invisible"">____</p>
         <p class="pull-left"><a class="btn-link" href=<?= Url::toRoute("site/contact")?>> Связь</p>
     </div>
