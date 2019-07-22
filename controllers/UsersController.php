@@ -6,7 +6,7 @@ namespace app\controllers;
 
 use app\models\LoginForm;
 use app\models\SingUpForm;
-use app\models\Users;
+use app\models\User;
 use Yii;
 use yii\filters\AccessControl;
 use yii\filters\VerbFilter;
@@ -66,7 +66,7 @@ class UsersController extends Controller
 
     public function actionProfile()
     {
-        $user = Users::findIdentity(Yii::$app->user->id);
+        $user = User::findIdentity(Yii::$app->user->id);
         return $this->render('profile', [
             'user' => $user,
         ]);
@@ -84,15 +84,19 @@ class UsersController extends Controller
         }
         $model = new SingUpForm();
         if($model->load(Yii::$app->request->post()) && $model->validate()) {
-            $user = new Users();
+            $user = new User();
             $user->username = $model->username;
             $user->password = $model->password;
+            $model = new LoginForm();
+            $model->username = $user->username;
+            $model->password = $user->password;
             $user->save(false);
+            $model->login();
             return $this->redirect('profile');
         }
         else
         {
-            return $this->render('sign-up', compact('model'));
+            return $this->render('sing-up', compact('model'));
         }
 
     }

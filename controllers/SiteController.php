@@ -33,8 +33,6 @@ use app\models\SingUpForm;
 use app\models\User;
 use yii\console\widgets\Table;
 
-
-
 class SiteController extends Controller
 {
     /**
