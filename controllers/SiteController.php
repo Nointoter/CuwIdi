@@ -3,6 +3,7 @@
 namespace app\controllers;
 
 
+use app\models\Ideas;
 use app\models\ImageForm;
 use kartik\select2\Select2;
 use Yii;
@@ -311,44 +312,13 @@ class SiteController extends Controller
      *
      * @return string
     */
+
     public function actionIndex()
     {
-        $projects = Projects::find()->all();
-        $carousel = [];
-        foreach($projects as $project) {
-            $options = Options::find()->where(['projects_id' => $project->id])->all();
-            $searchModel = new SearchOptions();
-            $dataProvider =$searchModel->search(Yii::$app->request->get(), $project->id);
-            $options_name = ArrayHelper::map($options,'options_name', 'options_name');
-            $options_value = ArrayHelper::map($options,'options_value', 'options_value');
-            foreach($options as $option){
-                $rows[] = [$option->options_name, $option->options_value];
-            }
-            $image = Yii::getAlias('@webroot/images/' . $project->images_name);
-            $image = Image::resize($image, 300, 300);
-            Image::crop($image, 300, 200)
-                ->save(Yii::getAlias('@webroot/images/' . $project->images_name . 'resize.jpg'), ['quality' => 100]);
-            $carousel[] = [
-                'content' => Html::img('@web/images/' . $project->images_name . 'resize.jpg', [
-                    'width' => '100%',
-                    'height' => '100%'
-                ]),
-                'caption' => GridView::widget([
-                    'dataProvider' => $dataProvider,
-                    //'filterModel' => $searchModel,
-                    'rowOptions' => ['style'=>'color: #000000; background-color: #FFFFFF;'],
-                    'headerRowOptions' => ['style'=>'color: #000000; background-color: #FFFFFF;'],
-                    'layout' => '{items}{pager}',
-                    'columns' => [
-                        'options_name',
-                        'options_value',
-                    ],
-                ]),
-            ];
-        };
-
+        $count = array_count_values(ArrayHelper::map(Ideas::find()->all(),'id_ideas', 'id_ideas'));
+        
         return $this->render('index', [
-            'carousel' => $carousel,
+
         ]);
     }
 
