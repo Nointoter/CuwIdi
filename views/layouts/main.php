@@ -45,7 +45,7 @@ AppAsset::register($this);
                 'style' => 'color: #FFFFFF; background-color: #000000;',
         ],
         'items' => [
-            ['label' => 'Идеи', 'url' => ['/site/ideas']],
+            ['label' => 'Идеи', 'url' => ['/ideas/ideas']],
             ['label' => 'Связь', 'url' => ['/site/contact']],
         ],
     ]);

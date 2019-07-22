@@ -18,12 +18,10 @@ class m190722_083334_create_ideas_table extends Migration
         $this->createTable('{{%ideas}}', [
             'id_ideas' => $this->primaryKey(),
             'ideas_name' => $this->string(),
-            'info_short' => $this->text(),
-            'info_long' => $this->text(),
+            'info_short' => $this->string(),
+            'info_long' => $this->string(),
             'creators_id' => $this->integer(),
             'ideas_images' => $this->integer(),
-            'ideas_tags' => $this->integer(),
-            'ideas_comments' => $this->integer(),
         ]);
 
         // creates index for column `creators_id`
