@@ -27,6 +27,8 @@ $this->params['breadcrumbs'][] = $this->title;
 
             <?= $form->field($image_model, 'info_short')->textInput(['autofocus' => true]) ?>
 
+            <?= $form->field($image_model, 'info_long')->textarea(['autofocus' => true]) ?>
+
             <?/*= $form->field($image_model, 'imageFile')->fileInput(['autofocus' => true]) */?>
 
             <div class="form-group">

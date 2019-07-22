@@ -19,11 +19,11 @@ $this->params['breadcrumbs'][] = $this->title;
     <div class="row">
         <div class="col-lg-6">
             <div class="form-group">
-                <?= Html::button('Добавить идею',['value' => Url::to('/site/add-project?bool='.strval(false)) ,'class' => 'btn btn-success', 'name' => 'add-project-button', 'id' => 'modalButton']) ?>
+                <?= Html::button('Добавить идею',['value' => Url::to('/ideas/add-idea?bool='.strval(false)) ,'class' => 'btn btn-success', 'name' => 'add-project-button', 'id' => 'modalButton']) ?>
             </div>
             <?php
             Modal::begin([
-                'header' => '<h4>Projects</h4>',
+                //'header' => '<h4>Добавить идею</h4>',
                 'id' => 'modal',
                 'size' => 'modal-lg',
             ]);
@@ -33,6 +33,8 @@ $this->params['breadcrumbs'][] = $this->title;
             Modal::end();
             ?>
         </div>
+    </div>
+</div>
 
 <div class="view-ideas">
     <?= GridView::widget([
