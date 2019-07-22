@@ -46,7 +46,6 @@ AppAsset::register($this);
         ],
         'items' => [
             ['label' => 'Идеи', 'url' => ['/ideas/ideas']],
-            ['label' => 'Связь', 'url' => ['/site/contact']],
         ],
     ]);
     echo Nav::widget([
@@ -95,9 +94,12 @@ AppAsset::register($this);
     </div>
 </div>
 
-<footer class="footer">
-    <div class="container">
+<footer class="modal-footer">
+    <div class="containe">
+        <p class="pull-left"><a class="invisible"">____</p>
         <p class="pull-left"><a class="btn-link" href=<?= Url::toRoute("site/about")?>>&copy; NoinCorp <?= date('Y') ?></p>
+        <p class="pull-left"><a class="invisible"">____</p>
+        <p class="pull-left"><a class="btn-link" href=<?= Url::toRoute("site/contact")?>> Связь</p>
     </div>
 </footer>
 
