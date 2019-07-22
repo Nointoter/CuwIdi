@@ -10,6 +10,7 @@ use yii\bootstrap\NavBar;
 use yii\widgets\Breadcrumbs;
 use app\assets\AppAsset;
 use yii\helpers\Url;
+use yii\widgets\ActiveForm;
 
 
 AppAsset::register($this);
@@ -73,15 +74,15 @@ AppAsset::register($this);
             ),
         ],
     ]);
-    echo Nav::widget([
-        'options' => [
-                'class' => 'navbar-nav navbar-right',
-                'style' => 'color: #FFFFFF; background-color: #000000;',
-        ],
-        'items' => [
-                ['label' => 'Поиск', 'url' => ['/site/global-search']],
-        ],
-    ]);
+    ?>
+    <form class="navbar-form navbar-right" action="/site/search-results" method="get" id="main-global-search-form">
+        <div class="form-group has-feedback search">
+            <input type="text" class="form-control" placeholder="Search" />
+            <i class="glyphicon glyphicon-search form-control-feedback"></i>
+        </div>
+    </form>
+    <?php
+
     NavBar::end();
     ?>
 
