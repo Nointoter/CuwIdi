@@ -9,9 +9,10 @@ use yii\base\Model;
 class IdeasForm extends Model
 {
     public $imageFile;
-    public $name;
-    public $id;
-    public $info;
+    public $ideas_name;
+    public $id_ideas;
+    public $info_short;
+    public $info_long;
     public $images_name;
 
 
@@ -19,11 +20,11 @@ class IdeasForm extends Model
     {
         return [
             [['ideas_name', 'info_short'], 'required', 'message' => 'Заполните поле'],
-            [['ideas_name'],'string'],
-            [['info_short'],'string'],
-            [['info_long'],'string'],
-            [['images_name'],'string'],
-            [['imageFile'], 'file',  'skipOnEmpty' => false, 'extensions' => 'png, jpg, jfif'],
+            [['ideas_name'], 'string'],
+            [['info_short'], 'string'],
+            [['info_long'], 'string'],
+            [['images_name'], 'string'],
+            [['imageFile'], 'file',  'skipOnEmpty' => true, 'extensions' => 'png, jpg, jfif'],
         ];
     }
 

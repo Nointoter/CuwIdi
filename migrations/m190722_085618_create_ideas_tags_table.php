@@ -16,7 +16,7 @@ class m190722_085618_create_ideas_tags_table extends Migration
     public function safeUp()
     {
         $this->createTable('{{%ideas_tags}}', [
-            'id_ideas_tags' => $this->primaryKey(),
+            'id_tags' => $this->primaryKey(),
             'tag' => $this->string(),
             'ideas_id' => $this->integer(),
         ]);

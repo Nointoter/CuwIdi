@@ -1,7 +1,7 @@
 <?php
 
 /* @var $form yii\bootstrap\ActiveForm */
-/* @var $image_model app\models\ImageForm */
+/* @var $image_model app\models\IdeasForm */
 
 use app\models\ImageForm;
 use yii\bootstrap\ActiveForm;
@@ -23,11 +23,11 @@ $this->params['breadcrumbs'][] = $this->title;
 
             <?php $form = ActiveForm::begin(); ?>
 
-            <?= $form->field($image_model, 'name')->textInput(['autofocus' => true]) ?>
+            <?= $form->field($image_model, 'ideas_name')->textInput(['autofocus' => true]) ?>
 
-            <?= $form->field($image_model, 'info')->textInput(['autofocus' => true]) ?>
+            <?= $form->field($image_model, 'info_short')->textInput(['autofocus' => true]) ?>
 
-            <?= $form->field($image_model, 'imageFile')->fileInput(['autofocus' => true]) ?>
+            <?/*= $form->field($image_model, 'imageFile')->fileInput(['autofocus' => true]) */?>
 
             <div class="form-group">
                 <?= Html::submitButton('Submit', ['class' => 'btn btn-primary', 'name' => 'add-project-button']) ?>
