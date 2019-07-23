@@ -96,6 +96,7 @@ class UsersController extends Controller
                 $user = User::findIdentity(Yii::$app->user->id);
                 $user->password = $model->newPassword;
                 $user->save(false);
+                return $this->redirect('profile?id='.strval(Yii::$app->user->id));
             }
         else
             {

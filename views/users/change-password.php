@@ -1,12 +1,19 @@
 <?php
 
 
-use yii\helpers\Html;$form->field($model, 'password')->passwordInput();
+use yii\helpers\Html;
+use yii\widgets\ActiveForm;
 
-$form->field($model, 'newPassword')->passwordInput();
+$form = ActiveForm::begin();
 
-$form->field($model, 'reNewPassword')->passwordInput();
+echo $form->field($model, 'password')->passwordInput();
+
+echo $form->field($model, 'newPassword')->passwordInput();
+
+echo $form->field($model, 'reNewPassword')->passwordInput();
 ?>
     <div class="form-group">
         <?= Html::submitButton('Подтвердить', ['class' => 'btn btn-primary', 'name' => 're-pass-button']) ?>
     </div>
+
+<?php ActiveForm::end(); ?>

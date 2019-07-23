@@ -16,7 +16,7 @@ use yii\helpers\Url;
 $this->title = 'Профиль ' . strval($user->users_name);
 ?>
 <div class="row">
-    <div class="col-lg-5">
+    <div class="col-l   g-5">
         <h2>Профиль <?= Html::encode($user->users_name) ?></h2>
         <h2><?= $image ?></h2>
     </div>
