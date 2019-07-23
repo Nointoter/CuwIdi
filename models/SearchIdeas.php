@@ -42,10 +42,8 @@ class SearchIdeas extends Ideas
         // изменяем запрос добавляя в его фильтрацию
         $query->orFilterWhere(['id_ideas' => $this->ideasSearch])->
             orFilterWhere(['ideas_name' => $this->ideasSearch])->
-            orFilterWhere(['info_short' => $this->ideasSearch])->
-            orFilterWhere(['creations_day' => $this->ideasSearch])->
-            orFilterWhere(['creations_month' => $this->ideasSearch])->
-            orFilterWhere(['creations_year' => $this->ideasSearch]);
+            orFilterWhere(['info_short' => $this->ideasSearch]);
+
 
         return $dataProvider;
     }

@@ -42,6 +42,17 @@ class User extends ActiveRecord implements \yii\web\IdentityInterface
     }
 
     /**
+     * Finds user by users_name
+     *
+     * @param string $users_name
+     * @return static|null
+     */
+    public static function findByUsersName($users_name)
+    {
+        return static::findOne(['users_name' => $users_name]);
+    }
+
+    /**
      * {@inheritdoc}
      */
     public function getId()

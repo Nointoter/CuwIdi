@@ -86,10 +86,12 @@ class UsersController extends Controller
         if($model->load(Yii::$app->request->post()) && $model->validate()) {
             $user = new User();
             $user->username = $model->username;
+            $user->users_name = $model->users_name;
             $user->password = $model->password;
             $model = new LoginForm();
             $model->username = $user->username;
             $model->password = $user->password;
+            $user->users_role = 'user';
             $user->save(false);
             $model->login();
             return $this->redirect('profile');
