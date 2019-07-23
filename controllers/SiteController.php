@@ -296,18 +296,6 @@ class SiteController extends Controller
     }
 
     /**
-     * Displays message
-     *
-     * @return string
-    */
-    public function actionSay($target)
-    {
-        return $this->render('say', [
-            'target' => $target,
-            ]);
-    }
-
-    /**
      * Displays homepage
      *
      * @return string
@@ -316,7 +304,7 @@ class SiteController extends Controller
     public function actionIndex()
     {
         $count = array_count_values(ArrayHelper::map(Ideas::find()->all(),'id_ideas', 'id_ideas'));
-        
+
         return $this->render('index', [
 
         ]);

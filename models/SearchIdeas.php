@@ -8,6 +8,24 @@ use yii\data\ActiveDataProvider;
 
 class SearchIdeas extends Ideas
 {
+    public $ideasSearch;
+
+    public function rules()
+    {
+        return[
+            [['id_ideas'], 'integer'],
+            [['ideas_name'], 'string'],
+            [['info_short'], 'string'],
+            [['info_long'], 'string'],
+            [['creators_id'], 'integer'],
+            [['ideas_images'], 'integer'],
+            [['creations_day'], 'string'],
+            [['creations_month'], 'string'],
+            [['creations_year'], 'string'],
+            [['ideasSearch'], 'string']
+        ];
+    }
+
     public function search($params, $id)
     {
         $query = Ideas::find();
@@ -22,9 +40,12 @@ class SearchIdeas extends Ideas
         }
 
         // изменяем запрос добавляя в его фильтрацию
-        $query->andFilterWhere(['id_ideas' => $this->id_ideas]);
-        $query->andFilterWhere(['ideas_name' => $this->ideas_name]);
-        $query->andFilterWhere(['info_short' => $this->info_short]);
+        $query->orFilterWhere(['id_ideas' => $this->ideasSearch])->
+            orFilterWhere(['ideas_name' => $this->ideasSearch])->
+            orFilterWhere(['info_short' => $this->ideasSearch])->
+            orFilterWhere(['creations_day' => $this->ideasSearch])->
+            orFilterWhere(['creations_month' => $this->ideasSearch])->
+            orFilterWhere(['creations_year' => $this->ideasSearch]);
 
         return $dataProvider;
     }

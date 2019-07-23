@@ -7,11 +7,11 @@ use app\models\ImageForm;
 use yii\bootstrap\ActiveForm;
 use yii\helpers\Html;
 
-$this->title = 'Добавить проект';
+$this->title = 'Добавить идею';
 $this->params['breadcrumbs'][] = $this->title;
 
 ?>
-<div class="site-add-project">
+<div class="ideas-add-idea">
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p>

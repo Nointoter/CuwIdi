@@ -26,12 +26,21 @@ class IdeasController extends Controller
         $id_ideas = ArrayHelper::map($model,'id_ideas', 'id_ideas');
         $ideas_name = ArrayHelper::map($model,'ideas_name', 'ideas_name');
         $info_short = ArrayHelper::map($model,'info_short', 'info_short');
+        $creations_day = ArrayHelper::map($model,'creations_day', 'creations_day');
+        $creations_month = ArrayHelper::map($model,'creations_month', 'creations_month');
+        $creations_year = ArrayHelper::map($model,'creations_year', 'creations_year');
+        $model = new SearchIdeas();
+        $model->load(Yii::$app->request->get());
         return $this->render('ideas',[
+            'model' => $model,
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
             'id_ideas' => $id_ideas,
             'ideas_name' => $ideas_name,
             'info_short' => $info_short,
+            'creations_day' => $creations_day,
+            'creations_month' => $creations_month,
+            'creations_year' => $creations_year,
         ]);
     }
 
@@ -52,6 +61,9 @@ class IdeasController extends Controller
             //$model->images_name = $image_model->imageFile->name;
             $model->ideas_name = $image_model->ideas_name;
             $model->info_short = $image_model->info_short;
+            $model->creations_day = date('d');
+            $model->creations_month = date('M');
+            $model->creations_year = date('y');
             $model->save(false);
             //$image_model->upload();
             /*if ($bool = strval(true))
@@ -65,5 +77,20 @@ class IdeasController extends Controller
                 'image_model' => $image_model,
             ]);
         }
+    }
+
+    /**
+     * Displays DeleteProjectForm
+     *
+     * @return string
+     */
+
+    public function actionDeleteIdea($id)
+    {
+        $model = Ideas::find()->where(['id_ideas' => $id])->one();
+        if ($model != null) {
+            $model->delete();
+        }
+        return $this->redirect('ideas');
     }
 }

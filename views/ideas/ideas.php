@@ -10,10 +10,29 @@ use yii\bootstrap\Modal;
 use yii\grid\GridView;
 use yii\helpers\Html;
 use yii\helpers\Url;
+use yii\widgets\ActiveForm;
 
 $this->title = 'Идеи';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
+
+<div class="search-ideas">
+    <div class="row">
+        <div class="col-lg-6">
+
+            <?php $form = ActiveForm::begin(['action' => '/ideas/ideas', 'method' => 'get']); ?>
+
+            <?= $form->field($model, 'ideasSearch') ?>
+
+            <div class="form-group">
+                <?= Html::submitButton('Search', ['class' => 'btn btn-primary', 'name' => 'search-ideas-button']) ?>
+                <?= Html::resetButton('Reset', ['class' => 'btn btn-default', 'action' => '/ideas/ideas','name' => 'reset-ideas-button']) ?>
+            </div>
+
+            <?php ActiveForm::end(); ?>
+        </div>
+    </div>
+</div>
 
 <div class="add-ideas">
     <div class="row">
@@ -99,6 +118,64 @@ $this->params['breadcrumbs'][] = $this->title;
                     ]
                 ]),*/
             ],
+            [
+                'attribute' => 'creations_day',
+                'filter' => Select2::widget([
+                    'name' => 'creations_day',
+                    'model' => $searchModel,
+                    'attribute' => 'creations_day',
+                    'data' => $creations_day,
+                    'theme' => Select2::THEME_BOOTSTRAP,
+                    'value' => $searchModel->creations_day,
+                    'hideSearch' => true,
+                    'options' => [
+                        'placeholder' => 'Выберите значение'
+                    ],
+                    'pluginOptions' => [
+                        'selectOnClose' => true,
+                        'allowClear' => true,
+                    ]
+                ]),
+            ],
+            [
+                'attribute' => 'creations_month',
+                'filter' => Select2::widget([
+                    'name' => 'creations_month',
+                    'model' => $searchModel,
+                    'attribute' => 'creations_month',
+                    'data' => $creations_month,
+                    'theme' => Select2::THEME_BOOTSTRAP,
+                    'value' => $searchModel->creations_month,
+                    'hideSearch' => true,
+                    'options' => [
+                        'placeholder' => 'Выберите значение'
+                    ],
+                    'pluginOptions' => [
+                        'selectOnClose' => true,
+                        'allowClear' => true,
+                    ]
+                ]),
+            ],
+            [
+                'attribute' => 'creations_year',
+                //'header' => 'Year',
+                'filter' => Select2::widget([
+                    'name' => 'creations_year',
+                    'model' => $searchModel,
+                    'attribute' => 'creations_year',
+                    'data' => $creations_year,
+                    'theme' => Select2::THEME_BOOTSTRAP,
+                    'value' => $searchModel->creations_year,
+                    'hideSearch' => true,
+                    'options' => [
+                        'placeholder' => 'Выберите значение'
+                    ],
+                    'pluginOptions' => [
+                        'selectOnClose' => true,
+                        'allowClear' => true,
+                    ]
+                ]),
+            ],
             /*[
                 'label' => 'Author',
                 'format' => 'html',
@@ -121,7 +198,7 @@ $this->params['breadcrumbs'][] = $this->title;
                         return '';
                 },
             ],*/
-            /*[
+            [
                 'class' => 'yii\grid\ActionColumn',
                 'buttons' => [
                     'view' => function ($url, $model, $key) {
@@ -131,10 +208,10 @@ $this->params['breadcrumbs'][] = $this->title;
                         return Html::a('',  Url::toRoute(['/site/re-project', 'id' => strval($key), 'bool' => 'false']), ['class' => 'glyphicon glyphicon-pencil']);
                     },
                     'delete' => function ($url, $model, $key){
-                        return Html::a('', Url::toRoute(['/site/delete-project', 'id' => strval($key),]), ['class' => 'glyphicon glyphicon-trash']);
+                        return Html::a('', Url::toRoute(['/ideas/delete-idea', 'id' => strval($key),]), ['class' => 'glyphicon glyphicon-trash']);
                     }
                 ]
-            ],*/
+            ],
         ],
     ])?>
 </div>
