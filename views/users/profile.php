@@ -29,19 +29,15 @@ $this->title = 'Профиль ' . strval($user->users_name);
                             <h4>Пароль : '.Html::encode($user->password).'</h4>
                         </body>
                     </html>';
+                echo Html::button('Сменить пароль',['value' => Url::to('/users/change-password') ,'class' => 'btn btn-success', 'name' => 'change-password-button', 'id' => 'modalButton']);
+                Modal::begin([
+                    'header' => '<h4>Сменить пароль</h4>',
+                    'id' => 'modal',
+                    'size' => 'modal-lg',
+                ]);
+                echo "<div id='modalContent'></div>";
+                Modal::end();
             }
-        ?>
-        <?= Html::button('Сменить пароль',['value' => Url::to('/users/change-password') ,'class' => 'btn btn-success', 'name' => 'change-password-button', 'id' => 'modalButton']) ?>
-        <?php
-            Modal::begin([
-                //'header' => '<h4>Добавить идею</h4>',
-                'id' => 'modal',
-                'size' => 'modal-lg',
-            ]);
-
-        echo "<div id='modalContent'></div>";
-
-        Modal::end();
         ?>
     </div>
 </div>

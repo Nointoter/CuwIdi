@@ -7,8 +7,8 @@ use app\models\ImageForm;
 use yii\bootstrap\ActiveForm;
 use yii\helpers\Html;
 
-$this->title = 'Добавить идею';
-$this->params['breadcrumbs'][] = $this->title;
+/*$this->title = 'Добавить идею';
+$this->params['breadcrumbs'][] = $this->title;*/
 
 ?>
 <div class="ideas-add-idea">

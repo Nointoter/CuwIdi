@@ -53,7 +53,7 @@ $this->params['breadcrumbs'][] = $this->title;
             </div>
             <?php
             Modal::begin([
-                //'header' => '<h4>Добавить идею</h4>',
+                'header' => '<h4>Добавить идею</h4>',
                 'id' => 'modal',
                 'size' => 'modal-lg',
             ]);
