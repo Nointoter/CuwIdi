@@ -39,7 +39,7 @@ $this->params['breadcrumbs'][] = $this->title;
             <div class="form-group">
                 <?php if (!Yii::$app->user->isGuest)
                         {
-                            echo Html::button('Добавить идею',['value' => Url::to('/ideas/add-idea?bool='.strval(false)) ,'class' => 'btn btn-success', 'name' => 'add-idea-button', 'id' => 'modalButton']);
+                            echo Html::button('Добавить идею',['value' => Url::to('/ideas/add-idea?bool='.strval(false)) ,'class' => 'btn btn-success', 'name' => 'add-idea-button', 'id' => 'modalButton1']);
                         }
                         else
                         {
@@ -54,11 +54,11 @@ $this->params['breadcrumbs'][] = $this->title;
             <?php
             Modal::begin([
                 'header' => '<h4>Добавить идею</h4>',
-                'id' => 'modal',
+                'id' => 'modal1',
                 'size' => 'modal-lg',
             ]);
 
-            echo "<div id='modalContent'></div>";
+            echo "<div id='modalContent1'></div>";
 
             Modal::end();
             ?>
@@ -217,10 +217,10 @@ $this->params['breadcrumbs'][] = $this->title;
                         return Html::a('', Url::toRoute(['/ideas/idea' , 'id' => strval($key),]), ['class' => 'glyphicon glyphicon-eye-open']);
                     },
                     'update' => function ($url, $model, $key) {
-                        return Html::a('',  Url::toRoute(['/site/re-project', 'id' => strval($key), 'bool' => 'false']), ['class' => 'glyphicon glyphicon-pencil']);
+                        return Html::a('',  Url::toRoute(['/site/re-project', 'id' => strval($key), 'bool' => 'false']), ['class' => '']);
                     },
                     'delete' => function ($url, $model, $key){
-                        return Html::a('', Url::toRoute(['/ideas/delete-idea', 'id' => strval($key),]), ['class' => 'glyphicon glyphicon-trash']);
+                        return Html::a('', Url::toRoute(['/ideas/delete-idea', 'id' => strval($key),]), ['class' => '']);
                     }
                 ]
             ],

@@ -90,7 +90,6 @@ class UsersController extends Controller
 
     public function actionChangePassword()
     {
-
         $model = new ChangePasswordForm();
         if($model->load(Yii::$app->request->post()) && $model->validate())
             {

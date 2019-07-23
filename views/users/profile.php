@@ -29,13 +29,13 @@ $this->title = 'Профиль ' . strval($user->users_name);
                             <h4>Пароль : '.Html::encode($user->password).'</h4>
                         </body>
                     </html>';
-                echo Html::button('Сменить пароль',['value' => Url::to('/users/change-password') ,'class' => 'btn btn-success', 'name' => 'change-password-button', 'id' => 'modalButton']);
+                echo Html::button('Сменить пароль',['value' => Url::to('/users/change-password') ,'class' => 'btn btn-success', 'name' => 'change-password-button', 'id' => 'modalButton2']);
                 Modal::begin([
                     'header' => '<h4>Сменить пароль</h4>',
-                    'id' => 'modal',
+                    'id' => 'modal2',
                     'size' => 'modal-lg',
                 ]);
-                echo "<div id='modalContent'></div>";
+                echo "<div id='modalContent2'></div>";
                 Modal::end();
             }
         ?>
