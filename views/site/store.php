@@ -20,7 +20,11 @@ $this->params['breadcrumbs'][] = $this->title;
     <?php
     foreach ($ids as $id) {
         $Project = Projects::find()->where(['id' => $id])->one();
-        echo '<html> <body> <h2>Project : ' . $Project->name . '</br> </h2> </body> </html>';
+        echo '<html> 
+                <body> 
+                    <h2>Project : ' . $Project->name . '</br> </h2> 
+                </body> 
+               </html>';
         echo $Project->info;
         $model = Options::find()->where(['projects_id' => $id])->all();
         $searchModel = new SearchOptions();

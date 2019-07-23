@@ -303,10 +303,12 @@ class SiteController extends Controller
 
     public function actionIndex()
     {
-        $count = array_count_values(ArrayHelper::map(Ideas::find()->all(),'id_ideas', 'id_ideas'));
-
+        //$count = array_count_values(ArrayHelper::map(Ideas::find()->all(),'id_ideas', 'id_ideas'));
+        $items = Ideas::find()->all();
+        $items =  array_slice($items, -5);
+        //var_dump($items);
         return $this->render('index', [
-
+            'items' => $items,
         ]);
     }
 

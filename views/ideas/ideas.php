@@ -33,12 +33,23 @@ $this->params['breadcrumbs'][] = $this->title;
         </div>
     </div>
 </div>
-
 <div class="add-ideas">
     <div class="row">
         <div class="col-lg-6">
             <div class="form-group">
-                <?= Html::button('Добавить идею',['value' => Url::to('/ideas/add-idea?bool='.strval(false)) ,'class' => 'btn btn-success', 'name' => 'add-project-button', 'id' => 'modalButton']) ?>
+                <?php if (!Yii::$app->user->isGuest)
+                        {
+                            echo Html::button('Добавить идею',['value' => Url::to('/ideas/add-idea?bool='.strval(false)) ,'class' => 'btn btn-success', 'name' => 'add-project-button', 'id' => 'modalButton']);
+                        }
+                        else
+                        {
+                            echo '<html> 
+                                    <body> 
+                                        <h4>Для добавления идеи войдите в аккаунт </h4> 
+                                    </body> 
+                                  </html>';
+                        }
+                            ?>
             </div>
             <?php
             Modal::begin([
@@ -64,7 +75,7 @@ $this->params['breadcrumbs'][] = $this->title;
             [
                 'attribute' => 'id_ideas',
                 'filter' => Select2::widget([
-                    'name' => 'id',
+                    'name' => 'id_ideas',
                     'model' => $searchModel,
                     'attribute' => 'id_ideas',
                     'data' => $id_ideas,
@@ -83,7 +94,7 @@ $this->params['breadcrumbs'][] = $this->title;
             [
                 'attribute' => 'ideas_name',
                 'filter' => Select2::widget([
-                    'name' => 'name',
+                    'name' => 'ideas_name',
                     'model' => $searchModel,
                     'attribute' => 'ideas_name',
                     'data' => $ideas_name,
@@ -101,6 +112,7 @@ $this->params['breadcrumbs'][] = $this->title;
             ],
             [
                 'attribute' => 'info_short',
+                'header' => 'Short Info&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp',
                 /*'filter' => Select2::widget([
                     'name' => 'info',
                     'model' => $searchModel,

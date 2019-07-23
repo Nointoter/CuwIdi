@@ -18,6 +18,7 @@ class IdeasController extends Controller
      *
      * @return string
      */
+
     public function actionIdeas()
     {
         $model = Ideas::find()->all();
@@ -45,6 +46,21 @@ class IdeasController extends Controller
     }
 
     /**
+     * Displays idea
+     *
+     * @return string
+     */
+
+    public function actionIdea($id)
+    {
+        $model = Ideas::find()->where(['id_ideas' => $id])->one();
+        //var_dump($model);
+        return $this->render('idea',[
+            'model' => $model,
+        ]);
+    }
+
+    /**
      * Displays AddProjectForm
      *
      * @return string
@@ -61,6 +77,7 @@ class IdeasController extends Controller
             //$model->images_name = $image_model->imageFile->name;
             $model->ideas_name = $image_model->ideas_name;
             $model->info_short = $image_model->info_short;
+            $model->info_long = $image_model->info_long;
             $model->creations_day = date('d');
             $model->creations_month = date('M');
             $model->creations_year = date('y');
