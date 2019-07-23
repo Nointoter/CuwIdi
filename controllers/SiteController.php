@@ -241,7 +241,7 @@ class SiteController extends Controller
     {
         $project = Projects::find()->where(['id' => $id])->one();
         $model = Options::find()->where(['projects_id' => $id])->all();
-        $image = Html::img('@web/images/' . $project->images_name, [
+        $image = Html::img('@web/images/' . $project->users_image, [
             'width' => '80px',
             'height' => '80px'
         ]);

@@ -11,7 +11,7 @@ use yii\widgets\Breadcrumbs;
 use app\assets\AppAsset;
 use yii\helpers\Url;
 use yii\widgets\ActiveForm;
-
+use app\models\User;
 
 AppAsset::register($this);
 ?>
@@ -57,7 +57,7 @@ AppAsset::register($this);
             Yii::$app->user->isGuest ? (
             ['label' => 'Зарегистрироваться', 'url' => ['/users/sing-up']]
             ) : (
-            ['label' => 'Профиль', 'url' => ['/users/profile']]
+            ['label' => 'Профиль', 'url' => ['/users/profile?id='.strval(Yii::$app->user->id)]]
             ),
             Yii::$app->user->isGuest ? (
             ['label' => 'Войти', 'url' => ['/users/login']]

@@ -39,7 +39,7 @@ $this->params['breadcrumbs'][] = $this->title;
             <div class="form-group">
                 <?php if (!Yii::$app->user->isGuest)
                         {
-                            echo Html::button('Добавить идею',['value' => Url::to('/ideas/add-idea?bool='.strval(false)) ,'class' => 'btn btn-success', 'name' => 'add-project-button', 'id' => 'modalButton']);
+                            echo Html::button('Добавить идею',['value' => Url::to('/ideas/add-idea?bool='.strval(false)) ,'class' => 'btn btn-success', 'name' => 'add-idea-button', 'id' => 'modalButton']);
                         }
                         else
                         {

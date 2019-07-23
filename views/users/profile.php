@@ -3,19 +3,45 @@
 
 /* @var $this yii\web\View */
 /* @var $form yii\bootstrap\ActiveForm */
-
+/* @var $image  */
 /* @var $user app\models\User */
 
 
 use yii\bootstrap\ActiveForm;
+use yii\bootstrap\Modal;
 use yii\helpers\Html;
-use yii\web\View;
+use yii\helpers\Url;
 
-$this->title = 'Профиль ' . strval($user->username);
+
+$this->title = 'Профиль ' . strval($user->users_name);
 ?>
-<div class="store">
+<div class="row">
+    <div class="col-lg-5">
+        <h2>Профиль <?= Html::encode($user->users_name) ?></h2>
+        <h2><?= $image ?></h2>
+    </div>
+    <div class="col-lg-2">
+        <?php if (Yii::$app->user->id === $user->id_users)
+            {
+                echo '<html>
+                        <body>
+                            <h4>Логин : '.Html::encode($user->username).'</h4>
+                            <h4>Пароль : '.Html::encode($user->password).'</h4>
+                        </body>
+                    </html>';
+            }
+        ?>
+        <?= Html::button('Сменить пароль',['value' => Url::to('/users/change-password') ,'class' => 'btn btn-success', 'name' => 'change-password-button', 'id' => 'modalButton']) ?>
+        <?php
+            Modal::begin([
+                //'header' => '<h4>Добавить идею</h4>',
+                'id' => 'modal',
+                'size' => 'modal-lg',
+            ]);
 
-    <div class="jumbotron">
-        <h2>Профиль <?= Html::encode($user->username) ?></h2>
+        echo "<div id='modalContent'></div>";
+
+        Modal::end();
+        ?>
     </div>
 </div>

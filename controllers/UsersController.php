@@ -4,12 +4,14 @@
 namespace app\controllers;
 
 
+use app\models\ChangePasswordForm;
 use app\models\LoginForm;
 use app\models\SingUpForm;
 use app\models\User;
 use Yii;
 use yii\filters\AccessControl;
 use yii\filters\VerbFilter;
+use yii\helpers\Html;
 use yii\web\Controller;
 use yii\web\Response;
 
@@ -64,12 +66,44 @@ class UsersController extends Controller
      * @return string
      */
 
-    public function actionProfile()
+    public function actionProfile($id)
     {
-        $user = User::findIdentity(Yii::$app->user->id);
+        //$user = User::findIdentity(Yii::$app->user->id);
+        $user = User::findIdentity($id);
+        if ($user->users_image != null){
+            $image = Html::img('@web/images/' . $user->users_image, [
+                'width' => '80px',
+                'height' => '80px'
+            ]);
+        }
         return $this->render('profile', [
             'user' => $user,
+            'image' => $image,
         ]);
+    }
+
+    /**
+     * Displays change-password form.
+     *
+     * @return string
+     */
+
+    public function actionChangePassword()
+    {
+
+        $model = new ChangePasswordForm();
+        if($model->load(Yii::$app->request->post()) && $model->validate())
+            {
+                $user = User::findIdentity(Yii::$app->user->id);
+                $user->password = $model->newPassword;
+                $user->save(false);
+            }
+        else
+            {
+                return $this->renderAjax('change-password', [
+                        'model' => $model,
+                    ]);
+            }
     }
 
     /**
@@ -94,7 +128,7 @@ class UsersController extends Controller
             $user->users_role = 'user';
             $user->save(false);
             $model->login();
-            return $this->redirect('profile');
+            return $this->redirect('profile?id='.strval(Yii::$app->user->id));
         }
         else
         {
