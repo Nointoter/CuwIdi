@@ -11,7 +11,7 @@ $form = ActiveForm::begin([
         'id' => 'change-password-form',
     ]);
 
-echo $form->field($model, 'password', ['enableAjaxValidation' => true])->passwordInput();
+echo $form->field($model, 'password')->passwordInput();
 
 echo $form->field($model, 'newPassword')->passwordInput();
 
