@@ -54,7 +54,6 @@ class IdeasController extends Controller
     public function actionIdea($id)
     {
         $model = Ideas::find()->where(['id_ideas' => $id])->one();
-        //var_dump($model);
         return $this->render('idea',[
             'model' => $model,
         ]);
@@ -80,6 +79,7 @@ class IdeasController extends Controller
             $model->creations_day = date('d');
             $model->creations_month = date('M');
             $model->creations_year = date('y');
+            $model->creators_id = Yii::$app->user->id;
             $model->save(false);
             //$image_model->upload();
             /*if ($bool = strval(true))

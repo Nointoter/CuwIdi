@@ -18,6 +18,6 @@ class Ideas extends  ActiveRecord
 
     public function getAuthorsName()
     {
-        return $this->users_name;
+        return User::findIdentity($this->creators_id)->users_name;
     }
 }

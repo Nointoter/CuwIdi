@@ -131,6 +131,13 @@ $this->params['breadcrumbs'][] = $this->title;
                 ]),*/
             ],
             [
+                'attribute' => 'creators_id',
+                'value' => function ($data) {
+                    return Html::a(Html::encode($data->getAuthorsName()), Url::toRoute(['/users/profile', 'id' => $data->creators_id]));
+                },
+                'format' => 'raw',
+            ],
+            [
                 'attribute' => 'creations_day',
                 'filter' => Select2::widget([
                     'name' => 'creations_day',
