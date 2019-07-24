@@ -148,6 +148,7 @@ class UsersController extends Controller
             $model->username = $user->username;
             $model->password = $user->password;
             $user->users_role = 'user';
+            $user->users_image = 'first_log_pic.jpg';
             $user->save(false);
             $model->login();
             return $this->redirect('profile?id='.strval(Yii::$app->user->id));
