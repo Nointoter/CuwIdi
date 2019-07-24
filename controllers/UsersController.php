@@ -5,6 +5,7 @@ namespace app\controllers;
 
 
 use app\models\ChangePasswordForm;
+use app\models\ImageForm;
 use app\models\LoginForm;
 use app\models\SingUpForm;
 use app\models\User;
@@ -14,6 +15,7 @@ use yii\filters\VerbFilter;
 use yii\helpers\Html;
 use yii\web\Controller;
 use yii\web\Response;
+use yii\web\UploadedFile;
 use yii\widgets\ActiveForm;
 
 class UsersController extends Controller
@@ -62,6 +64,39 @@ class UsersController extends Controller
     }
 
     /**
+     * Displays reProfile.
+     *
+     * @return string
+     */
+
+    public function actionReProfile($id)
+    {
+        if (Yii::$app->user->id != $id)
+            $this->redirect('profile?id='.strval($id));
+        $user = User::findIdentity($id);
+        $image = Html::img('@web/images/' . $user->users_image, [
+            'width' => '80px',
+            'height' => '80px'
+        ]);
+        $image_model = new ImageForm();
+        $image_model->imageFile = $image;
+        if ($image_model->load(Yii::$app->request->post()) && $user->load(Yii::$app->request->post()))
+        {
+            $image_model->imageFile = UploadedFile::getInstance($image_model, 'imageFile');
+            $image_model->imageFile->name = $user->users_name.'_image.jpg';
+            $user->users_image = $image_model->imageFile->name;
+            $image_model->upload();
+            $user->save(false);
+            $this->redirect('profile?id='.strval($id));
+        } else {
+            return $this->render('re-profile', [
+                'user' => $user,
+                'image_model' => $image_model,
+            ]);
+        }
+    }
+
+    /**
      * Displays profile.
      *
      * @return string
@@ -71,12 +106,10 @@ class UsersController extends Controller
     {
         //$user = User::findIdentity(Yii::$app->user->id);
         $user = User::findIdentity($id);
-        if ($user->users_image != null){
-            $image = Html::img('@web/images/' . $user->users_image, [
-                'width' => '80px',
-                'height' => '80px'
-            ]);
-        }
+        $image = Html::img('@web/images/' . $user->users_image, [
+            'width' => '80px',
+            'height' => '80px'
+        ]);
         return $this->render('profile', [
             'user' => $user,
             'image' => $image,

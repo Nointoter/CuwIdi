@@ -16,10 +16,18 @@ $form = ActiveForm::begin();
 $this->title = 'Профиль ' . strval($user->users_name);
 ?>
 <div class="row">
-    <div class="col-l   g-5">
+    <div class="col-lg-5">
         <h2>Профиль <?= Html::encode($user->users_name) ?></h2>
         <h2><?= $image ?></h2>
     </div>
+    <div class="col-lg-5">
+        <?php
+            if (Yii::$app->user->id === $user->id_users)
+                echo Html::a('Редактировать информацию',[Url::toRoute(['/users/re-profile', 'id' => ($user->id_users)])]);
+        ?>
+    </div>
+</div>
+<div class="row">
     <div class="col-lg-2">
         <?php if (Yii::$app->user->id === $user->id_users)
             {
@@ -29,7 +37,7 @@ $this->title = 'Профиль ' . strval($user->users_name);
                             <h4>Пароль : '.Html::encode($user->password).'</h4>
                         </body>
                     </html>';
-                echo Html::button('Сменить пароль',['value' => Url::to('/users/change-password') ,'class' => 'btn btn-success', 'name' => 'change-password-button', 'id' => 'modalButton2']);
+                echo Html::button('Сменить пароль',['value' => Url::to('/users/change-password'),'class' => 'btn btn-success', 'name' => 'change-password-button', 'id' => 'modalButton2']);
                 Modal::begin([
                     'header' => '<h4>Сменить пароль</h4>',
                     'id' => 'modal2',

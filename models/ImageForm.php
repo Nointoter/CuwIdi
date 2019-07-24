@@ -19,11 +19,6 @@ class ImageForm extends Model
     public function rules()
     {
         return [
-            [['name', 'info'], 'required', 'message' => 'Заполните поле'],
-            [['id'],'integer'],
-            [['name'],'string'],
-            [['info'],'string'],
-            [['images_name'],'string'],
             [['imageFile'], 'file',  'skipOnEmpty' => false, 'extensions' => 'png, jpg, jfif'],
         ];
     }
