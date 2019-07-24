@@ -69,8 +69,7 @@ class IdeasController extends Controller
     public function actionAddIdea($bool)
     {
         $image_model = new IdeasForm();
-
-        if ($image_model->load(Yii::$app->request->post()))
+        if ($image_model->load(Yii::$app->request->post()) && $image_model->validate())
         {
             $model = new Ideas();
             //$image_model->imageFile = UploadedFile::getInstance($image_model, 'imageFile');

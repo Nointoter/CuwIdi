@@ -14,6 +14,7 @@ use yii\filters\VerbFilter;
 use yii\helpers\Html;
 use yii\web\Controller;
 use yii\web\Response;
+use yii\widgets\ActiveForm;
 
 class UsersController extends Controller
 {
@@ -85,12 +86,35 @@ class UsersController extends Controller
     /**
      * Displays change-password form.
      *
-     * @return string
+     * @return string|array
      */
 
     public function actionChangePassword()
     {
         $model = new ChangePasswordForm();
+        if(Yii::$app->request->isAjax && $model->load(Yii::$app->request->post()))
+        {
+            Yii::$app->response->format = Response::FORMAT_JSON;
+            return ActiveForm::validate($model);
+        }
+
+        if ($model->load(Yii::$app->request->post()) && $model->validate())
+        {
+            var_dump($model->newPassword);
+            $user = User::findIdentity(Yii::$app->user->id);
+            $user->password = $model->newPassword;
+            if ($user->save())
+                return $this->redirect('profile?id=' . strval(Yii::$app->user->id));
+            else
+                return $this->renderAjax('change-password', [
+                    'model' => $model,
+                ]);
+        }
+        else
+            return $this->renderAjax('change-password', [
+                'model' => $model,
+            ]);
+        /*
         if($model->load(Yii::$app->request->post()) && $model->validate())
             {
                 $user = User::findIdentity(Yii::$app->user->id);
@@ -100,10 +124,11 @@ class UsersController extends Controller
             }
         else
             {
+                $model->validate();
                 return $this->renderAjax('change-password', [
                         'model' => $model,
                     ]);
-            }
+            }*/
     }
 
     /**

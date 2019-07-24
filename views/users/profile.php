@@ -6,12 +6,12 @@
 /* @var $image  */
 /* @var $user app\models\User */
 
-
 use yii\bootstrap\ActiveForm;
 use yii\bootstrap\Modal;
 use yii\helpers\Html;
 use yii\helpers\Url;
 
+$form = ActiveForm::begin();
 
 $this->title = 'Профиль ' . strval($user->users_name);
 ?>
@@ -41,3 +41,4 @@ $this->title = 'Профиль ' . strval($user->users_name);
         ?>
     </div>
 </div>
+<?php ActiveForm::end(); ?>
