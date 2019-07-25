@@ -10,16 +10,17 @@ use yii\web\UploadedFile;
 class ImageForm extends Model
 {
     public $imageFile;
-    public $name;
-    public $id;
-    public $info;
+    public $users_name;
+    public $id_users;
+    public $users_info;
     public $images_name;
 
 
     public function rules()
     {
         return [
-            [['imageFile'], 'file',  'skipOnEmpty' => false, 'extensions' => 'png, jpg, jfif'],
+            [['users_name'], 'required'],
+            [['imageFile'], 'file',  'skipOnEmpty' => true, 'extensions' => 'png, jpg, jfif'],
         ];
     }
 

@@ -69,31 +69,46 @@ class UsersController extends Controller
      * @return string
      */
 
-    public function actionReProfile($id)
+    public function actionReProfile($id, $bool)
     {
-        if (Yii::$app->user->id != $id)
-            $this->redirect('profile?id='.strval($id));
         $user = User::findIdentity($id);
-        $image = Html::img('@web/images/' . $user->users_image, [
-            'width' => '80px',
-            'height' => '80px'
-        ]);
         $image_model = new ImageForm();
-        $image_model->imageFile = $image;
-        if ($image_model->load(Yii::$app->request->post()) && $user->load(Yii::$app->request->post()))
-        {
-            $image_model->imageFile = UploadedFile::getInstance($image_model, 'imageFile');
-            $image_model->imageFile->name = $user->users_name.'_image.jpg';
-            $user->users_image = $image_model->imageFile->name;
-            $image_model->upload();
-            $user->save(false);
-            $this->redirect('profile?id='.strval($id));
-        } else {
-            return $this->render('re-profile', [
-                'user' => $user,
-                'image_model' => $image_model,
+        if ($bool == '1'){
+            if (Yii::$app->user->id != $id)
+                $this->redirect('profile?id='.strval($id));
+            $image = Html::img('@web/images/' . $user->users_image, [
+                'width' => '80px',
+                'height' => '80px'
             ]);
+            $image_model->id_users = $id;
+            $image_model->imageFile = $image;
+            $image_model->users_name = $user->users_name;
+            $image_model->users_info = $user->users_info;
+            $bool = '2';
+            return $this->render('re-profile', [
+                'image_model' => $image_model,
+                'bool' => '2',
+            ]);
+        } else {
+            if ($image_model->load(Yii::$app->request->post())) {
+                var_dump($image_model);
+                if ($image_model->imageFile != Null) {
+                    $image_model->imageFile = UploadedFile::getInstance($image_model, 'imageFile');
+                    $image_model->imageFile->name = $user->users_name . '_image.jpg';
+                    $user->users_image = $image_model->imageFile->name;
+                    $image_model->upload();
+                }
+                $user->users_name = $image_model->users_name;
+                $user->users_info = $image_model->users_info;
+                $user->save(false);
+                $this->redirect('profile?id=' . strval($id));
+            } else {
+                return $this->render('re-profile', [
+                    'image_model' => $image_model,
+                ]);
+            }
         }
+
     }
 
     /**

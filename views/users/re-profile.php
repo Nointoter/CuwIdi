@@ -12,7 +12,6 @@ use yii\captcha\Captcha;
 use yii\web\View;
 
 $this->title = 'Редактирование проекта';
-$this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="site-re-project">
     <h1><?= Html::encode($this->title) ?></h1>
@@ -20,16 +19,16 @@ $this->params['breadcrumbs'][] = $this->title;
     <div class="row">
         <div class="col-lg-5">
 
-            <?php $form = ActiveForm::begin(/*['action' => '/site/re-project-save?oldid='.strval($image_model->id).'&bool='.strval($bool)]*/); ?>
+            <?php $form = ActiveForm::begin(['action' => '/users/re-profile?id='.strval($image_model->id_users).'&bool=2']); ?>
 
-            <?= $form->field($user, 'users_name')->textInput(['autofocus' => true]) ?>
+            <?= $form->field($image_model, 'users_name')->textInput(['autofocus' => true]) ?>
 
-            <?= $form->field($user, 'users_info')->textInput(['rows'=>8,'cols'=>5]) ?>
+            <?= $form->field($image_model, 'users_info')->textInput(['autofocus' => true, 'rows'=>8, 'cols'=>5]) ?>
 
             <?= $form->field($image_model, 'imageFile')->fileInput(['autofocus' => true]) ?>
 
             <div class="form-group">
-                <?= Html::submitButton('Submit', ['class' => 'btn btn-primary', 'name' => 'add-project-button']) ?>
+                <?= Html::submitButton('Подтвердить', ['class' => 'btn btn-primary', 'name' => 're-profile-button']) ?>
             </div>
 
             <?php ActiveForm::end(); ?>
