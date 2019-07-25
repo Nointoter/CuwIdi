@@ -121,44 +121,24 @@ class UsersController extends Controller
      *
      * @return string|array
      */
-
     public function actionChangePassword()
     {
         $model = new ChangePasswordForm();
-        if(Yii::$app->request->isAjax && $model->load(Yii::$app->request->post()))
-        {
-            /*echo "<pre>";
-            var_dump($model);
-            die();*/
+
+        if ($model->load(Yii::$app->request->post()) && $model->validate()) {
             $user = User::findIdentity(Yii::$app->user->id);
-            if (($model->newPassword != '') && $model->load(Yii::$app->request->post()))
-            {
-                $user->password = $model->newPassword;
-                $user->save();
+            $user->password = $model->newPassword;
+            if ($user->save()) {
                 return $this->redirect('profile?id=' . strval(Yii::$app->user->id));
             }
-            Yii::$app->response->format = Response::FORMAT_JSON;
-            return ActiveForm::validate($model);
+        } elseif (Yii::$app->request->isAjax && $model->load(Yii::$app->request->post())) {
+            Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
+            return \yii\widgets\ActiveForm::validate($model);
         }
+
         return $this->renderAjax('change-password', [
             'model' => $model,
         ]);
-        /*if ($model->load(Yii::$app->request->post()) && $model->validate())
-        {
-            var_dump($model->newPassword);
-            $user = User::findIdentity(Yii::$app->user->id);
-            $user->password = $model->newPassword;
-            if ($user->save())
-                return $this->redirect('profile?id=' . strval(Yii::$app->user->id));
-            else
-                return $this->renderAjax('change-password', [
-                    'model' => $model,
-                ]);
-        }
-        else
-            return $this->renderAjax('change-password', [
-                'model' => $model,
-            ]);*/
     }
 
     /**

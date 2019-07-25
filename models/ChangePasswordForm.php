@@ -17,8 +17,9 @@ class ChangePasswordForm extends Model
     {
         return [
             ['password', 'validatePassword'],
-            ['newPassword', 'required'],
+            ['newPassword', 'validateNewPassword'],
             ['reNewPassword', 'validateReNewPassword'],
+            [['password', 'newPassword', 'reNewPassword'], 'required'],
             //['password', 'compare', 'compareAttribute' => (User::findIdentity(Yii::$app->user->id)->password), 'message' => 'Введен неверный пароль'],
             //['reNewPassword', 'compare', 'compareAttribute' => 'newPassword', 'message' => 'Пароли не совпадают'],
         ];
@@ -39,6 +40,15 @@ class ChangePasswordForm extends Model
             $user = User::findIdentity(Yii::$app->user->id);
             if (!$user || !$user->validatePassword($this->password)) {
                 $this->addError($attribute, 'Неверный пароль');
+            }
+        }
+    }
+
+    public function validateNewPassword($attribute, $params)
+    {
+        if (!$this->hasErrors()) {
+            if ($this->password == $this->newPassword){
+                $this->addError($attribute, 'Введите новый пароль');
             }
         }
     }
