@@ -20,8 +20,8 @@ class ImageForm extends Model
     {
         return [
             [['users_name'], 'required'],
-            [['users_info'], 'required'],
-            [['imageFile'], 'file',  'skipOnEmpty' => true, 'extensions' => 'png, jpg, jfif'],
+            [['users_info'], 'string'],
+            [['imageFile'], 'file', 'skipOnEmpty' => true, 'extensions' => 'png, jpg, jfif'],
         ];
     }
 

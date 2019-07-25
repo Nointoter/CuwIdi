@@ -85,7 +85,6 @@ class UsersController extends Controller
         $image_model->users_info = $user->users_info;
         if ($image_model->load(Yii::$app->request->post()))
         {
-            var_dump($image_model);
             if ($image_model->imageFile != Null) {
                 $image_model->imageFile = UploadedFile::getInstance($image_model, 'imageFile');
                 $image_model->imageFile->name = $user->users_name . '_image.jpg';
