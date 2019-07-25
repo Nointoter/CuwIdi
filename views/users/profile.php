@@ -23,7 +23,7 @@ $this->title = 'Профиль ' . strval($user->users_name);
     <div class="col-lg-5">
         <?php
             if (Yii::$app->user->id === $user->id_users)
-                echo Html::a('Редактировать информацию',[Url::toRoute(['/users/re-profile', 'id' => ($user->id_users), 'bool' => ('1')])]);
+                echo Html::a('Редактировать информацию',[Url::toRoute(['/users/re-profile', 'id' => ($user->id_users)/*, 'bool' => ('1')*/])]);
         ?>
     </div>
 </div>

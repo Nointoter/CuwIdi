@@ -19,7 +19,7 @@ $this->title = 'Редактирование проекта';
     <div class="row">
         <div class="col-lg-5">
 
-            <?php $form = ActiveForm::begin(['action' => '/users/re-profile?id='.strval($image_model->id_users).'&bool=2']); ?>
+            <?php $form = ActiveForm::begin(/*['action' => '/users/re-profile?id='.strval($image_model->id_users).'&bool=2']*/); ?>
 
             <?= $form->field($image_model, 'users_name')->textInput(['autofocus' => true]) ?>
 
