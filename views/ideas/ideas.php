@@ -75,7 +75,7 @@ $this->params['breadcrumbs'][] = $this->title;
             [
                 'attribute' => 'id_ideas',
                 'label' => 'Id',
-                'contentOptions'=>['style'=>'white-space: normal;'],
+                'contentOptions'=>['style'=>'width : 150px;'],
                 'filter' => Select2::widget([
                     'name' => 'id_ideas',
                     'model' => $searchModel,
@@ -85,7 +85,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     'value' => $searchModel->id_ideas,
                     'hideSearch' => true,
                     'options' => [
-                        'placeholder' => 'Выберите значение'
+                        'placeholder' => ''
                     ],
                     'pluginOptions' => [
                         'selectOnClose' => true,
@@ -96,7 +96,8 @@ $this->params['breadcrumbs'][] = $this->title;
             [
                 'attribute' => 'ideas_name',
                 'label' => 'Имя',
-                'contentOptions'=>['style'=>'white-space: normal;'],
+                //'contentOptions'=>['style'=>'white-space: normal;'],
+                'contentOptions'=>['style'=>'width : 200px;'],
                 'filter' => Select2::widget([
                     'name' => 'ideas_name',
                     'model' => $searchModel,
@@ -106,7 +107,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     'value' => $searchModel->ideas_name,
                     'hideSearch' => true,
                     'options' => [
-                        'placeholder' => 'Выберите значение'
+                        'placeholder' => '',
                     ],
                     'pluginOptions' => [
                         'selectOnClose' => true,
@@ -117,23 +118,7 @@ $this->params['breadcrumbs'][] = $this->title;
             [
                 'attribute' => 'info_short',
                 'label' => 'Описание',
-                'contentOptions'=>['style'=>'white-space: normal;'],
-                /*'filter' => Select2::widget([
-                    'name' => 'info',
-                    'model' => $searchModel,
-                    'attribute' => 'info_short',
-                    'data' => $info_short,
-                    'theme' => Select2::THEME_BOOTSTRAP,
-                    'value' => $searchModel->info_short,
-                    'hideSearch' => true,
-                    'options' => [
-                        'placeholder' => 'Выберите значение'
-                    ],
-                    'pluginOptions' => [
-                        'selectOnClose' => true,
-                        'allowClear' => true,
-                    ]
-                ]),*/
+                'contentOptions'=>['style'=>'width : 300px;'],
             ],
             [
                 'attribute' => 'creators_id',
@@ -148,7 +133,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
                 'attribute' => 'creations_day',
                 'label' => 'День',
-                'contentOptions'=>['style'=>'white-space: normal;'],
+                'contentOptions'=>['style'=>'width : 65px;'],
                 'filter' => Select2::widget([
                     'name' => 'creations_day',
                     'model' => $searchModel,
@@ -158,7 +143,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     'value' => $searchModel->creations_day,
                     'hideSearch' => true,
                     'options' => [
-                        'placeholder' => 'Выберите значение'
+                        'placeholder' => ''
                     ],
                     'pluginOptions' => [
                         'selectOnClose' => true,
@@ -169,7 +154,7 @@ $this->params['breadcrumbs'][] = $this->title;
             [
                 'attribute' => 'creations_month',
                 'label' => 'Месяц',
-                'contentOptions'=>['style'=>'white-space: normal;'],
+                'contentOptions'=>['style'=>'width : 100px;'],
                 'filter' => Select2::widget([
                     'name' => 'creations_month',
                     'model' => $searchModel,
@@ -179,7 +164,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     'value' => $searchModel->creations_month,
                     'hideSearch' => true,
                     'options' => [
-                        'placeholder' => 'Выберите значение'
+                        'placeholder' => ''
                     ],
                     'pluginOptions' => [
                         'selectOnClose' => true,
@@ -191,7 +176,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 'attribute' => 'creations_year',
                 //'header' => 'Year',
                 'label' => 'Год',
-                'contentOptions'=>['style'=>'white-space: normal;'],
+                'contentOptions'=>['style'=>'width : 65px;'],
                 'filter' => Select2::widget([
                     'name' => 'creations_year',
                     'model' => $searchModel,
@@ -201,7 +186,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     'value' => $searchModel->creations_year,
                     'hideSearch' => true,
                     'options' => [
-                        'placeholder' => 'Выберите значение'
+                        'placeholder' => ''
                     ],
                     'pluginOptions' => [
                         'selectOnClose' => true,
@@ -209,28 +194,6 @@ $this->params['breadcrumbs'][] = $this->title;
                     ]
                 ]),
             ],
-            /*[
-                'label' => 'Author',
-                'format' => 'html',
-                'value' => function ($model) {
-                    if ($model->creators_id != null)
-                        return $model->getAuthorsName();
-                    else
-                        return '';
-                },
-            ],
-            [
-                'label' => 'Image',
-                'format' => 'html',
-                'value' => function ($model) {
-                    if ($model->images_name != null)
-                        return Html::img($model->getImageUrl(),
-                            ['width' => '80px',
-                                'height' => '80px']);
-                    else
-                        return '';
-                },
-            ],*/
             [
                 'class' => 'yii\grid\ActionColumn',
                 'buttons' => [

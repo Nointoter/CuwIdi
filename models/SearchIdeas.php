@@ -45,6 +45,11 @@ class SearchIdeas extends Ideas
             orFilterWhere(['info_short' => $this->ideasSearch])->
             orFilterWhere(['creators_id' => $this->ideasSearch]);
 
+        $query->andFilterWhere(['id_ideas' => $this->id_ideas])->
+        andFilterWhere(['ideas_name' => $this->ideas_name])->
+        andFilterWhere(['info_short' => $this->info_short])->
+        andFilterWhere(['creators_id' => $this->creators_id]);
+
 
         return $dataProvider;
     }

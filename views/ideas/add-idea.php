@@ -19,7 +19,7 @@ $this->params['breadcrumbs'][] = $this->title;*/
     </p>
 
     <div class="row">
-        <div class="col-lg-5">
+        <div class="col-xs-12">
 
             <?php $form = ActiveForm::begin(); ?>
 
@@ -27,7 +27,7 @@ $this->params['breadcrumbs'][] = $this->title;*/
 
             <?= $form->field($image_model, 'info_short')->textInput(['autofocus' => true]) ?>
 
-            <?= $form->field($image_model, 'info_long')->textarea(['rows'=>8,'cols'=>5]) ?>
+            <?= $form->field($image_model, 'info_long')->textarea(['rows' => 8, 'autofocus' => true]) ?>
 
             <?/*= $form->field($image_model, 'imageFile')->fileInput(['autofocus' => true]) */?>
 
