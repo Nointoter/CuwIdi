@@ -16,32 +16,33 @@ $form = ActiveForm::begin();
 $this->title = 'Профиль ' . strval($user->users_name);
 ?>
     <div class="row">
-        <div class="col-lg-5">
+        <div class="col-lg-10">
             <h2>Профиль <?= Html::encode($user->users_name) ?></h2>
             <h2><?= $image ?></h2>
         </div>
-    </div>
-    <div class="row">
         <div class="col-lg-2">
             <?php if (Yii::$app->user->id === $user->id_users)
-                {
-                    echo '<html>
+            {
+                echo '<html>
                             <body>
                                 <h4>Логин : '.Html::encode($user->username).'</h4>
                                 <h4>Пароль : '.Html::encode($user->password).'</h4>
                             </body>
                         </html>';
-                    echo Html::button('Сменить пароль',['value' => Url::to('/users/change-password'),'class' => 'btn btn-success', 'name' => 'change-password-button', 'id' => 'modalButton2']);
-                    Modal::begin([
-                        'header' => '<h4>Сменить пароль</h4>',
-                        'id' => 'modal2',
-                        'size' => 'modal-lg',
-                    ]);
-                    echo "<div id='modalContent2'></div>";
-                    Modal::end();
-                }
+                echo Html::button('Сменить пароль',['value' => Url::to('/users/change-password'),'class' => 'btn btn-success', 'name' => 'change-password-button', 'id' => 'modalButton2']);
+                Modal::begin([
+                    'header' => '<h4>Сменить пароль</h4>',
+                    'id' => 'modal2',
+                    'size' => 'modal-lg',
+                ]);
+                echo "<div id='modalContent2'></div>";
+                Modal::end();
+            }
             ?>
         </div>
+    </div>
+    <div class="row">
+
     </div>
     <div class="row">
         <div class="col-lg-2">

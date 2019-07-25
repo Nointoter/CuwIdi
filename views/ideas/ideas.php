@@ -26,7 +26,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
             <div class="form-group">
                 <?= Html::submitButton('Search', ['class' => 'btn btn-primary', 'name' => 'search-ideas-button']) ?>
-                <?= Html::resetButton('Reset', ['class' => 'btn btn-default', 'action' => '/ideas/ideas','name' => 'reset-ideas-button']) ?>
+                <?= Html::resetButton('Reset', ['class' => 'btn btn-default', 'action' => '/ideas/ideas', 'name' => 'reset-ideas-button']) ?>
             </div>
 
             <?php ActiveForm::end(); ?>
@@ -74,6 +74,8 @@ $this->params['breadcrumbs'][] = $this->title;
         'columns' => [
             [
                 'attribute' => 'id_ideas',
+                'label' => 'Id',
+                'contentOptions'=>['style'=>'white-space: normal;'],
                 'filter' => Select2::widget([
                     'name' => 'id_ideas',
                     'model' => $searchModel,
@@ -93,6 +95,8 @@ $this->params['breadcrumbs'][] = $this->title;
             ],
             [
                 'attribute' => 'ideas_name',
+                'label' => 'Имя',
+                'contentOptions'=>['style'=>'white-space: normal;'],
                 'filter' => Select2::widget([
                     'name' => 'ideas_name',
                     'model' => $searchModel,
@@ -112,7 +116,8 @@ $this->params['breadcrumbs'][] = $this->title;
             ],
             [
                 'attribute' => 'info_short',
-                'header' => 'Short Info&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp',
+                'label' => 'Описание',
+                'contentOptions'=>['style'=>'white-space: normal;'],
                 /*'filter' => Select2::widget([
                     'name' => 'info',
                     'model' => $searchModel,
@@ -132,13 +137,18 @@ $this->params['breadcrumbs'][] = $this->title;
             ],
             [
                 'attribute' => 'creators_id',
+                'label' => 'Создатель',
+                'contentOptions'=>['style'=>'white-space: normal;'],
                 'value' => function ($data) {
                     return Html::a(Html::encode($data->getAuthorsName()), Url::toRoute(['/users/profile', 'id' => $data->creators_id]));
                 },
                 'format' => 'raw',
             ],
             [
+
                 'attribute' => 'creations_day',
+                'label' => 'День',
+                'contentOptions'=>['style'=>'white-space: normal;'],
                 'filter' => Select2::widget([
                     'name' => 'creations_day',
                     'model' => $searchModel,
@@ -158,6 +168,8 @@ $this->params['breadcrumbs'][] = $this->title;
             ],
             [
                 'attribute' => 'creations_month',
+                'label' => 'Месяц',
+                'contentOptions'=>['style'=>'white-space: normal;'],
                 'filter' => Select2::widget([
                     'name' => 'creations_month',
                     'model' => $searchModel,
@@ -178,6 +190,8 @@ $this->params['breadcrumbs'][] = $this->title;
             [
                 'attribute' => 'creations_year',
                 //'header' => 'Year',
+                'label' => 'Год',
+                'contentOptions'=>['style'=>'white-space: normal;'],
                 'filter' => Select2::widget([
                     'name' => 'creations_year',
                     'model' => $searchModel,
