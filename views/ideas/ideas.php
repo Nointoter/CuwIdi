@@ -26,7 +26,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
             <div class="form-group">
                 <?= Html::submitButton('Search', ['class' => 'btn btn-primary', 'name' => 'search-ideas-button']) ?>
-                <?= Html::resetButton('Reset', ['class' => 'btn btn-default', 'action' => '/ideas/ideas', 'name' => 'reset-ideas-button']) ?>
+                <?= Html::resetButton('Reset', ['class' => 'btn btn-default', 'name' => 'reset-ideas-button']) ?>
             </div>
 
             <?php ActiveForm::end(); ?>
@@ -75,7 +75,7 @@ $this->params['breadcrumbs'][] = $this->title;
             [
                 'attribute' => 'id_ideas',
                 'label' => 'Id',
-                'contentOptions'=>['style'=>'width : 150px;'],
+                'contentOptions'=>['style'=>'width : 100px;'],
                 'filter' => Select2::widget([
                     'name' => 'id_ideas',
                     'model' => $searchModel,
@@ -133,7 +133,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
                 'attribute' => 'creations_day',
                 'label' => 'День',
-                'contentOptions'=>['style'=>'width : 65px;'],
+                'contentOptions'=>['style'=>'width : 95px;'],
                 'filter' => Select2::widget([
                     'name' => 'creations_day',
                     'model' => $searchModel,
@@ -176,7 +176,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 'attribute' => 'creations_year',
                 //'header' => 'Year',
                 'label' => 'Год',
-                'contentOptions'=>['style'=>'width : 65px;'],
+                'contentOptions'=>['style'=>'width : 95px;'],
                 'filter' => Select2::widget([
                     'name' => 'creations_year',
                     'model' => $searchModel,
