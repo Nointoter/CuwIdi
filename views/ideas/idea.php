@@ -1,21 +1,51 @@
 <?php
 
+use yii\bootstrap\ActiveForm;
 use yii\helpers\Html;
+use yii\bootstrap\Carousel;
+
 
 $this->title = 'Просмотр идеи '.strval($model->ideas_name);
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 
-<div class="row">
-    <h1>Idea : <?= Html::encode($model->ideas_name) ?></h1>
-
-    <p></p>
-    <!--<div class="col-lg-5">
-        <h2><?/*= $image */?></h2>
-    </div>-->
-    <h4><?= Html::encode($model->info_short) ?></h4>
-    <p>Полное описание идеи</p>
-    <h3><textarea readonly rows="10" cols="97"><?= Html::encode($model->info_long) ?></textarea></h3>
-
+<div>
+    <h1>Идея : <?= Html::encode($model->ideas_name) ?></h1>
 </div>
 
+
+<div>
+    <?php
+        $form = ActiveForm::begin();
+    ?>
+
+    <?/*= $form->field($image_model, 'imageFile')->fileInput(['autofocus' => true]) */?>
+<?php
+    echo Carousel::widget([
+    'items' => $carousel,
+    'options' => ['class' => 'carousel slide', 'data-interval' => '12000'],
+    'controls' => [
+    '<span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>',
+    '<span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>'
+    ]
+    ]);
+
+    ?>
+
+    <?php
+        ActiveForm::end();
+    ?>
+
+
+</div>
+<div>
+    <h3>Краткое описание : <?= Html::encode($model->info_short) ?></h3>
+</div>
+<div>
+    <div class="col-lg-3">
+        <h3>Описание идеи : </h3>
+    </div>
+    <div class="col-lg-9">
+        <h3><textarea readonly rows="10" cols="65"><?= Html::encode($model->info_long) ?></textarea></h3>
+    </div>
+</div>

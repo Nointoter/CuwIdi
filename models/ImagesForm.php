@@ -7,20 +7,14 @@ namespace app\models;
 use yii\base\Model;
 use yii\web\UploadedFile;
 
-class ImageForm extends Model
+
+class ImagesForm extends Model
 {
     public $imageFile;
-    public $users_name;
-    public $id_users;
-    public $users_info;
-    public $images_name;
-
 
     public function rules()
     {
         return [
-            [['users_name'], 'required'],
-            [['users_info'], 'string'],
             [['imageFile'], 'file', 'skipOnEmpty' => true, 'extensions' => 'png, jpg, jfif'],
         ];
     }

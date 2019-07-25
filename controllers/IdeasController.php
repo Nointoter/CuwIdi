@@ -10,6 +10,9 @@ use Yii;
 use yii\helpers\ArrayHelper;
 use yii\web\Controller;
 use yii\web\UploadedFile;
+use yii\helpers\Html;
+use yii\imagine\Image;
+
 
 class IdeasController extends Controller
 {
@@ -54,8 +57,23 @@ class IdeasController extends Controller
     public function actionIdea($id)
     {
         $model = Ideas::find()->where(['id_ideas' => $id])->one();
+        $images = $model->getImages();
+        $carousel = [];
+        foreach($images as $image) {
+            $image = Yii::getAlias('@web/images/' . $image->images_name);
+            Image::resize($image, 600, 600)
+                ->save(Yii::getAlias('@web/images/' . $model->ideas_name . '/' . $image->images_name), ['quality' => 80]);
+            $carousel[] = [
+                'content' => Html::img('@web/images/' . $model->ideas_name . '/' .$image->images_name, [
+                    'width' => '600px',
+                    'height' => '600px'
+                ]),
+                //'caption'
+            ];
+        };
         return $this->render('idea',[
             'model' => $model,
+            'carousel' => $carousel,
         ]);
     }
 

@@ -22,14 +22,14 @@ $this->params['breadcrumbs'][] = $this->title;
 
             <?php $form = ActiveForm::begin(['action' => '/ideas/ideas', 'method' => 'get']); ?>
 
-            <?= $form->field($model, 'ideasSearch') ?>
+            <?= $form->field($model, 'ideasSearch')->label('Поиск Идеи') ?>
 
             <div class="form-group">
-                <?= Html::submitButton('Search', ['class' => 'btn btn-primary', 'name' => 'search-ideas-button']) ?>
-                <?= Html::resetButton('Reset', ['class' => 'btn btn-default', 'name' => 'reset-ideas-button']) ?>
+                <?= Html::submitButton('Поиск', ['class' => 'btn btn-primary', 'name' => 'search-ideas-button']) ?>
+                <?php ActiveForm::end(); ?>
+                <a href="ideas" class="btn btn-default" role="button">Очистить</a>
+                <?/*= Html::a('Reset', ['class' => 'btn btn-default', 'name' => 'reset-ideas-button']) */?>
             </div>
-
-            <?php ActiveForm::end(); ?>
         </div>
     </div>
 </div>

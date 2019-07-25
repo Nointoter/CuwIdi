@@ -113,8 +113,8 @@ class UsersController extends Controller
         //$user = User::findIdentity(Yii::$app->user->id);
         $user = User::findIdentity($id);
         $image = Html::img('@web/images/' . $user->users_image, [
-            'width' => '80px',
-            'height' => '80px'
+            'width' => '160px',
+            'height' => '160px'
         ]);
         return $this->render('profile', [
             'user' => $user,
