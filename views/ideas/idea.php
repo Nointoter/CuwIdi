@@ -20,12 +20,12 @@ $this->params['breadcrumbs'][] = $this->title;
             ActiveForm::end();
         ?>
     </div>
-    <div>
-        <h1>Создатель идеи : <a href="/users/profile?id=<?= strval($model->creators_id) ?>" class="" role="button"><?php echo $model->getAuthorsName() ?></a></h1>
-    </div>
 </div>
 <div class="row">
-    <div class="col-lg-8">
+    <div class="col-lg-6">
+        <div>
+            <h1>Создатель идеи : <a href="/users/profile?id=<?= strval($model->creators_id) ?>" class="" role="button"><?php echo $model->getAuthorsName() ?></a></h1>
+        </div>
         <?php
             $form = ActiveForm::begin();
             if (Yii::$app->user->id == $model->creators_id) {
@@ -34,6 +34,16 @@ $this->params['breadcrumbs'][] = $this->title;
             }
             ActiveForm::end();
         ?>
+    </div>
+    <div class="col-lg-6">
+        <?php
+            $array_tags = [];
+            foreach($model->getTags() as $tag) {
+                $array_tags[] = strval($tag->tag).' ';
+            }
+            implode(", ", $array_tags);
+        ?>
+        <h2>Теги : <?= implode(", ", $array_tags) ?></h2>
     </div>
 </div>
 <div class="row">
