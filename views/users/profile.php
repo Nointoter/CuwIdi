@@ -123,7 +123,6 @@ $this->title = 'Профиль ' . strval($user->users_name);
                 ]),
             ],
             [
-
                 'attribute' => 'creations_day',
                 'label' => 'День',
                 'contentOptions'=>['style'=>'width : 95px;'],
@@ -167,7 +166,6 @@ $this->title = 'Профиль ' . strval($user->users_name);
             ],
             [
                 'attribute' => 'creations_year',
-                //'header' => 'Year',
                 'label' => 'Год',
                 'contentOptions'=>['style'=>'width : 95px;'],
                 'filter' => Select2::widget([

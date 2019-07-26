@@ -96,7 +96,6 @@ $this->params['breadcrumbs'][] = $this->title;
             [
                 'attribute' => 'ideas_name',
                 'label' => 'Имя',
-                //'contentOptions'=>['style'=>'white-space: normal;'],
                 'contentOptions'=>['style'=>'width : 200px;'],
                 'filter' => Select2::widget([
                     'name' => 'ideas_name',
@@ -130,7 +129,6 @@ $this->params['breadcrumbs'][] = $this->title;
                 'format' => 'raw',
             ],
             [
-
                 'attribute' => 'creations_day',
                 'label' => 'День',
                 'contentOptions'=>['style'=>'width : 95px;'],
@@ -174,7 +172,6 @@ $this->params['breadcrumbs'][] = $this->title;
             ],
             [
                 'attribute' => 'creations_year',
-                //'header' => 'Year',
                 'label' => 'Год',
                 'contentOptions'=>['style'=>'width : 95px;'],
                 'filter' => Select2::widget([

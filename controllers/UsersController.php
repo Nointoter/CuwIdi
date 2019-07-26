@@ -5,13 +5,13 @@ namespace app\controllers;
 
 
 use app\models\ChangePasswordForm;
-use app\models\ImageForm;
 use app\models\LoginForm;
 use app\models\SingUpForm;
 use app\models\User;
 use Yii;
 use yii\filters\AccessControl;
 use yii\filters\VerbFilter;
+use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
 use yii\web\Controller;
 use yii\web\Response;
@@ -19,6 +19,9 @@ use yii\web\UploadedFile;
 use yii\widgets\ActiveForm;
 use app\models\ChangeUsersInfoForm;
 use app\models\UsersForm;
+use app\models\Ideas;
+use app\models\SearchIdeas;
+
 
 class UsersController extends Controller
 {
@@ -112,7 +115,16 @@ class UsersController extends Controller
 
     public function actionProfile($id)
     {
+        $model = Ideas::find()->where(['creators_id' => $id])->all();
+        $searchModel = SearchIdeas::find()->where(['creators_id' => $id])->all();
+        $dataProvider = $searchModel->search(Yii::$app->request->get(), NULL);
         //$user = User::findIdentity(Yii::$app->user->id);
+        $id_ideas = ArrayHelper::map($model,'id_ideas', 'id_ideas');
+        $ideas_name = ArrayHelper::map($model,'ideas_name', 'ideas_name');
+        $info_short = ArrayHelper::map($model,'info_short', 'info_short');
+        $creations_day = ArrayHelper::map($model,'creations_day', 'creations_day');
+        $creations_month = ArrayHelper::map($model,'creations_month', 'creations_month');
+        $creations_year = ArrayHelper::map($model,'creations_year', 'creations_year');
         $user = User::findIdentity($id);
         $image = Html::img('@web/images/' . $user->users_image, [
             'width' => '160px',
@@ -129,6 +141,14 @@ class UsersController extends Controller
             'user' => $user,
             'image' => $image,
             'infoModel' => $infoModel,
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+            'id_ideas' => $id_ideas,
+            'ideas_name' => $ideas_name,
+            'info_short' => $info_short,
+            'creations_day' => $creations_day,
+            'creations_month' => $creations_month,
+            'creations_year' => $creations_year,
         ]);
     }
 
