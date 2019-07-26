@@ -60,13 +60,14 @@ class IdeasController extends Controller
         $images = $model->getImages();
         $carousel = [];
         foreach($images as $image) {
-            $image = Yii::getAlias('@web/images/' . $image->images_name);
-            Image::resize($image, 600, 600)
-                ->save(Yii::getAlias('@web/images/' . $model->ideas_name . '/' . $image->images_name), ['quality' => 80]);
+            $nimage = Yii::getAlias('@app/web/images/' . $image->images_name);
+            //var_dump($nimage);
+            Image::resize($nimage, 1200, 400)
+                ->save(Yii::getAlias('@app/web/images/' . $model->ideas_name . '.' . $image->images_name), ['quality' => 80]);
             $carousel[] = [
-                'content' => Html::img('@web/images/' . $model->ideas_name . '/' .$image->images_name, [
-                    'width' => '600px',
-                    'height' => '600px'
+                'content' => Html::img('@web/images/' . $model->ideas_name . '.' .$image->images_name, [
+                    'width' => '1200px',
+                    'height' => '400px'
                 ]),
                 //'caption'
             ];
