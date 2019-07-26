@@ -16,6 +16,11 @@ class Ideas extends  ActiveRecord
         return '{{ideas}}';
     }
 
+    public function getIdeas_tags()
+    {
+        return ($this->hasMany(Tags::className(), ['ideas_id' => 'id_ideas']));
+    }
+
     public function getAuthorsName()
     {
         return User::findIdentity($this->creators_id)->users_name;
@@ -27,4 +32,9 @@ class Ideas extends  ActiveRecord
         return $string_images;
     }
 
+    public function getTags()
+    {
+        $string_tags = Tags::find()->where(['ideas_id' => $this->id_ideas])->all();
+        return $string_tags;
+    }
 }

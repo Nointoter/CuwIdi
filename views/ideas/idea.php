@@ -11,25 +11,37 @@ $this->params['breadcrumbs'][] = $this->title;
     <div>
         <?php
             $form = ActiveForm::begin();
-                        if (Yii::$app->user->id != $model->creators_id) {
-                            echo '<h1>Идея : '. Html::encode($model->ideas_name).'</h1>';
-                        } else {
-                            echo '<h1>' . $form->field($nameModel, 'name')->textarea(['autofocus' => true, 'cols' => 1, 'rows' => 1])->label('Название') . '</h1>'.
-                                 Html::submitButton('Изменить <br> имя', ['class' => 'btn btn-primary', 'name' => 'change-idea-name-button']);
-                        }
-                        ActiveForm::end();
+            if (Yii::$app->user->id != $model->creators_id) {
+                echo '<h1>Идея : '. Html::encode($model->ideas_name).'</h1>';
+            } else {
+                echo '<h1>' . $form->field($nameModel, 'name')->textarea(['autofocus' => true, 'cols' => 1, 'rows' => 1])->label('Название') . '</h1>'.
+                    Html::submitButton('Изменить <br> имя', ['class' => 'btn btn-primary', 'name' => 'change-idea-name-button']);
+            }
+            ActiveForm::end();
         ?>
     </div>
     <div>
         <h1>Создатель идеи : <a href="/users/profile?id=<?= strval($model->creators_id) ?>" class="" role="button"><?php echo $model->getAuthorsName() ?></a></h1>
     </div>
+</div>
+<div class="row">
+    <div class="col-lg-8">
+        <?php
+            $form = ActiveForm::begin();
+            if (Yii::$app->user->id == $model->creators_id) {
+                echo '<h1>' . $form->field($tagModel, 'tag')->textarea(['autofocus' => true, 'cols' => 1, 'rows' => 1])->label(false) . '</h1>'.
+                    Html::submitButton('Добавить <br> тэг', ['class' => 'btn btn-primary', 'name' => 'add-idea-tag-button']);
+            }
+            ActiveForm::end();
+        ?>
+    </div>
+</div>
+<div class="row">
     <div>
-
         <div class="col-lg-1">
             <p></p>
         </div>
         <div class="col-lg-11">
-
         <?php
         echo Carousel::widget([
             'items' => $carousel,

@@ -117,7 +117,7 @@ $this->params['breadcrumbs'][] = $this->title;
             [
                 'attribute' => 'info_short',
                 'label' => 'Описание',
-                'contentOptions'=>['style'=>'width : 270px;'],
+                'contentOptions'=>['style'=>'width : 150px;'],
             ],
             [
                 'attribute' => 'creators_id',
@@ -127,6 +127,18 @@ $this->params['breadcrumbs'][] = $this->title;
                     return Html::a(Html::encode($data->getAuthorsName()), Url::toRoute(['/users/profile', 'id' => $data->creators_id]));
                 },
                 'format' => 'raw',
+            ],
+            [
+                'label' => 'Тэги',
+                'contentOptions'=>['style'=>'width : 150px;'],
+                'format' => 'raw',
+                'value' => function ($data) {
+                    $array_tags = [];
+                    foreach($data->ideas_tags as $tag) {
+                        $array_tags[] = strval($tag->tag).' ';
+                    }
+                    return implode(", <br/>", $array_tags);
+                },
             ],
             [
                 'attribute' => 'creations_day',

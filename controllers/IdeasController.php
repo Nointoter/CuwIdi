@@ -3,6 +3,7 @@
 
 namespace app\controllers;
 
+use app\models\AddTagForm;
 use app\models\Ideas;
 use app\models\IdeasForm;
 use app\models\ImagesForm;
@@ -16,6 +17,8 @@ use yii\imagine\Image;
 use app\models\Images;
 use app\models\ChangeIdeasInfoForm;
 use app\models\ChangeIdeaNameForm;
+use app\models\Tags;
+
 
 class IdeasController extends Controller
 {
@@ -89,6 +92,13 @@ class IdeasController extends Controller
             $model->ideas_name = $nameModel->name;
             $model->save();
         }
+        $tagModel = new AddTagForm();
+        if ($tagModel->load(Yii::$app->request->post())) {
+            $tag = new Tags();
+            $tag->ideas_id = $id;
+            $tag->tag = $tagModel->tag;
+            $tag->save(false);
+        }
         if ($image_model->load(Yii::$app->request->post())) {
             $image_model->imageFile = UploadedFile::getInstance($image_model, 'imageFile');
             $idea_image = new Images();
@@ -103,6 +113,7 @@ class IdeasController extends Controller
             'model' => $model,
             'infoModel' => $infoModel,
             'nameModel' => $nameModel,
+            'tagModel' => $tagModel,
             'carousel' => $carousel,
             'image_model' => $image_model,
         ]);
