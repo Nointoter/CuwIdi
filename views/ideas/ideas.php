@@ -137,7 +137,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     foreach($data->ideas_tags as $tag) {
                         $array_tags[] = strval($tag->tag).' ';
                     }
-                    return implode(", <br/>", $array_tags);
+                    return implode(", ", $array_tags);
                 },
             ],
             [

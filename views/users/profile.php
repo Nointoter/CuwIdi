@@ -128,6 +128,18 @@ $this->title = 'Профиль ' . strval($user->users_name);
                 ]),
             ],
             [
+                'label' => 'Тэги',
+                'contentOptions'=>['style'=>'width : 150px;'],
+                'format' => 'raw',
+                'value' => function ($data) {
+                    $array_tags = [];
+                    foreach($data->ideas_tags as $tag) {
+                        $array_tags[] = strval($tag->tag).' ';
+                    }
+                    return implode(", ", $array_tags);
+                },
+            ],
+            [
                 'attribute' => 'creations_day',
                 'label' => 'День',
                 'contentOptions'=>['style'=>'width : 180px;'],
