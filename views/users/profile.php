@@ -22,12 +22,8 @@ $this->title = 'Профиль ' . strval($user->users_name);
             <h2>Профиль <?= Html::encode($user->users_name) ?></h2>
             <?php
                 if (Yii::$app->user->id == $user->id_users){
-                    echo '<html>
-                            <body>
-                                <h4>Логин : '.Html::encode($user->username).'</h4>
-                                   <h4>Пароль : '.Html::encode($user->password).'</h4>
-                               </body>
-                           </html>';
+                    echo '<h4>Логин : '.Html::encode($user->username).'</h4>
+                          <h4>Пароль : '.Html::encode($user->password).'</h4>';
                     echo Html::button('Сменить пароль',['value' => Url::to('/users/change-password'),'class' => 'btn btn-success', 'name' => 'change-password-button', 'id' => 'modalButton2']);
                     Modal::begin([
                         'header' => '<h4>Сменить пароль</h4>',
@@ -41,6 +37,10 @@ $this->title = 'Профиль ' . strval($user->users_name);
         </div>
         <div class="col-lg-3">
             <h2><?= $image ?></h2>
+        </div>
+        <div class="col-lg-3">
+            <?= $form->field($image_model, 'imageFile')->fileInput(['autofocus' => true]) ?>
+
         </div>
         <div class="col-lg-3">
             <?php

@@ -24,9 +24,7 @@ $this->params['breadcrumbs'][] = $this->title;
 </div>
 <div class="row">
     <div class="col-lg-6">
-        <div>
-            <h1>Создатель идеи : <a href="/users/profile?id=<?= strval($model->creators_id) ?>" class="" role="button"><?php echo $model->getAuthorsName() ?></a></h1>
-        </div>
+        <h1>Создатель идеи : <a href="/users/profile?id=<?= strval($model->creators_id) ?>" class="" role="button"><?php echo $model->getAuthorsName() ?></a></h1>
         <?php
             $form = ActiveForm::begin();
             if (Yii::$app->user->id == $model->creators_id) {
@@ -57,6 +55,7 @@ $this->params['breadcrumbs'][] = $this->title;
         </div>
         <div class="col-lg-10">
         <?php
+        if ($carousel != Null)
         echo Carousel::widget([
             'items' => $carousel,
             'options' => ['class' => 'carousel slide', 'data-interval' => '12000'],
@@ -69,57 +68,60 @@ $this->params['breadcrumbs'][] = $this->title;
     </div>
 </div>
 <div class="row">
-    <div>
-        <div class="col-lg-10">
+    <div class="col-lg-1">
+        <p></p>
+    </div>
+    <div class="col-lg-10">
         <?php
-        if (Yii::$app->user->id == $model->creators_id){
-            $form = ActiveForm::begin();
-            echo $form->field($image_model, 'imageFile')->fileInput(['autofocus' => true])->label('Добавить изображение');
-            echo Html::submitButton('Добавить', ['class' => 'btn btn-primary', 'name' => 'idea-button']);
-            ActiveForm::end();
-        }
+            if (Yii::$app->user->id == $model->creators_id){
+                $form = ActiveForm::begin();
+                echo $form->field($image_model, 'imageFile')->fileInput(['autofocus' => true])->label('Добавить изображение');
+                echo Html::submitButton('Добавить', ['class' => 'btn btn-primary', 'name' => 'idea-button']);
+                ActiveForm::end();
+            }
         ?>
-        </div>
-        <div class="col-lg-2">
-            <p>
-            </p>
-            <a href="delete-idea-images?id=<?= strval($model->id_ideas) ?>&delId=0" class="btn btn-danger" role="button">Удалить <br> изображения</a>
-        </div>
+    </div>
+    <div class="col-lg-1">
+        <p>
+        </p>
+        <?php
+            if (Yii::$app->user->id == $model->creators_id) {
+                echo '<a href="delete-idea-images?id=' . strval($model->id_ideas) . '&delId=0" class="btn btn-danger" role="button">Удалить <br> изображения</a>';
+            }
+        ?>
     </div>
 </div>
 <div class="row">
     <?php $form = ActiveForm::begin(); ?>
-    <div>
-        <div class="col-lg-3">
-            <h3>Краткое описание : </h3>
-        </div>
-        <div class="col-lg-9">
-            <?php
-                if (Yii::$app->user->id != $model->creators_id) {
-                    echo '<h3><textarea readonly rows="2" cols="65">' . Html::encode($model->info_short) .'</textarea></h3>';
-                } else {
-                    echo $form->field($infoModel, 'short')->textarea(['autofocus' => true, 'rows' => 2, 'cols' => 65]);
-                }
-            ?>
-        </div>
+    <div class="col-lg-3">
+        <h3>Краткое описание : </h3>
     </div>
-    <div>
-        <div class="col-lg-3">
-            <h3>Описание идеи : <br><br><br> </h3>
-            <?php if (Yii::$app->user->id == $model->creators_id) {
-                echo Html::submitButton('Изменить <br> информацию', ['class' => 'btn btn-primary', 'name' => 'change-idea-info-button']);
-            }
-            ?>
-        </div>
-        <div class="col-lg-9">
-            <?php
-            if (Yii::$app->user->id != $model->creators_id) {
-                echo '<h3><textarea readonly rows="10" cols="65">' . Html::encode($model->info_long) . '</textarea></h3>';
-            } else {
-                echo $form->field($infoModel, 'long')->textarea(['autofocus' => true, 'rows' => 10, 'cols' => 65]);
-            }
-            ?>
-        </div>
+    <div class="col-lg-9">
+        <?php
+        if (Yii::$app->user->id != $model->creators_id) {
+            echo '<h3><textarea readonly rows="2" cols="65">' . Html::encode($model->info_short) .'</textarea></h3>';
+        } else {
+            echo '<h3>'.$form->field($infoModel, 'short')->textarea(['autofocus' => true, 'rows' => 2, 'cols' => 65]).'</h3>';
+        }
+        ?>
+    </div>
+</div>
+<div class="row">
+    <div class="col-lg-3">
+        <h3>Описание идеи : <br><br><br> </h3>
+        <?php if (Yii::$app->user->id == $model->creators_id) {
+            echo Html::submitButton('Изменить <br> информацию', ['class' => 'btn btn-primary', 'name' => 'change-idea-info-button']);
+        }
+        ?>
+    </div>
+    <div class="col-lg-9">
+        <?php
+        if (Yii::$app->user->id != $model->creators_id) {
+            echo '<h3><textarea readonly rows="10" cols="65">' . Html::encode($model->info_long) . '</textarea></h3>';
+        } else {
+            echo '<h3>'.$form->field($infoModel, 'long')->textarea(['autofocus' => true, 'rows' => 10, 'cols' => 65]).'</h3>';
+        }
+        ?>
     </div>
     <?php
         ActiveForm::end()

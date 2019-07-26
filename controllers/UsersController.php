@@ -5,6 +5,7 @@ namespace app\controllers;
 
 
 use app\models\ChangePasswordForm;
+use app\models\ImagesForm;
 use app\models\LoginForm;
 use app\models\SingUpForm;
 use app\models\User;
@@ -118,7 +119,6 @@ class UsersController extends Controller
         $model = Ideas::find()->where(['creators_id' => $id])->all();
         $searchModel = new SearchIdeas();
         $dataProvider = $searchModel->search(Yii::$app->request->get(), $id);
-        //$user = User::findIdentity(Yii::$app->user->id);
         $id_ideas = ArrayHelper::map($model,'id_ideas', 'id_ideas');
         $ideas_name = ArrayHelper::map($model,'ideas_name', 'ideas_name');
         $info_short = ArrayHelper::map($model,'info_short', 'info_short');
@@ -137,9 +137,18 @@ class UsersController extends Controller
             $user->users_info = $infoModel->info;
             $user->save(false);
         }
+        $image_model = new ImagesForm();
+        if ($image_model->load(Yii::$app->request->post()))
+        {
+            $image_model->imageFile = UploadedFile::getInstance($image_model, 'imageFile');
+            $image_model->imageFile->name = $user->users_name . '_image.jpg';
+            $user->users_image = $image_model->imageFile->name;
+            $image_model->upload();
+        }
         return $this->render('profile', [
             'user' => $user,
             'image' => $image,
+            'image_model' => $image_model,
             'infoModel' => $infoModel,
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
