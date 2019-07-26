@@ -71,18 +71,23 @@ $this->title = 'Профиль ' . strval($user->users_name);
         </div>
     </div>
 <?php ActiveForm::end(); ?>
-
+<div class="row">
+    <div class="col-lg-4">
+        <h2>
+            Идеи пользователя
+        </h2>
+    </div>
+</div>
 <div class="view-ideas">
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
         'layout' => '{items}{pager}',
-        'label' => 'Идеи : ' . strval($user->users_name),
         'columns' => [
             [
                 'attribute' => 'id_ideas',
                 'label' => 'Id',
-                'contentOptions'=>['style'=>'width : 100px;'],
+                'contentOptions'=>['style'=>'width : 200px;'],
                 'filter' => Select2::widget([
                     'name' => 'id_ideas',
                     'model' => $searchModel,
@@ -104,7 +109,7 @@ $this->title = 'Профиль ' . strval($user->users_name);
                 'attribute' => 'ideas_name',
                 'label' => 'Имя',
                 //'contentOptions'=>['style'=>'white-space: normal;'],
-                'contentOptions'=>['style'=>'width : 200px;'],
+                'contentOptions'=>['style'=>'width : 300px;'],
                 'filter' => Select2::widget([
                     'name' => 'ideas_name',
                     'model' => $searchModel,
@@ -125,7 +130,7 @@ $this->title = 'Профиль ' . strval($user->users_name);
             [
                 'attribute' => 'creations_day',
                 'label' => 'День',
-                'contentOptions'=>['style'=>'width : 95px;'],
+                'contentOptions'=>['style'=>'width : 180px;'],
                 'filter' => Select2::widget([
                     'name' => 'creations_day',
                     'model' => $searchModel,
@@ -146,7 +151,7 @@ $this->title = 'Профиль ' . strval($user->users_name);
             [
                 'attribute' => 'creations_month',
                 'label' => 'Месяц',
-                'contentOptions'=>['style'=>'width : 100px;'],
+                'contentOptions'=>['style'=>'width : 200px;'],
                 'filter' => Select2::widget([
                     'name' => 'creations_month',
                     'model' => $searchModel,
@@ -167,7 +172,7 @@ $this->title = 'Профиль ' . strval($user->users_name);
             [
                 'attribute' => 'creations_year',
                 'label' => 'Год',
-                'contentOptions'=>['style'=>'width : 95px;'],
+                'contentOptions'=>['style'=>'width : 180px;'],
                 'filter' => Select2::widget([
                     'name' => 'creations_year',
                     'model' => $searchModel,

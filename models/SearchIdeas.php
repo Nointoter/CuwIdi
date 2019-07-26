@@ -28,7 +28,11 @@ class SearchIdeas extends Ideas
 
     public function search($params, $id)
     {
-        $query = Ideas::find();
+        if ($id != Null) {
+            $query = Ideas::find()->where(['creators_id' => $id]);
+        } else {
+            $query = Ideas::find();
+        }
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,

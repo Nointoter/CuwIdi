@@ -116,8 +116,8 @@ class UsersController extends Controller
     public function actionProfile($id)
     {
         $model = Ideas::find()->where(['creators_id' => $id])->all();
-        $searchModel = SearchIdeas::find()->where(['creators_id' => $id])->all();
-        $dataProvider = $searchModel->search(Yii::$app->request->get(), NULL);
+        $searchModel = new SearchIdeas();
+        $dataProvider = $searchModel->search(Yii::$app->request->get(), $id);
         //$user = User::findIdentity(Yii::$app->user->id);
         $id_ideas = ArrayHelper::map($model,'id_ideas', 'id_ideas');
         $ideas_name = ArrayHelper::map($model,'ideas_name', 'ideas_name');
