@@ -55,20 +55,39 @@ $this->params['breadcrumbs'][] = $this->title;
     </div>
 </div>
 <div class="row">
+    <?php $form = ActiveForm::begin(); ?>
     <div>
         <div class="col-lg-3">
             <h3>Краткое описание : </h3>
         </div>
         <div class="col-lg-9">
-            <h3><textarea readonly rows="2" cols="65"><?= Html::encode($model->info_short) ?></textarea></h3>
+            <?php
+                if (Yii::$app->user->id != $model->creators_id) {
+                    echo '<h3><textarea readonly rows="2" cols="65">' . Html::encode($model->info_short) .'</textarea></h3>';
+                } else {
+                    echo $form->field($nmodel, 'short')->textarea(['autofocus' => true, 'rows' => 2, 'cols' => 65]);
+                }
+            ?>
         </div>
     </div>
     <div>
         <div class="col-lg-3">
-            <h3>Описание идеи : </h3>
+            <h3>Описание идеи : <br><br><br> </h3>
+            <?php
+                echo Html::submitButton('Изменить <br> информацию', ['class' => 'btn btn-primary', 'name' => 'change-idea-info-button']);
+            ?>
         </div>
         <div class="col-lg-9">
-            <h3><textarea readonly rows="10" cols="65"><?= Html::encode($model->info_long) ?></textarea></h3>
+            <?php
+            if (Yii::$app->user->id != $model->creators_id) {
+                echo '<h3><textarea readonly rows="10" cols="65">' . Html::encode($model->info_long) . '</textarea></h3>';
+            } else {
+                echo $form->field($nmodel, 'long')->textarea(['autofocus' => true, 'rows' => 10, 'cols' => 65]);
+            }
+            ?>
         </div>
     </div>
+    <?php
+        ActiveForm::end()
+    ?>
 </div>

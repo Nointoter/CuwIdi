@@ -14,6 +14,7 @@ use yii\web\UploadedFile;
 use yii\helpers\Html;
 use yii\imagine\Image;
 use app\models\Images;
+use app\models\ChangeIdeasInfoForm;
 
 class IdeasController extends Controller
 {
@@ -73,7 +74,15 @@ class IdeasController extends Controller
                 //'caption'
             ];
         };
-        if ($image_model->load(Yii::$app->request->post())){
+        $nmodel = new ChangeIdeasInfoForm();
+        $nmodel->short = $model->info_short;
+        $nmodel->long = $model->info_long;
+        if ($nmodel->load(Yii::$app->request->post())) {
+            $model->info_short = $nmodel->short;
+            $model->info_long = $nmodel->long;
+            $model->save();
+        }
+        if ($image_model->load(Yii::$app->request->post())) {
             $image_model->imageFile = UploadedFile::getInstance($image_model, 'imageFile');
             //$image_model->imageFile->name = $model->ideas_name . $image_model->imageFile->name;
             $idea_image = new Images();
@@ -88,6 +97,7 @@ class IdeasController extends Controller
         }
         return $this->render('idea',[
             'model' => $model,
+            'nmodel' => $nmodel,
             'carousel' => $carousel,
             'image_model' => $image_model,
         ]);
