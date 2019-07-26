@@ -4,7 +4,6 @@ use yii\bootstrap\ActiveForm;
 use yii\helpers\Html;
 use yii\bootstrap\Carousel;
 
-
 $this->title = 'Просмотр идеи '.strval($model->ideas_name);
 $this->params['breadcrumbs'][] = $this->title;
 ?>
@@ -24,8 +23,9 @@ $this->params['breadcrumbs'][] = $this->title;
         <p></p>
     </div>
     <div class="col-lg-10">
+
     <?php
-        echo Carousel::widget([
+    echo Carousel::widget([
         'items' => $carousel,
         'options' => ['class' => 'carousel slide', 'data-interval' => '12000'],
         'controls' => [
