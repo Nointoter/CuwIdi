@@ -15,6 +15,7 @@ use yii\helpers\Html;
 use yii\imagine\Image;
 use app\models\Images;
 use app\models\ChangeIdeasInfoForm;
+use app\models\ChangeIdeaNameForm;
 
 class IdeasController extends Controller
 {
@@ -74,12 +75,18 @@ class IdeasController extends Controller
                 //'caption'
             ];
         };
-        $nmodel = new ChangeIdeasInfoForm();
-        $nmodel->short = $model->info_short;
-        $nmodel->long = $model->info_long;
-        if ($nmodel->load(Yii::$app->request->post())) {
-            $model->info_short = $nmodel->short;
-            $model->info_long = $nmodel->long;
+        $infoModel = new ChangeIdeasInfoForm();
+        $infoModel->short = $model->info_short;
+        $infoModel->long = $model->info_long;
+        if ($infoModel->load(Yii::$app->request->post())) {
+            $model->info_short = $infoModel->short;
+            $model->info_long = $infoModel->long;
+            $model->save();
+        }
+        $nameModel = new ChangeIdeaNameForm();
+        $nameModel->name = $model->ideas_name;
+        if ($nameModel->load(Yii::$app->request->post())) {
+            $model->ideas_name = $nameModel->name;
             $model->save();
         }
         if ($image_model->load(Yii::$app->request->post())) {
@@ -97,7 +104,8 @@ class IdeasController extends Controller
         }
         return $this->render('idea',[
             'model' => $model,
-            'nmodel' => $nmodel,
+            'infoModel' => $infoModel,
+            'nameModel' => $nameModel,
             'carousel' => $carousel,
             'image_model' => $image_model,
         ]);
