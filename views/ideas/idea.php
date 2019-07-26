@@ -3,12 +3,13 @@
 use yii\bootstrap\ActiveForm;
 use yii\helpers\Html;
 use yii\bootstrap\Carousel;
+use yii\helpers\Url;
 
 $this->title = 'Просмотр идеи '.strval($model->ideas_name);
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="row">
-    <div>
+    <div class="col-lg-12">
         <?php
             $form = ActiveForm::begin();
             if (Yii::$app->user->id != $model->creators_id) {
@@ -47,11 +48,14 @@ $this->params['breadcrumbs'][] = $this->title;
     </div>
 </div>
 <div class="row">
+    <p></p>
+</div>
+<div class="row">
     <div>
         <div class="col-lg-1">
             <p></p>
         </div>
-        <div class="col-lg-11">
+        <div class="col-lg-10">
         <?php
         echo Carousel::widget([
             'items' => $carousel,
@@ -62,17 +66,10 @@ $this->params['breadcrumbs'][] = $this->title;
             ]
             ]);
         ?>
-        </div>
-        <div class="col-lg-12">
-            <p></p>
-        </div>
-        <?php
-        ?>
     </div>
+</div>
+<div class="row">
     <div>
-        <div class="col-lg-2">
-            <p></p>
-        </div>
         <div class="col-lg-10">
         <?php
         if (Yii::$app->user->id == $model->creators_id){
@@ -82,6 +79,11 @@ $this->params['breadcrumbs'][] = $this->title;
             ActiveForm::end();
         }
         ?>
+        </div>
+        <div class="col-lg-2">
+            <p>
+            </p>
+            <a href="delete-idea-images?id=<?= strval($model->id_ideas) ?>&delId=0" class="btn btn-danger" role="button">Удалить <br> изображения</a>
         </div>
     </div>
 </div>

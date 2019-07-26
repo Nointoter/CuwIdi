@@ -68,11 +68,11 @@ class IdeasController extends Controller
         $carousel = [];
         foreach($images as $image) {
             $nimage = Yii::getAlias('@app/web/images/' . $image->images_name);
-            Image::resize($nimage, 1200, 400)
+            Image::resize($nimage, 1400, 400)
                 ->save(Yii::getAlias('@app/web/images/' . $model->ideas_name . '.' . $image->images_name), ['quality' => 80]);
             $carousel[] = [
                 'content' => Html::img('@web/images/' . $model->ideas_name . '.' .$image->images_name, [
-                    'width' => '1200px',
+                    'width' => '1400px',
                     'height' => '400px'
                 ]),
                 //'caption'
@@ -162,6 +162,25 @@ class IdeasController extends Controller
      */
 
     public function actionDeleteIdea($id)
+    {
+        $model = Ideas::find()->where(['id_ideas' => $id])->one();
+        if ($model != null) {
+            if (Yii::$app->user->id != $model->creators_id){
+                return $this->redirect('idea?id='.strval($id));
+            } else {
+                $model->delete();
+            }
+        }
+        return $this->redirect('ideas');
+    }
+
+    /**
+     * Displays DeleteIdeaForm
+     *
+     * @return string
+     */
+
+    public function actionDeleteIdeaImages($id)
     {
         $model = Ideas::find()->where(['id_ideas' => $id])->one();
         if ($model != null) {
