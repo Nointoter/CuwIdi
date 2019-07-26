@@ -5,6 +5,7 @@ namespace app\controllers;
 
 use app\models\Ideas;
 use app\models\IdeasForm;
+use app\models\ImagesForm;
 use app\models\SearchIdeas;
 use Yii;
 use yii\helpers\ArrayHelper;
@@ -12,7 +13,7 @@ use yii\web\Controller;
 use yii\web\UploadedFile;
 use yii\helpers\Html;
 use yii\imagine\Image;
-
+use app\models\Images;
 
 class IdeasController extends Controller
 {
@@ -57,11 +58,11 @@ class IdeasController extends Controller
     public function actionIdea($id)
     {
         $model = Ideas::find()->where(['id_ideas' => $id])->one();
+        $image_model = new ImagesForm();
         $images = $model->getImages();
         $carousel = [];
         foreach($images as $image) {
             $nimage = Yii::getAlias('@app/web/images/' . $image->images_name);
-            //var_dump($nimage);
             Image::resize($nimage, 1200, 400)
                 ->save(Yii::getAlias('@app/web/images/' . $model->ideas_name . '.' . $image->images_name), ['quality' => 80]);
             $carousel[] = [
@@ -72,9 +73,20 @@ class IdeasController extends Controller
                 //'caption'
             ];
         };
+        if ($image_model->load(Yii::$app->request->post())){
+            $image_model->imageFile = UploadedFile::getInstance($image_model, 'imageFile');
+            $image_model->imageFile->name = $model->ideas_name . $image_model->imageFile->name;
+            $idea_image = new Images();
+            $idea_image->ideas_id = $id;
+            $idea_image->images_name = $image_model->imageFile->name;
+            var_dump($image_model);
+            $image_model->upload();
+            $idea_image->save(false);
+        }
         return $this->render('idea',[
             'model' => $model,
             'carousel' => $carousel,
+            'image_model' => $image_model,
         ]);
     }
 

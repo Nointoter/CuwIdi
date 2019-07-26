@@ -14,16 +14,12 @@ $this->params['breadcrumbs'][] = $this->title;
     <div>
         <h1>Создатель идеи : <a href="/users/profile?id=<?= strval($model->creators_id) ?>" class="" role="button"><?php echo $model->getAuthorsName() ?></a></h1>
     </div>
-    <div class="label">
-        <?php
-            $form = ActiveForm::begin();
-        ?>
+    <div>
 
-            <?/*= $form->field($image_model, 'imageFile')->fileInput(['autofocus' => true]) */?>
         <div class="col-lg-1">
             <p></p>
         </div>
-        <div class="col-lg-10">
+        <div class="col-lg-11">
 
         <?php
         echo Carousel::widget([
@@ -40,9 +36,25 @@ $this->params['breadcrumbs'][] = $this->title;
             <p></p>
         </div>
         <?php
-            ActiveForm::end();
         ?>
     </div>
+    <div>
+        <div class="col-lg-2">
+            <p></p>
+        </div>
+        <div class="col-lg-10">
+        <?php
+        if (Yii::$app->user->id == $model->creators_id){
+            $form = ActiveForm::begin();
+            echo $form->field($image_model, 'imageFile')->fileInput(['autofocus' => true])->label('Добавить изображение');
+            echo Html::submitButton('Добавить', ['class' => 'btn btn-primary', 'name' => 'idea-button']);
+            ActiveForm::end();
+        }
+        ?>
+        </div>
+    </div>
+</div>
+<div class="row">
     <div>
         <div class="col-lg-3">
             <h3>Краткое описание : </h3>
