@@ -75,7 +75,7 @@ $this->params['breadcrumbs'][] = $this->title;
             [
                 'attribute' => 'id_ideas',
                 'label' => 'Id',
-                'contentOptions'=>['style'=>'width : 100px;'],
+                'contentOptions'=>['style'=>'width : 95px;'],
                 'filter' => Select2::widget([
                     'name' => 'id_ideas',
                     'model' => $searchModel,
@@ -96,7 +96,7 @@ $this->params['breadcrumbs'][] = $this->title;
             [
                 'attribute' => 'ideas_name',
                 'label' => 'Имя',
-                'contentOptions'=>['style'=>'width : 200px;'],
+                'contentOptions'=>['style'=>'width : 170px;'],
                 'filter' => Select2::widget([
                     'name' => 'ideas_name',
                     'model' => $searchModel,
@@ -117,7 +117,7 @@ $this->params['breadcrumbs'][] = $this->title;
             [
                 'attribute' => 'info_short',
                 'label' => 'Описание',
-                'contentOptions'=>['style'=>'width : 300px;'],
+                'contentOptions'=>['style'=>'width : 270px;'],
             ],
             [
                 'attribute' => 'creators_id',
@@ -131,7 +131,7 @@ $this->params['breadcrumbs'][] = $this->title;
             [
                 'attribute' => 'creations_day',
                 'label' => 'День',
-                'contentOptions'=>['style'=>'width : 95px;'],
+                'contentOptions'=>['style'=>'width : 90px;'],
                 'filter' => Select2::widget([
                     'name' => 'creations_day',
                     'model' => $searchModel,
@@ -152,7 +152,7 @@ $this->params['breadcrumbs'][] = $this->title;
             [
                 'attribute' => 'creations_month',
                 'label' => 'Месяц',
-                'contentOptions'=>['style'=>'width : 100px;'],
+                'contentOptions'=>['style'=>'width : 95px;'],
                 'filter' => Select2::widget([
                     'name' => 'creations_month',
                     'model' => $searchModel,
@@ -173,7 +173,7 @@ $this->params['breadcrumbs'][] = $this->title;
             [
                 'attribute' => 'creations_year',
                 'label' => 'Год',
-                'contentOptions'=>['style'=>'width : 95px;'],
+                'contentOptions'=>['style'=>'width : 90px;'],
                 'filter' => Select2::widget([
                     'name' => 'creations_year',
                     'model' => $searchModel,
@@ -201,7 +201,11 @@ $this->params['breadcrumbs'][] = $this->title;
                         return Html::a('',  Url::toRoute(['/site/re-project', 'id' => strval($key), 'bool' => 'false']), ['class' => '']);
                     },
                     'delete' => function ($url, $model, $key){
-                        return Html::a('', Url::toRoute(['/ideas/delete-idea', 'id' => strval($key),]), ['class' => '']);
+                        if (Yii::$app->user->id != $model->creators_id){
+                            return Html::a('', Url::toRoute(['/ideas/delete-idea', 'id' => strval($key),]), ['class' => '']);
+                        } else {
+                            return Html::a('', Url::toRoute(['/ideas/delete-idea', 'id' => strval($key),]), ['class' => 'glyphicon glyphicon-trash']);
+                        }
                     }
                 ]
             ],

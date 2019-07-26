@@ -145,7 +145,7 @@ class IdeasController extends Controller
     }
 
     /**
-     * Displays DeleteProjectForm
+     * Displays DeleteIdeaForm
      *
      * @return string
      */
@@ -154,7 +154,11 @@ class IdeasController extends Controller
     {
         $model = Ideas::find()->where(['id_ideas' => $id])->one();
         if ($model != null) {
-            $model->delete();
+            if (Yii::$app->user->id != $model->creators_id){
+                return $this->redirect('idea?id='.strval($id));
+            } else {
+                $model->delete();
+            }
         }
         return $this->redirect('ideas');
     }

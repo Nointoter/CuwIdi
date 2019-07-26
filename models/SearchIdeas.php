@@ -18,7 +18,6 @@ class SearchIdeas extends Ideas
             [['info_short'], 'string'],
             [['info_long'], 'string'],
             [['creators_id'], 'integer'],
-            [['ideas_images'], 'integer'],
             [['creations_day'], 'string'],
             [['creations_month'], 'string'],
             [['creations_year'], 'string'],
