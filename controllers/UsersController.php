@@ -17,6 +17,8 @@ use yii\web\Controller;
 use yii\web\Response;
 use yii\web\UploadedFile;
 use yii\widgets\ActiveForm;
+use app\models\ChangeUsersInfoForm;
+use app\models\UsersForm;
 
 class UsersController extends Controller
 {
@@ -79,7 +81,7 @@ class UsersController extends Controller
             'width' => '80px',
             'height' => '80px'
         ]);
-        $image_model = new ImageForm();
+        $image_model = new UsersForm();
         $image_model->imageFile = $image;
         $image_model->users_name = $user->users_name;
         $image_model->users_info = $user->users_info;
@@ -94,7 +96,7 @@ class UsersController extends Controller
             $user->users_name = $image_model->users_name;
             $user->users_info = $image_model->users_info;
             $user->save(false);
-            $this->redirect('profile?id='.strval($id));
+            return $this->redirect('profile?id='.strval($id));
         } else {
             return $this->render('re-profile', [
                 'image_model' => $image_model,
@@ -116,9 +118,17 @@ class UsersController extends Controller
             'width' => '160px',
             'height' => '160px'
         ]);
+        $infoModel = new ChangeUsersInfoForm();
+        $infoModel->info = $user->users_info;
+        if ($infoModel->load(Yii::$app->request->post()))
+        {
+            $user->users_info = $infoModel->info;
+            $user->save(false);
+        }
         return $this->render('profile', [
             'user' => $user,
             'image' => $image,
+            'infoModel' => $infoModel,
         ]);
     }
 

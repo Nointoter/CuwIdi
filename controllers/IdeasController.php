@@ -91,13 +91,10 @@ class IdeasController extends Controller
         }
         if ($image_model->load(Yii::$app->request->post())) {
             $image_model->imageFile = UploadedFile::getInstance($image_model, 'imageFile');
-            //$image_model->imageFile->name = $model->ideas_name . $image_model->imageFile->name;
             $idea_image = new Images();
             $idea_image->ideas_id = $id;
             $idea_image->images_name = $model->ideas_name . $image_model->imageFile->baseName . '.jpg';
             $image_model->imageFile->name = $idea_image->images_name;
-            //var_dump($image_model);
-            //$image_model->upload();
             $idea_image->save(false);
             $image_model->imageFile->saveAs('images/' . $image_model->imageFile->baseName . '.jpg');
             return $this->redirect('idea?id='.strval($id));
