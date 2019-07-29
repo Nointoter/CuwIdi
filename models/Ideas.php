@@ -28,13 +28,13 @@ class Ideas extends  ActiveRecord
 
     public function getImages()
     {
-        $string_images = Images::find()->where(['ideas_id' => $this->id_ideas])->all();
-        return $string_images;
+        $images = Images::find()->where(['ideas_id' => $this->id_ideas])->all();
+        return $images;
     }
 
     public function getTags()
     {
-        $string_tags = Tags::find()->where(['ideas_id' => $this->id_ideas])->all();
-        return $string_tags;
+        $tags = Tags::find()->where(['ideas_id' => $this->id_ideas])->all();
+        return $tags;
     }
 }

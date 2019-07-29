@@ -8,7 +8,6 @@ use yii\helpers\Url;
 $form = ActiveForm::begin();
 
 $this->title = 'Просмотр идеи '.strval($model->ideas_name);
-$this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="row">
     <div class="col-lg-12">
