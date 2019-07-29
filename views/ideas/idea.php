@@ -94,7 +94,7 @@ $this->params['breadcrumbs'][] = $this->title;
         </p>
         <?php
         if (Yii::$app->user->id == $model->creators_id) {
-            echo '<a href="delete-idea-images?id=' . strval($model->id_ideas) . '&delId=0" class="btn btn-danger" role="button">Удалить <br> изображения</a>';
+            echo '<a href="delete-idea-images?id=' . strval($model->id_ideas) . '" class="btn btn-danger" role="button">Удалить <br> изображения</a>';
         }
         ?>
     </div>

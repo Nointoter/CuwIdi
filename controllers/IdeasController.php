@@ -8,6 +8,7 @@ use app\models\Ideas;
 use app\models\IdeasForm;
 use app\models\ImagesForm;
 use app\models\SearchIdeas;
+use app\models\SearchImages;
 use Yii;
 use yii\helpers\ArrayHelper;
 use yii\web\Controller;
@@ -168,21 +169,51 @@ class IdeasController extends Controller
     }
 
     /**
-     * Displays DeleteIdeaForm
+     * Displays DeleteIdeaImagesForm
      *
      * @return string
      */
 
     public function actionDeleteIdeaImages($id)
     {
-        $model = Ideas::find()->where(['id_ideas' => $id])->one();
-        if ($model != null) {
-            if (Yii::$app->user->id != $model->creators_id){
+        $ideasModel = Ideas::find()->where(['id_ideas' => $id])->one();
+        if ($ideasModel != null) {
+            if (Yii::$app->user->id != $ideasModel->creators_id){
                 return $this->redirect('idea?id='.strval($id));
             } else {
-                $model->delete();
+                $model = Images::find()->where(['ideas_id' => $id])->all();
+                $searchModel = new SearchImages();
+                $dataProvider = $searchModel->search(Yii::$app->request->get(), $id);
+                $id_ideas_images = ArrayHelper::map($ideasModel,'id_ideas_images', 'id_ideas_images');
+                $images_name = ArrayHelper::map($ideasModel,'images_name', 'images_name');
+                $ideas_id = ArrayHelper::map($ideasModel,'ideas_id', 'ideas_id');
+                return $this->render('delete-idea-images',[
+                    'ideasModel' => $ideasModel,
+                    'searchModel' => $searchModel,
+                    'dataProvider' => $dataProvider,
+                    'id_ideas_images' => $id_ideas_images,
+                    'images_name' => $images_name,
+                    'ideas_id' => $ideas_id,
+                ]);
             }
         }
         return $this->redirect('ideas');
+    }
+
+    /**
+     * Displays DeleteIdeaImagesForm
+     *
+     * @return string
+     */
+
+    public function actionDeleteImage($id)
+    {
+        $model = Images::find()->where(['id_ideas_images' => $id])->one();
+        $ideasModel = Ideas::find()->where(['id_ideas' => $model->ideas_id])->one();
+        if (Yii::$app->user->id == $ideasModel->creators_id){
+            $model->delete();
+            return $this->redirect('delete-idea-images?id='.strval($ideasModel->id_ideas));
+        }
+        return $this->redirect('idea?id='.strval($ideasModel->id_ideas));
     }
 }

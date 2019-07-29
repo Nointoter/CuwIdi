@@ -32,7 +32,7 @@ $this->params['breadcrumbs'][] = $this->title;*/
             <?/*= $form->field($image_model, 'imageFile')->fileInput(['autofocus' => true]) */?>
 
             <div class="form-group">
-                <?= Html::submitButton('Submit', ['class' => 'btn btn-primary', 'name' => 'add-project-button']) ?>
+                <?= Html::submitButton('Добавить', ['class' => 'btn btn-primary', 'name' => 'add-project-button']) ?>
             </div>
 
             <?php ActiveForm::end(); ?>
