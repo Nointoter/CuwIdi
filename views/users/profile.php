@@ -17,7 +17,7 @@ $form = ActiveForm::begin();
 
 $this->title = 'Профиль ' . strval($user->users_name);
 ?>
-<div class="row">
+<div class="row" STYLE="background-color: #3c3c3c; color: #c7ddef">
     <div class="col-lg-5">
         <h2>Профиль <?= Html::encode($user->users_name) ?></h2>
         <?php
@@ -46,7 +46,7 @@ $this->title = 'Профиль ' . strval($user->users_name);
         ?>
     </div>
 </div>
-<div class="row">
+<div class="row" STYLE="background-color: #3c3c3c; color: #c7ddef">
     <div class="col-lg-3">
         <h2>Информация : </h2>
     </div>
@@ -57,14 +57,14 @@ $this->title = 'Профиль ' . strval($user->users_name);
     </div>
 </div>
 <?php ActiveForm::end(); ?>
-<div class="row">
+<div class="row" STYLE="background-color: #3c3c3c; color: #c7ddef">
     <div class="col-lg-4">
         <h2>
             Идеи пользователя
         </h2>
     </div>
 </div>
-<div class="view-ideas">
+<div class="view-ideas" STYLE="background-color: #3c3c3c; color: #c7ddef">
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
@@ -73,7 +73,7 @@ $this->title = 'Профиль ' . strval($user->users_name);
             [
                 'attribute' => 'id_ideas',
                 'label' => 'Id',
-                'contentOptions'=>['style'=>'width : 200px;'],
+                'contentOptions'=>['style'=>'width : 200px; background-color: #3c3c3c; color: #c7ddef'],
                 'filter' => Select2::widget([
                     'name' => 'id_ideas',
                     'model' => $searchModel,
@@ -95,7 +95,7 @@ $this->title = 'Профиль ' . strval($user->users_name);
                 'attribute' => 'ideas_name',
                 'label' => 'Имя',
                 //'contentOptions'=>['style'=>'white-space: normal;'],
-                'contentOptions'=>['style'=>'width : 300px;'],
+                'contentOptions'=>['style'=>'width : 300px; background-color: #3c3c3c; color: #c7ddef'],
                 'filter' => Select2::widget([
                     'name' => 'ideas_name',
                     'model' => $searchModel,
@@ -115,7 +115,7 @@ $this->title = 'Профиль ' . strval($user->users_name);
             ],
             [
                 'label' => 'Тэги',
-                'contentOptions'=>['style'=>'width : 150px;'],
+                'contentOptions'=>['style'=>'width : 150px; background-color: #3c3c3c; color: #c7ddef'],
                 'format' => 'raw',
                 'value' => function ($data) {
                     $array_tags = [];
@@ -128,7 +128,7 @@ $this->title = 'Профиль ' . strval($user->users_name);
             [
                 'attribute' => 'creations_day',
                 'label' => 'День',
-                'contentOptions'=>['style'=>'width : 180px;'],
+                'contentOptions'=>['style'=>'width : 180px; background-color: #3c3c3c; color: #c7ddef'],
                 'filter' => Select2::widget([
                     'name' => 'creations_day',
                     'model' => $searchModel,
@@ -149,7 +149,7 @@ $this->title = 'Профиль ' . strval($user->users_name);
             [
                 'attribute' => 'creations_month',
                 'label' => 'Месяц',
-                'contentOptions'=>['style'=>'width : 200px;'],
+                'contentOptions'=>['style'=>'width : 200px; background-color: #3c3c3c; color: #c7ddef'],
                 'filter' => Select2::widget([
                     'name' => 'creations_month',
                     'model' => $searchModel,
@@ -170,7 +170,7 @@ $this->title = 'Профиль ' . strval($user->users_name);
             [
                 'attribute' => 'creations_year',
                 'label' => 'Год',
-                'contentOptions'=>['style'=>'width : 180px;'],
+                'contentOptions'=>['style'=>'width : 180px; background-color: #3c3c3c; color: #c7ddef'],
                 'filter' => Select2::widget([
                     'name' => 'creations_year',
                     'model' => $searchModel,
@@ -190,6 +190,7 @@ $this->title = 'Профиль ' . strval($user->users_name);
             ],
             [
                 'class' => 'yii\grid\ActionColumn',
+                'contentOptions'=>['style'=>'background-color: #3c3c3c; color: #c7ddef'],
                 'buttons' => [
                     'view' => function ($url, $model, $key) {
                         return Html::a('', Url::toRoute(['/ideas/idea' , 'id' => strval($key),]), ['class' => 'glyphicon glyphicon-eye-open']);

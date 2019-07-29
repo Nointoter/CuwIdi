@@ -9,7 +9,8 @@ $form = ActiveForm::begin();
 
 $this->title = 'Просмотр идеи '.strval($model->ideas_name);
 ?>
-<div class="row">
+
+<div class="row" STYLE="background-color: #3c3c3c; color: #c7ddef">
     <div class="col-lg-12">
         <?php
 
@@ -21,12 +22,12 @@ $this->title = 'Просмотр идеи '.strval($model->ideas_name);
         ?>
     </div>
 </div>
-<div class="row">
+<div class="row" STYLE="background-color: #3c3c3c; color: #c7ddef">
     <div class="col-lg-12">
         <h1>Создатель идеи : <a href="/users/profile?id=<?= strval($model->creators_id) ?>" class="" role="button"><?php echo $model->getAuthorsName() ?></a></h1>
     </div>
 </div>
-<div class="row">
+<div class="row" STYLE="background-color: #3c3c3c; color: #c7ddef">
     <div class="col-lg-12">
         <?php
             $array_tags = [];
@@ -38,7 +39,7 @@ $this->title = 'Просмотр идеи '.strval($model->ideas_name);
         <h2>Теги : <?= implode(", ", $array_tags) ?></h2>
     </div>
 </div>
-<div class="row">
+<div class="row" STYLE="background-color: #3c3c3c; color: #c7ddef">
     <div class="col-lg-6">
         <?php
         if (Yii::$app->user->id == $model->creators_id) {
@@ -48,29 +49,34 @@ $this->title = 'Просмотр идеи '.strval($model->ideas_name);
         ?>
     </div>
 </div>
-<div class="row">
+<div class="row" STYLE="background-color: #3c3c3c; color: #c7ddef">
     <p></p>
 </div>
-<div class="row">
-    <div class="col-lg-1">
-        <p></p>
-    </div>
-    <div class="col-lg-10">
-        <?php
-            if ($carousel != Null) {
-                echo Carousel::widget([
-                    'items' => $carousel,
-                    'options' => ['class' => 'carousel slide', 'data-interval' => '12000'],
-                    'controls' => [
-                        '<span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>',
-                        '<span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>'
-                    ]
-                ]);
-            }
-        ?>
-    </div>
+<div class="row" STYLE="background-color: #3c3c3c; color: #c7ddef">
+    <table class="table table-hover">
+        <body>
+            <tr>
+                <td>
+                    <div style="height: 500px; overflow:auto;">
+                        <?php
+                            if ($carousel != Null) {
+                                echo Carousel::widget([
+                                    'items' => $carousel,
+                                    'options' => ['class' => 'carousel slide', 'data-interval' => '12000'],
+                                    'controls' => [
+                                            '<span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>',
+                                            '<span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>'
+                                    ]
+                                ]);
+                            }
+                        ?>
+                    </div>
+                </td>
+            </tr>
+        </body>
+    </table>
 </div>
-<div class="row">
+<div class="row" STYLE="background-color: #3c3c3c; color: #c7ddef">
     <div class="col-lg-2">
         <p></p>
     </div>
@@ -101,7 +107,7 @@ $this->title = 'Просмотр идеи '.strval($model->ideas_name);
         <p></p>
     </div>
 </div>
-<div class="row">
+<div class="row" STYLE="background-color: #3c3c3c; color: #c7ddef">
     <div class="col-lg-3">
         <h3>Краткое описание : </h3>
     </div>
@@ -115,7 +121,7 @@ $this->title = 'Просмотр идеи '.strval($model->ideas_name);
         ?>
     </div>
 </div>
-<div class="row">
+<div class="row" STYLE="background-color: #3c3c3c; color: #c7ddef">
     <div class="col-lg-3">
         <h3>Описание идеи : <br><br><br> </h3>
         <?php if (Yii::$app->user->id == $model->creators_id) {

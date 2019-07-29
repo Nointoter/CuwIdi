@@ -13,7 +13,6 @@ use yii\helpers\Url;
 use yii\widgets\ActiveForm;
 
 $this->title = 'Идеи';
-$this->params['breadcrumbs'][] = $this->title;
 ?>
 
 <div class="search-ideas">
@@ -22,7 +21,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
             <?php $form = ActiveForm::begin(['action' => '/ideas/ideas', 'method' => 'get']); ?>
 
-            <?= $form->field($model, 'ideasSearch')->label('Поиск Идеи') ?>
+            <?= $form->field($model, 'ideasSearch')->label('Поиск Идей') ?>
 
             <div class="form-group">
                 <?= Html::submitButton('Поиск', ['class' => 'btn btn-primary', 'name' => 'search-ideas-button']) ?>
@@ -75,7 +74,7 @@ $this->params['breadcrumbs'][] = $this->title;
             [
                 'attribute' => 'id_ideas',
                 'label' => 'Id',
-                'contentOptions'=>['style'=>'width : 95px;'],
+                'contentOptions'=>['style'=>'width : 95px; background-color: #3c3c3c; color: #c7ddef'],
                 'filter' => Select2::widget([
                     'name' => 'id_ideas',
                     'model' => $searchModel,
@@ -96,7 +95,7 @@ $this->params['breadcrumbs'][] = $this->title;
             [
                 'attribute' => 'ideas_name',
                 'label' => 'Имя',
-                'contentOptions'=>['style'=>'width : 170px;'],
+                'contentOptions'=>['style'=>'width : 170px; background-color: #3c3c3c; color: #c7ddef'],
                 'filter' => Select2::widget([
                     'name' => 'ideas_name',
                     'model' => $searchModel,
@@ -117,12 +116,12 @@ $this->params['breadcrumbs'][] = $this->title;
             [
                 'attribute' => 'info_short',
                 'label' => 'Описание',
-                'contentOptions'=>['style'=>'width : 150px;'],
+                'contentOptions'=>['style'=>'width : 150px; background-color: #3c3c3c; color: #c7ddef'],
             ],
             [
                 'attribute' => 'creators_id',
                 'label' => 'Создатель',
-                'contentOptions'=>['style'=>'white-space: normal;'],
+                'contentOptions'=>['style'=>'white-space: normal; background-color: #3c3c3c; color: #c7ddef '],
                 'value' => function ($data) {
                     return Html::a(Html::encode($data->getAuthorsName()), Url::toRoute(['/users/profile', 'id' => $data->creators_id]));
                 },
@@ -130,7 +129,7 @@ $this->params['breadcrumbs'][] = $this->title;
             ],
             [
                 'label' => 'Тэги',
-                'contentOptions'=>['style'=>'width : 150px;'],
+                'contentOptions'=>['style'=>'width : 150px; background-color: #3c3c3c; color: #c7ddef'],
                 'format' => 'raw',
                 'value' => function ($data) {
                     $array_tags = [];
@@ -143,7 +142,7 @@ $this->params['breadcrumbs'][] = $this->title;
             [
                 'attribute' => 'creations_day',
                 'label' => 'День',
-                'contentOptions'=>['style'=>'width : 90px;'],
+                'contentOptions'=>['style'=>'width : 90px; background-color: #3c3c3c; color: #c7ddef'],
                 'filter' => Select2::widget([
                     'name' => 'creations_day',
                     'model' => $searchModel,
@@ -164,7 +163,7 @@ $this->params['breadcrumbs'][] = $this->title;
             [
                 'attribute' => 'creations_month',
                 'label' => 'Месяц',
-                'contentOptions'=>['style'=>'width : 95px;'],
+                'contentOptions'=>['style'=>'width : 95px; background-color: #3c3c3c; color: #c7ddef'],
                 'filter' => Select2::widget([
                     'name' => 'creations_month',
                     'model' => $searchModel,
@@ -185,7 +184,7 @@ $this->params['breadcrumbs'][] = $this->title;
             [
                 'attribute' => 'creations_year',
                 'label' => 'Год',
-                'contentOptions'=>['style'=>'width : 90px;'],
+                'contentOptions'=>['style'=>'width : 90px; background-color: #3c3c3c; color: #c7ddef'],
                 'filter' => Select2::widget([
                     'name' => 'creations_year',
                     'model' => $searchModel,
@@ -205,6 +204,7 @@ $this->params['breadcrumbs'][] = $this->title;
             ],
             [
                 'class' => 'yii\grid\ActionColumn',
+                'contentOptions'=>['style'=>'background-color: #3c3c3c; color: #c7ddef'],
                 'buttons' => [
                     'view' => function ($url, $model, $key) {
                         return Html::a('', Url::toRoute(['/ideas/idea' , 'id' => strval($key),]), ['class' => 'glyphicon glyphicon-eye-open']);

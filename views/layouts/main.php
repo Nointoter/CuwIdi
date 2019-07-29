@@ -17,7 +17,7 @@ AppAsset::register($this);
 ?>
 <?php $this->beginPage() ?>
 <!DOCTYPE html>
-<html lang="<?= Yii::$app->language ?>">
+<html lang="<?= Yii::$app->language ?>" STYLE="background-color: #3c3c3c; color: #c7ddef">
 <head>
     <meta charset="<?= Yii::$app->charset ?>">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -29,29 +29,29 @@ AppAsset::register($this);
 <body>
 <?php $this->beginBody() ?>
 
-<div class="wrap">
+<div class="wrap" STYLE="background-color: #3c3c3c; color: #c7ddef">
     <?php
     NavBar::begin([
         'brandLabel' => 'CuwIdi',
         'brandUrl' => Yii::$app->homeUrl,
         'options' => [
             'class' => 'navbar-inverse navbar-fixed-top',
-            'style' => 'color: #FFFFFF; background-color: #000000;'
+            'style' => 'background-color: #3c3c3c; color: #c7ddef'
         ],
     ]);
     echo Nav::widget([
         'options' => [
                 'class' => 'navbar-nav navbar-left',
-                'style' => 'color: #FFFFFF; background-color: #000000;',
+                'style' => 'background-color: #3c3c3c; color: #c7ddef',
         ],
         'items' => [
-            ['label' => 'Идеи', 'url' => ['/ideas/ideas']],
+            ['label' => 'Идеи', 'url' => ['/ideas']],
         ],
     ]);
     echo Nav::widget([
         'options' => [
             'class' => 'navbar-nav navbar-right',
-            'style' => 'color: #FFFFFF; background-color: #000000;',
+            'style' => 'background-color: #3c3c3c; color: #c7ddef   ',
         ],
         'items' => [
             Yii::$app->user->isGuest ? (

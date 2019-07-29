@@ -22,12 +22,12 @@ use app\models\Tags;
 class IdeasController extends Controller
 {
     /**
-     * Displays ideas
+     * Displays index
      *
      * @return string
      */
 
-    public function actionIdeas()
+    public function actionIndex()
     {
         $model = Ideas::find()->all();
         $searchModel = new SearchIdeas();
@@ -40,7 +40,7 @@ class IdeasController extends Controller
         $creations_year = ArrayHelper::map($model,'creations_year', 'creations_year');
         $model = new SearchIdeas();
         $model->load(Yii::$app->request->get());
-        return $this->render('ideas',[
+        return $this->render('index',[
             'model' => $model,
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
