@@ -14,7 +14,7 @@ $this->title = 'Просмотр идеи '.strval($model->ideas_name);
         <?php
 
             if (Yii::$app->user->id != $model->creators_id) {
-                echo '<h1>Идея : '. Html::encode($model->ideas_name).'</h1>';
+                echo '<h1>Название : '. Html::encode($model->ideas_name).'</h1>';
             } else {
                 echo '<h1>' . $form->field($ideasModel, 'ideas_name')->textarea(['autofocus' => true, 'cols' => 1, 'rows' => 1])->label('Название') . '</h1>';
             }
