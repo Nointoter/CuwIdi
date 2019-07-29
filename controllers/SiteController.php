@@ -116,9 +116,9 @@ class SiteController extends Controller
     public function actionSearchResults()
     {
         $model = new GlobalSearchForm();
-        $model->load(Yii::$app->request->get());
+        $model->load(Yii::$app->request->getParam('term'), '%_');
         $target = $model->target;
-
+        var_dump($target);
         $projects = Projects::find()
             ->joinWith('options')
             ->where(['name' => $target])
@@ -163,7 +163,6 @@ class SiteController extends Controller
         $model = new ContactForm();
         if ($model->load(Yii::$app->request->post()) && $model->contact(Yii::$app->params['adminEmail'])) {
             Yii::$app->session->setFlash('contactFormSubmitted');
-
             return $this->refresh();
         }
         return $this->render('contact', [
