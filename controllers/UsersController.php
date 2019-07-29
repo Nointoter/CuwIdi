@@ -82,28 +82,31 @@ class UsersController extends Controller
         }
         $user = User::findIdentity($id);
         $image = Html::img('@web/images/' . $user->users_image, [
-            'width' => '80px',
-            'height' => '80px'
+            'width' => '140px',
+            'height' => '140px'
         ]);
-        $image_model = new UsersForm();
-        $image_model->imageFile = $image;
-        $image_model->users_name = $user->users_name;
-        $image_model->users_info = $user->users_info;
-        if ($image_model->load(Yii::$app->request->post()))
+        $profileModel = new UsersForm();
+        $profileModel->imageFile = $image;
+        $profileModel->users_name = $user->users_name;
+        $profileModel->users_info = $user->users_info;
+        if ($profileModel->load(Yii::$app->request->post()))
         {
-            if ($image_model->imageFile != Null) {
-                $image_model->imageFile = UploadedFile::getInstance($image_model, 'imageFile');
-                $image_model->imageFile->name = $user->users_name . '_image.jpg';
-                $user->users_image = $image_model->imageFile->name;
-                $image_model->upload();
+            $profileModel->imageFile = UploadedFile::getInstance($profileModel, 'imageFile');
+            if ($profileModel->imageFile != Null) {
+
+                $profileModel->imageFile->name = $user->users_name . '_image.jpg';
+                $user->users_image = $profileModel->imageFile->name;
+                $profileModel->upload();
             }
-            $user->users_name = $image_model->users_name;
-            $user->users_info = $image_model->users_info;
+            $user->users_name = $profileModel->users_name;
+            $user->users_info = $profileModel->users_info;
             $user->save(false);
-            return $this->redirect('profile?id='.strval($id));
+            return $this->redirect('re-profile?id='.strval($id));
         } else {
             return $this->render('re-profile', [
-                'image_model' => $image_model,
+                'image' => $image,
+                'user' => $user,
+                'profileModel' => $profileModel,
             ]);
         }
     }
@@ -150,6 +153,7 @@ class UsersController extends Controller
             'image' => $image,
             'image_model' => $image_model,
             'infoModel' => $infoModel,
+
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
             'id_ideas' => $id_ideas,

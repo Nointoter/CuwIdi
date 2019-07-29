@@ -17,59 +17,45 @@ $form = ActiveForm::begin();
 
 $this->title = 'Профиль ' . strval($user->users_name);
 ?>
-    <div class="row">
-        <div class="col-lg-3">
-            <h2>Профиль <?= Html::encode($user->users_name) ?></h2>
-            <?php
-                if (Yii::$app->user->id == $user->id_users){
-                    echo '<h4>Логин : '.Html::encode($user->username).'</h4>
-                          <h4>Пароль : '.Html::encode($user->password).'</h4>';
-                    echo Html::button('Сменить пароль',['value' => Url::to('/users/change-password'),'class' => 'btn btn-success', 'name' => 'change-password-button', 'id' => 'modalButton2']);
-                    Modal::begin([
-                        'header' => '<h4>Сменить пароль</h4>',
-                        'id' => 'modal2',
-                        'size' => 'modal-lg',
-                    ]);
-                    echo "<div id='modalContent2'></div>";
-                    Modal::end();
-                }
-            ?>
-        </div>
-        <div class="col-lg-3">
-            <h2><?= $image ?></h2>
-        </div>
-        <div class="col-lg-3">
-            <?= $form->field($image_model, 'imageFile')->fileInput(['autofocus' => true]) ?>
-
-        </div>
-        <div class="col-lg-3">
-            <?php
-                if (Yii::$app->user->id == $user->id_users) {
-                    echo '<h1><br></h1>';
-                    echo '<html><body><a href="re-profile?id=' . strval($user->id_users) . '" class="btn btn-primary" role="button">Редактировать<br> информацию</a></body></html>';
-                }
-            ?>
-        </div>
+<div class="row">
+    <div class="col-lg-5">
+        <h2>Профиль <?= Html::encode($user->users_name) ?></h2>
+        <?php
+        if (Yii::$app->user->id == $user->id_users) {
+            echo '<h4>Логин : ' . Html::encode($user->username) . '</h4>
+                  <h4>Пароль : ' . Html::encode($user->password) . '</h4>';
+            echo '<h4>' . Html::button('Сменить пароль', ['value' => Url::to('/users/change-password'), 'class' => 'btn btn-success', 'name' => 'change-password-button', 'id' => 'modalButton2']) . '</h4>';
+            Modal::begin([
+                'header' => '<h4>Сменить пароль</h4>',
+                'id' => 'modal2',
+                'size' => 'modal-lg',
+            ]);
+            echo "<div id='modalContent2'></div>";
+            Modal::end();
+        }
+        ?>
     </div>
-    <div class="row">
-        <div class="col-lg-3">
-            <h2>Информация : </h2>
-            <h4><?php
-                if (Yii::$app->user->id == $user->id_users)
-                    echo Html::submitButton('Изменить <br> информацию', ['class' => 'btn btn-info', 'name' => 'change-user-info-button']);
-                ?>
-            </h4>
-        </div>
-        <div class="col-lg-9">
-            <?php
-            if (Yii::$app->user->id != $user->id) {
-                echo '<h2><textarea readonly rows="10" cols="50">' . Html::encode($user->users_info) . '</textarea></h2>';
-            } else {
-                echo '<h2>'.$form->field($infoModel, 'info')->textarea(['autofocus' => true, 'rows' => 10, 'cols' => 50])->label(false).'</h2>';
-            }
-            ?>
-        </div>
+    <div class="col-lg-4">
+        <h2><?= $image ?></h2>
     </div>
+    <div class="col-lg-3">
+        <?php
+        if (Yii::$app->user->id == $user->id_users) {
+            echo '<html><body><a href="re-profile?id=' . strval($user->id_users) . '" class="btn btn-primary" role="button">Редактировать<br> информацию</a></body></html>';
+        }
+        ?>
+    </div>
+</div>
+<div class="row">
+    <div class="col-lg-3">
+        <h2>Информация : </h2>
+    </div>
+    <div class="col-lg-9">
+        <?php
+            echo '<h2><textarea readonly rows="10" cols="50">' . Html::encode($user->users_info) . '</textarea></h2>';
+        ?>
+    </div>
+</div>
 <?php ActiveForm::end(); ?>
 <div class="row">
     <div class="col-lg-4">

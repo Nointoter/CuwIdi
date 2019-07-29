@@ -75,44 +75,43 @@ class IdeasController extends Controller
                     'width' => '1400px',
                     'height' => '400px'
                 ]),
-                //'caption'
             ];
         };
-        $infoModel = new ChangeIdeasInfoForm();
-        $infoModel->short = $model->info_short;
-        $infoModel->long = $model->info_long;
-        if ($infoModel->load(Yii::$app->request->post())) {
-            $model->info_short = $infoModel->short;
-            $model->info_long = $infoModel->long;
-            $model->save();
-        }
-        $nameModel = new ChangeIdeaNameForm();
-        $nameModel->name = $model->ideas_name;
-        if ($nameModel->load(Yii::$app->request->post())) {
-            $model->ideas_name = $nameModel->name;
+        $ideasModel = new IdeasForm();
+        $ideasModel->ideas_name = $model->info_short;
+        $ideasModel->info_short = $model->info_short;
+        $ideasModel->info_long = $model->info_long;
+        if ($ideasModel->load(Yii::$app->request->post())) {
+            $model->ideas_name = $ideasModel->ideas_name;
+            $model->info_short = $ideasModel->info_short;
+            $model->info_long = $ideasModel->info_long;
             $model->save();
         }
         $tagModel = new AddTagForm();
         if ($tagModel->load(Yii::$app->request->post())) {
             $tag = new Tags();
             $tag->ideas_id = $id;
-            $tag->tag = $tagModel->tag;
-            $tag->save(false);
+            if ($tagModel->tag != '') {
+                $tag->tag = $tagModel->tag;
+                $tag->save(false);
+            }
         }
         if ($image_model->load(Yii::$app->request->post())) {
             $image_model->imageFile = UploadedFile::getInstance($image_model, 'imageFile');
-            $idea_image = new Images();
-            $idea_image->ideas_id = $id;
-            $idea_image->images_name = $model->ideas_name . $image_model->imageFile->baseName . '.jpg';
-            $image_model->imageFile->name = $idea_image->images_name;
-            $idea_image->save(false);
-            $image_model->imageFile->saveAs('images/' . $image_model->imageFile->baseName . '.jpg');
-            return $this->redirect('idea?id='.strval($id));
+            if ($image_model->imageFile != Null)
+            {
+                $idea_image = new Images();
+                $idea_image->ideas_id = $id;
+                $idea_image->images_name = $model->ideas_name . $image_model->imageFile->baseName . '.jpg';
+                $image_model->imageFile->name = $idea_image->images_name;
+                $idea_image->save(false);
+                $image_model->imageFile->saveAs('images/' . $image_model->imageFile->baseName . '.jpg');
+                return $this->redirect('idea?id='.strval($id));
+            }
         }
         return $this->render('idea',[
             'model' => $model,
-            'infoModel' => $infoModel,
-            'nameModel' => $nameModel,
+            'ideasModel' => $ideasModel,
             'tagModel' => $tagModel,
             'carousel' => $carousel,
             'image_model' => $image_model,
@@ -131,8 +130,6 @@ class IdeasController extends Controller
         if ($image_model->load(Yii::$app->request->post()) && $image_model->validate())
         {
             $model = new Ideas();
-            //$image_model->imageFile = UploadedFile::getInstance($image_model, 'imageFile');
-            //$model->images_name = $image_model->imageFile->name;
             $model->ideas_name = $image_model->ideas_name;
             $model->info_short = $image_model->info_short;
             $model->info_long = $image_model->info_long;
@@ -141,10 +138,6 @@ class IdeasController extends Controller
             $model->creations_year = date('y');
             $model->creators_id = Yii::$app->user->id;
             $model->save(false);
-            //$image_model->upload();
-            /*if ($bool = strval(true))
-                return $this->redirect('project?id=' . strval($model->id));
-            else*/
                 return $this->redirect('ideas');
         }
         else
