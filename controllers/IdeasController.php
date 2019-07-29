@@ -16,8 +16,6 @@ use yii\web\UploadedFile;
 use yii\helpers\Html;
 use yii\imagine\Image;
 use app\models\Images;
-use app\models\ChangeIdeasInfoForm;
-use app\models\ChangeIdeaNameForm;
 use app\models\Tags;
 
 

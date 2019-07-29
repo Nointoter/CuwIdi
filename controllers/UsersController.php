@@ -17,8 +17,6 @@ use yii\helpers\Html;
 use yii\web\Controller;
 use yii\web\Response;
 use yii\web\UploadedFile;
-use yii\widgets\ActiveForm;
-use app\models\ChangeUsersInfoForm;
 use app\models\UsersForm;
 use app\models\Ideas;
 use app\models\SearchIdeas;
@@ -133,13 +131,7 @@ class UsersController extends Controller
             'width' => '160px',
             'height' => '160px'
         ]);
-        $infoModel = new ChangeUsersInfoForm();
-        $infoModel->info = $user->users_info;
-        if ($infoModel->load(Yii::$app->request->post()))
-        {
-            $user->users_info = $infoModel->info;
-            $user->save(false);
-        }
+
         $image_model = new ImagesForm();
         if ($image_model->load(Yii::$app->request->post()))
         {
@@ -152,8 +144,6 @@ class UsersController extends Controller
             'user' => $user,
             'image' => $image,
             'image_model' => $image_model,
-            'infoModel' => $infoModel,
-
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
             'id_ideas' => $id_ideas,
