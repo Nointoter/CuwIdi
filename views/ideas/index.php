@@ -19,7 +19,7 @@ $this->title = 'Идеи';
     <div class="row">
         <div class="col-lg-6">
 
-            <?php $form = ActiveForm::begin(['action' => '/ideas/ideas', 'method' => 'get']); ?>
+            <?php $form = ActiveForm::begin(['action' => '/ideas', 'method' => 'get']); ?>
 
             <?= $form->field($model, 'ideasSearch')->label('Поиск Идей') ?>
 

@@ -15,8 +15,8 @@ $this->title = 'CuwIdi';
             </div>
             <div class="col-lg-7">
                 <h2>Идея : <a href="/ideas/idea?id=<?= strval($idea->id_ideas) ?>" class="" role="button"><?= $idea->ideas_name ?></a></h2>
-                <h4>Описание : <textarea readonly rows="1" cols="65"><?= $idea->info_short ?></textarea></h4>
-                <h4>Информация :<textarea readonly rows="5" cols="65"><?= $idea->info_long ?></textarea></h4>
+                <h4>Описание : <?= $idea->info_short ?></h4>
+                <h4>Информация : <?= $idea->info_long ?></h4>
             </div>
             <div class="col-lg-4">
                 <p><br><br>

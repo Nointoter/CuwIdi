@@ -47,14 +47,16 @@ $this->title = 'Профиль ' . strval($user->users_name);
     </div>
 </div>
 <div class="row" STYLE="background-color: #FFFFFF; color: #000000">
+    <?php if ($user->users_info != null) : ?>
     <div class="col-lg-3">
         <h2>Информация : </h2>
     </div>
     <div class="col-lg-9">
         <?php
-            echo '<h2><textarea readonly rows="10" cols="50">' . Html::encode($user->users_info) . '</textarea></h2>';
+            echo '<h2>' . Html::encode($user->users_info) . '</h2>';
         ?>
     </div>
+    <?php endif; ?>
 </div>
 <?php ActiveForm::end(); ?>
 <div class="row" STYLE="background-color: #FFFFFF; color: #000000">

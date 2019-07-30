@@ -116,7 +116,7 @@ $this->title = 'Просмотр идеи '.strval($model->ideas_name);
         if (Yii::$app->user->id != $model->creators_id) {
             echo '<h3><textarea readonly rows="2" cols="65">' . Html::encode($model->info_short) .'</textarea></h3>';
         } else {
-            echo '<h3>'.$form->field($ideasModel, 'info_short')->textarea(['autofocus' => true, 'rows' => 2, 'cols' => 65]).'</h3>';
+            echo '<h3>'.$form->field($ideasModel, 'info_short')->textarea(['autofocus' => true, 'rows' => 2, 'cols' => 65])->label(false).'</h3>';
         }
         ?>
     </div>
@@ -134,7 +134,7 @@ $this->title = 'Просмотр идеи '.strval($model->ideas_name);
         if (Yii::$app->user->id != $model->creators_id) {
             echo '<h3><textarea readonly rows="10" cols="65">' . Html::encode($model->info_long) . '</textarea></h3>';
         } else {
-            echo '<h3>'.$form->field($ideasModel, 'info_long')->textarea(['autofocus' => true, 'rows' => 10, 'cols' => 65]).'</h3>';
+            echo '<h3>'.$form->field($ideasModel, 'info_long')->textarea(['autofocus' => true, 'rows' => 10, 'cols' => 65])->label(false).'</h3>';
         }
         ?>
     </div>
