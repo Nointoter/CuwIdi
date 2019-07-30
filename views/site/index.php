@@ -10,6 +10,8 @@ $this->title = 'CuwIdi';
 <div class="row">
     <?php foreach ($ideas as $idea) :  ?>
     <?php $image = array_shift($idea->getImages()); ?>
+        <div class="row" style="border: 2px solid #000000;">
+        </div>
         <div class="row">
             <div class="col-lg-1">
             </div>
