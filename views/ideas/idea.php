@@ -54,14 +54,14 @@ $this->title = 'Просмотр идеи '.strval($model->ideas_name);
 <div class="row" STYLE="background-color: #FFFFFF; color: #000000">
     <p></p>
 </div>
-<div class="row" STYLE="background-color: #FFFFFF; color: #000000">
-    <table class="table table-hover">
-        <body>
-            <tr>
-                <td>
-                    <div style="height: 500px; overflow:auto;">
-                        <?php
-                            if ($carousel != Null) {
+<?php if ($carousel != Null) : ?>
+    <div class="row" STYLE="background-color: #FFFFFF; color: #000000">
+        <table class="table table-hover">
+            <body>
+                <tr>
+                    <td>
+                        <div style="height: 500px; overflow:auto;">
+                            <?php
                                 echo Carousel::widget([
                                     'items' => $carousel,
                                     'options' => ['class' => 'carousel slide', 'data-interval' => '12000'],
@@ -70,14 +70,14 @@ $this->title = 'Просмотр идеи '.strval($model->ideas_name);
                                             '<span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>'
                                     ]
                                 ]);
-                            }
-                        ?>
-                    </div>
-                </td>
-            </tr>
-        </body>
-    </table>
-</div>
+                            ?>
+                        </div>
+                    </td>
+                </tr>
+          </body>
+        </table>
+    </div>
+<?php endif ?>
 <div class="row" STYLE="background-color: #FFFFFF; color: #000000">
     <div class="col-lg-2">
         <p></p>
@@ -100,7 +100,7 @@ $this->title = 'Просмотр идеи '.strval($model->ideas_name);
         <p>
         </p>
         <?php
-        if (Yii::$app->user->id == $model->creators_id) {
+        if (Yii::$app->user->id == $model->creators_id && $carousel != Null) {
             echo '<a href="delete-idea-images?id=' . strval($model->id_ideas) . '" class="btn btn-danger" role="button">Удалить <br> изображения</a>';
         }
         ?>
@@ -111,7 +111,7 @@ $this->title = 'Просмотр идеи '.strval($model->ideas_name);
 </div>
 <div class="row" STYLE="background-color: #FFFFFF; color: #000000">
     <div class="col-lg-3">
-        <h3>Краткое описание : </h3>
+        <h3>Описание : </h3>
     </div>
     <div class="col-lg-9">
         <?php
@@ -125,7 +125,7 @@ $this->title = 'Просмотр идеи '.strval($model->ideas_name);
 </div>
 <div class="row" STYLE="background-color: #FFFFFF; color: #000000">
     <div class="col-lg-3">
-        <h3>Описание идеи : <br><br><br> </h3>
+        <h3>Информация : <br><br><br> </h3>
         <?php if (Yii::$app->user->id == $model->creators_id) {
             echo Html::submitButton('Созранить <br> изменения', ['class' => 'btn btn-primary', 'name' => 'change-idea-info-button']);
         }

@@ -22,8 +22,8 @@ $this->title = 'Профиль ' . strval($user->users_name);
         <h2>Профиль <?= Html::encode($user->users_name) ?></h2>
         <?php
         if (Yii::$app->user->id == $user->id_users) {
-            echo '<h4>Логин : ' . Html::encode($user->username) . '</h4>
-                  <h4>Пароль : ' . Html::encode($user->password) . '</h4>';
+            echo '<html><body><a href="re-profile?id=' . strval($user->id_users) . '" class="btn btn-primary" role="button">Редактировать</a></body></html>';
+            echo '<h4>Логин : ' . Html::encode($user->username) . '</h4>';
             echo '<h4>' . Html::button('Сменить пароль', ['value' => Url::to('/users/change-password'), 'class' => 'btn btn-success', 'name' => 'change-password-button', 'id' => 'modalButton2']) . '</h4>';
             Modal::begin([
                 'header' => '<h4>Сменить пароль</h4>',
@@ -41,7 +41,6 @@ $this->title = 'Профиль ' . strval($user->users_name);
     <div class="col-lg-3">
         <?php
         if (Yii::$app->user->id == $user->id_users) {
-            echo '<html><body><a href="re-profile?id=' . strval($user->id_users) . '" class="btn btn-primary" role="button">Редактировать<br> информацию</a></body></html>';
         }
         ?>
     </div>
@@ -53,7 +52,7 @@ $this->title = 'Профиль ' . strval($user->users_name);
     </div>
     <div class="col-lg-9">
         <?php
-            echo '<h2>' . Html::encode($user->users_info) . '</h2>';
+            echo '<h4><br>' . Html::encode($user->users_info) . '</h4>';
         ?>
     </div>
     <?php endif; ?>

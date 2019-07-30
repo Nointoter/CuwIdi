@@ -156,7 +156,7 @@ class IdeasController extends Controller
             $model->creations_year = date('y');
             $model->creators_id = Yii::$app->user->id;
             $model->save(false);
-                return $this->redirect('ideas');
+                return $this->redirect('/ideas');
         }
         else
         {

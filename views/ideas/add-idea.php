@@ -23,13 +23,11 @@ $this->params['breadcrumbs'][] = $this->title;*/
 
             <?php $form = ActiveForm::begin(); ?>
 
-            <?= $form->field($image_model, 'ideas_name')->textInput(['autofocus' => true]) ?>
+            <?= $form->field($image_model, 'ideas_name')->textInput(['autofocus' => true])->label('Имя') ?>
 
-            <?= $form->field($image_model, 'info_short')->textInput(['autofocus' => true]) ?>
+            <?= $form->field($image_model, 'info_short')->textInput(['autofocus' => true])->label('Описание') ?>
 
-            <?= $form->field($image_model, 'info_long')->textarea(['rows' => 8, 'autofocus' => true]) ?>
-
-            <?/*= $form->field($image_model, 'imageFile')->fileInput(['autofocus' => true]) */?>
+            <?= $form->field($image_model, 'info_long')->textarea(['rows' => 8, 'autofocus' => true])->label('Информация') ?>
 
             <div class="form-group">
                 <?= Html::submitButton('Добавить', ['class' => 'btn btn-primary', 'name' => 'add-project-button']) ?>

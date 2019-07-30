@@ -13,14 +13,24 @@ $this->title = 'CuwIdi';
         <div class="row" style="border: 2px solid #000000;">
         </div>
         <div class="row">
-            <div class="col-lg-1">
-            </div>
-            <div class="col-lg-7">
+            <div class="col-lg-5">
                 <h2>Идея : <a href="/ideas/idea?id=<?= strval($idea->id_ideas) ?>" class="" role="button"><?= $idea->ideas_name ?></a></h2>
                 <h4>Описание : <?= $idea->info_short ?></h4>
                 <h4>Информация : <?= $idea->info_long ?></h4>
             </div>
             <div class="col-lg-4">
+                <h2>Тэги :
+                    <h3>
+                        <?php
+                            $tags = $idea->getTags();
+                            foreach ($tags as $tag) {
+                                echo $tag->tag . ', ';
+                            }
+                        ?>
+                    </h3>
+                </h2>
+            </div>
+            <div class="col-lg-3">
                 <p><br><br>
                     <?php
                         if ($image != Null) {
