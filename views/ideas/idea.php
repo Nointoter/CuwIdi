@@ -173,7 +173,7 @@ $this->title = 'Просмотр идеи '.strval($model->ideas_name);
             [
                 'attribute' => 'creators_id',
                 'label' => 'Комментатор',
-                'contentOptions'=>['style'=>'white-space: normal; background-color: #FFFFFF; color: #000000'],
+                'contentOptions'=>['style'=>'width : 100px; background-color: #FFFFFF; color: #000000'],
                 'value' => function ($data) {
                     return Html::a(Html::encode($data->getAuthorsName()), Url::toRoute(['/users/profile', 'id' => $data->users_id]));
                 },
@@ -181,7 +181,7 @@ $this->title = 'Просмотр идеи '.strval($model->ideas_name);
             ],
             [
                 'class' => 'yii\grid\ActionColumn',
-                'contentOptions' => ['style' => 'background-color: #FFFFFF; color: #000000'],
+                'contentOptions' => ['style' => 'width : 50px; background-color: #FFFFFF; color: #000000'],
                 'buttons' => [
                     'view' => function ($url, $model, $key) {
                         return Html::a('', Url::toRoute(['/ideas/idea' , 'id' => strval($key),]), ['class' => '/*glyphicon glyphicon-eye-open*/']);
@@ -191,9 +191,9 @@ $this->title = 'Просмотр идеи '.strval($model->ideas_name);
                     },
                     'delete' => function ($url, $model, $key){
                         if (Yii::$app->user->id != $model->users_id){
-                            return Html::a('', Url::toRoute(['/comments/delete-comment', 'id' => strval($key),]), ['class' => '']);
+                            return Html::a('', Url::toRoute(['/idea/delete-comment', 'id' => strval($key), 'bool' => strval(true)]), ['class' => '']);
                         } else {
-                            return Html::a('', Url::toRoute(['/comments/delete-comment', 'id' => strval($key),]), ['class' => 'glyphicon glyphicon-trash']);
+                            return Html::a('', Url::toRoute(['/idea/delete-comment', 'id' => strval($key), 'bool' => strval(true)]), ['class' => 'glyphicon glyphicon-trash']);
                         }
                     }
                 ]

@@ -7,6 +7,7 @@ namespace app\controllers;
 use app\models\ChangePasswordForm;
 use app\models\ImagesForm;
 use app\models\LoginForm;
+use app\models\SearchComments;
 use app\models\SingUpForm;
 use app\models\User;
 use Yii;
@@ -119,7 +120,7 @@ class UsersController extends Controller
     {
         $model = Ideas::find()->where(['creators_id' => $id])->all();
         $searchModel = new SearchIdeas();
-        $dataProvider = $searchModel->search(Yii::$app->request->get(), $id);
+        $ideasProvider = $searchModel->search(Yii::$app->request->get(), $id);
         $id_ideas = ArrayHelper::map($model,'id_ideas', 'id_ideas');
         $ideas_name = ArrayHelper::map($model,'ideas_name', 'ideas_name');
         $info_short = ArrayHelper::map($model,'info_short', 'info_short');
@@ -131,6 +132,9 @@ class UsersController extends Controller
             'width' => '160px',
             'height' => '160px'
         ]);
+
+        $commentSearchModel = new SearchComments();
+        $commentProvider = $commentSearchModel->search(Yii::$app->request->get(), $id, false);
 
         $image_model = new ImagesForm();
         if ($image_model->load(Yii::$app->request->post()))
@@ -145,13 +149,15 @@ class UsersController extends Controller
             'image' => $image,
             'image_model' => $image_model,
             'searchModel' => $searchModel,
-            'dataProvider' => $dataProvider,
+            'ideasProvider' => $ideasProvider,
             'id_ideas' => $id_ideas,
             'ideas_name' => $ideas_name,
             'info_short' => $info_short,
             'creations_day' => $creations_day,
             'creations_month' => $creations_month,
             'creations_year' => $creations_year,
+            'commentProvider' => $commentProvider,
+            'commentSearchModel' => $commentSearchModel,
         ]);
     }
 

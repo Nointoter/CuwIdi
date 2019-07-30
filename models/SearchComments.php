@@ -8,11 +8,16 @@ use yii\data\ActiveDataProvider;
 
 class SearchComments extends Comments
 {
-    public function search($params, $id)
+    public function search($params, $id, $bool)
     {
         if ($id != Null) {
-            $query = Comments::find()
-                ->where(['ideas_id' => $id]);
+            if ($bool) {
+                $query = Comments::find()
+                    ->where(['ideas_id' => $id]);
+            } else {
+                $query = Comments::find()
+                    ->where(['users_id' => $id]);
+            }
         } else {
             $query = Comments::find();
         }
