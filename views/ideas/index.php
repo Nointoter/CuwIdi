@@ -74,7 +74,7 @@ $this->title = 'Идеи';
             [
                 'attribute' => 'id_ideas',
                 'label' => 'Id',
-                'contentOptions'=>['style'=>'width : 95px; background-color: #3c3c3c; color: #c7ddef'],
+                'contentOptions'=>['style'=>'width : 95px; background-color: #FFFFFF; color: #000000'],
                 'filter' => Select2::widget([
                     'name' => 'id_ideas',
                     'model' => $searchModel,
@@ -95,7 +95,7 @@ $this->title = 'Идеи';
             [
                 'attribute' => 'ideas_name',
                 'label' => 'Имя',
-                'contentOptions'=>['style'=>'width : 170px; background-color: #3c3c3c; color: #c7ddef'],
+                'contentOptions'=>['style'=>'width : 170px; background-color: #FFFFFF; color: #000000'],
                 'filter' => Select2::widget([
                     'name' => 'ideas_name',
                     'model' => $searchModel,
@@ -116,12 +116,12 @@ $this->title = 'Идеи';
             [
                 'attribute' => 'info_short',
                 'label' => 'Описание',
-                'contentOptions'=>['style'=>'width : 150px; background-color: #3c3c3c; color: #c7ddef'],
+                'contentOptions'=>['style'=>'width : 150px; background-color: #FFFFFF; color: #000000'],
             ],
             [
                 'attribute' => 'creators_id',
                 'label' => 'Создатель',
-                'contentOptions'=>['style'=>'white-space: normal; background-color: #3c3c3c; color: #c7ddef '],
+                'contentOptions'=>['style'=>'white-space: normal; background-color: #FFFFFF; color: #000000'],
                 'value' => function ($data) {
                     return Html::a(Html::encode($data->getAuthorsName()), Url::toRoute(['/users/profile', 'id' => $data->creators_id]));
                 },
@@ -129,7 +129,7 @@ $this->title = 'Идеи';
             ],
             [
                 'label' => 'Тэги',
-                'contentOptions'=>['style'=>'width : 150px; background-color: #3c3c3c; color: #c7ddef'],
+                'contentOptions'=>['style'=>'width : 150px; background-color: #FFFFFF; color: #000000'],
                 'format' => 'raw',
                 'value' => function ($data) {
                     $array_tags = [];
@@ -142,7 +142,7 @@ $this->title = 'Идеи';
             [
                 'attribute' => 'creations_day',
                 'label' => 'День',
-                'contentOptions'=>['style'=>'width : 90px; background-color: #3c3c3c; color: #c7ddef'],
+                'contentOptions'=>['style'=>'width : 90px; background-color: #FFFFFF; color: #000000'],
                 'filter' => Select2::widget([
                     'name' => 'creations_day',
                     'model' => $searchModel,
@@ -163,7 +163,7 @@ $this->title = 'Идеи';
             [
                 'attribute' => 'creations_month',
                 'label' => 'Месяц',
-                'contentOptions'=>['style'=>'width : 95px; background-color: #3c3c3c; color: #c7ddef'],
+                'contentOptions'=>['style'=>'width : 95px; background-color: #FFFFFF; color: #000000'],
                 'filter' => Select2::widget([
                     'name' => 'creations_month',
                     'model' => $searchModel,
@@ -184,7 +184,7 @@ $this->title = 'Идеи';
             [
                 'attribute' => 'creations_year',
                 'label' => 'Год',
-                'contentOptions'=>['style'=>'width : 90px; background-color: #3c3c3c; color: #c7ddef'],
+                'contentOptions'=>['style'=>'width : 90px; background-color: #FFFFFF; color: #000000'],
                 'filter' => Select2::widget([
                     'name' => 'creations_year',
                     'model' => $searchModel,
@@ -204,7 +204,7 @@ $this->title = 'Идеи';
             ],
             [
                 'class' => 'yii\grid\ActionColumn',
-                'contentOptions'=>['style'=>'background-color: #3c3c3c; color: #c7ddef'],
+                'contentOptions' => ['style' => 'background-color: #FFFFFF; color: #000000'],
                 'buttons' => [
                     'view' => function ($url, $model, $key) {
                         return Html::a('', Url::toRoute(['/ideas/idea' , 'id' => strval($key),]), ['class' => 'glyphicon glyphicon-eye-open']);

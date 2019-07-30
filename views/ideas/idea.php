@@ -10,7 +10,7 @@ $form = ActiveForm::begin();
 $this->title = 'Просмотр идеи '.strval($model->ideas_name);
 ?>
 
-<div class="row" STYLE="background-color: #3c3c3c; color: #c7ddef">
+<div class="row" STYLE="background-color: #FFFFFF; color: #000000">
     <div class="col-lg-12">
         <?php
 
@@ -22,12 +22,12 @@ $this->title = 'Просмотр идеи '.strval($model->ideas_name);
         ?>
     </div>
 </div>
-<div class="row" STYLE="background-color: #3c3c3c; color: #c7ddef">
+<div class="row" STYLE="background-color: #FFFFFF; color: #000000">
     <div class="col-lg-12">
         <h1>Создатель идеи : <a href="/users/profile?id=<?= strval($model->creators_id) ?>" class="" role="button"><?php echo $model->getAuthorsName() ?></a></h1>
     </div>
 </div>
-<div class="row" STYLE="background-color: #3c3c3c; color: #c7ddef">
+<div class="row" STYLE="background-color: #FFFFFF; color: #000000">
     <div class="col-lg-12">
         <?php
             $array_tags = [];
@@ -39,7 +39,7 @@ $this->title = 'Просмотр идеи '.strval($model->ideas_name);
         <h2>Теги : <?= implode(", ", $array_tags) ?></h2>
     </div>
 </div>
-<div class="row" STYLE="background-color: #3c3c3c; color: #c7ddef">
+<div class="row" STYLE="background-color: #FFFFFF; color: #000000">
     <div class="col-lg-6">
         <?php
         if (Yii::$app->user->id == $model->creators_id) {
@@ -49,10 +49,10 @@ $this->title = 'Просмотр идеи '.strval($model->ideas_name);
         ?>
     </div>
 </div>
-<div class="row" STYLE="background-color: #3c3c3c; color: #c7ddef">
+<div class="row" STYLE="background-color: #FFFFFF; color: #000000">
     <p></p>
 </div>
-<div class="row" STYLE="background-color: #3c3c3c; color: #c7ddef">
+<div class="row" STYLE="background-color: #FFFFFF; color: #000000">
     <table class="table table-hover">
         <body>
             <tr>
@@ -76,7 +76,7 @@ $this->title = 'Просмотр идеи '.strval($model->ideas_name);
         </body>
     </table>
 </div>
-<div class="row" STYLE="background-color: #3c3c3c; color: #c7ddef">
+<div class="row" STYLE="background-color: #FFFFFF; color: #000000">
     <div class="col-lg-2">
         <p></p>
     </div>
@@ -107,7 +107,7 @@ $this->title = 'Просмотр идеи '.strval($model->ideas_name);
         <p></p>
     </div>
 </div>
-<div class="row" STYLE="background-color: #3c3c3c; color: #c7ddef">
+<div class="row" STYLE="background-color: #FFFFFF; color: #000000">
     <div class="col-lg-3">
         <h3>Краткое описание : </h3>
     </div>
@@ -121,7 +121,7 @@ $this->title = 'Просмотр идеи '.strval($model->ideas_name);
         ?>
     </div>
 </div>
-<div class="row" STYLE="background-color: #3c3c3c; color: #c7ddef">
+<div class="row" STYLE="background-color: #FFFFFF; color: #000000">
     <div class="col-lg-3">
         <h3>Описание идеи : <br><br><br> </h3>
         <?php if (Yii::$app->user->id == $model->creators_id) {

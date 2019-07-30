@@ -29,20 +29,20 @@ AppAsset::register($this);
 <body>
 <?php $this->beginBody() ?>
 
-<div class="wrap" STYLE="background-color: #3c3c3c; color: #c7ddef">
+<div class="wrap" STYLE="background-color: #FFFFFF; color: #000000">
     <?php
     NavBar::begin([
         'brandLabel' => 'CuwIdi',
         'brandUrl' => Yii::$app->homeUrl,
         'options' => [
             'class' => 'navbar-inverse navbar-fixed-top',
-            'style' => 'background-color: #3c3c3c; color: #c7ddef'
+            'style' => 'background-color: #000000; color: #FFFFFF'
         ],
     ]);
     echo Nav::widget([
         'options' => [
                 'class' => 'navbar-nav navbar-left',
-                'style' => 'background-color: #3c3c3c; color: #c7ddef',
+                'style' => 'background-color: #000000; color: #FFFFFF',
         ],
         'items' => [
             ['label' => 'Идеи', 'url' => ['/ideas']],
@@ -51,7 +51,7 @@ AppAsset::register($this);
     echo Nav::widget([
         'options' => [
             'class' => 'navbar-nav navbar-right',
-            'style' => 'background-color: #3c3c3c; color: #c7ddef   ',
+            'style' => 'background-color: #000000; color: #FFFFFF',
         ],
         'items' => [
             Yii::$app->user->isGuest ? (
