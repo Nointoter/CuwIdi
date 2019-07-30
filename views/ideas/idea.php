@@ -191,9 +191,9 @@ $this->title = 'Просмотр идеи '.strval($model->ideas_name);
                     },
                     'delete' => function ($url, $model, $key){
                         if (Yii::$app->user->id != $model->users_id){
-                            return Html::a('', Url::toRoute(['/idea/delete-comment', 'id' => strval($key), 'bool' => strval(true)]), ['class' => '']);
+                            return Html::a('', Url::toRoute(['/comments/delete-comment', 'id' => strval($key), 'bool' => strval(true)]), ['class' => '']);
                         } else {
-                            return Html::a('', Url::toRoute(['/idea/delete-comment', 'id' => strval($key), 'bool' => strval(true)]), ['class' => 'glyphicon glyphicon-trash']);
+                            return Html::a('', Url::toRoute(['/comments/delete-comment', 'id' => strval($key), 'bool' => strval(true)]), ['class' => 'glyphicon glyphicon-trash']);
                         }
                     }
                 ]

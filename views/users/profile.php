@@ -192,7 +192,7 @@ $this->title = 'Профиль ' . strval($user->users_name);
             ],
             [
                 'class' => 'yii\grid\ActionColumn',
-                'contentOptions'=>['style'=>'background-color: #FFFFFF; color: #000000'],
+                'contentOptions'=>['style'=>'width : 50px; background-color: #FFFFFF; color: #000000'],
                 'buttons' => [
                     'view' => function ($url, $model, $key) {
                         return Html::a('', Url::toRoute(['/ideas/idea' , 'id' => strval($key),]), ['class' => 'glyphicon glyphicon-eye-open']);
@@ -215,6 +215,7 @@ $this->title = 'Профиль ' . strval($user->users_name);
         </h2>
     </div>
 </div>
+<!--<div class="col-lg-10 col-lg-offset-1">-->
 <?php if ($commentProvider->totalCount > 0) : ?>
     <div class="view-idea-comments">
         <?= GridView::widget([
@@ -247,9 +248,9 @@ $this->title = 'Профиль ' . strval($user->users_name);
                         },
                         'delete' => function ($url, $model, $key){
                             if (Yii::$app->user->id != $model->users_id){
-                                return Html::a('', Url::toRoute(['/idea/delete-comment', 'id' => strval($key), 'bool' => strval(true)]), ['class' => '']);
+                                return Html::a('', Url::toRoute(['/comments/delete-comment', 'id' => strval($key), 'bool' => strval(false)]), ['class' => '']);
                             } else {
-                                return Html::a('', Url::toRoute(['/idea/delete-comment', 'id' => strval($key), 'bool' => strval(true)]), ['class' => 'glyphicon glyphicon-trash']);
+                                return Html::a('', Url::toRoute(['/comments/delete-comment', 'id' => strval($key), 'bool' => strval(false)]), ['class' => 'glyphicon glyphicon-trash']);
                             }
                         }
                     ]
@@ -258,3 +259,4 @@ $this->title = 'Профиль ' . strval($user->users_name);
         ])?>
     </div>
 <?php endif; ?>
+<!--</div>-->

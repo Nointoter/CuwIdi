@@ -217,41 +217,4 @@ class IdeasController extends Controller
         return $this->redirect('ideas');
     }
 
-    /**
-     * Displays DeleteImagesForm
-     *
-     * @return string
-     */
-
-    public function actionDeleteImage($id)
-    {
-        $model = Images::find()->where(['id_ideas_images' => $id])->one();
-        $ideasModel = Ideas::find()->where(['id_ideas' => $model->ideas_id])->one();
-        if (Yii::$app->user->id == $ideasModel->creators_id){
-            $model->delete();
-            return $this->redirect('delete-idea-images?id='.strval($ideasModel->id_ideas));
-        }
-        return $this->redirect('idea?id='.strval($ideasModel->id_ideas));
-    }
-
-    /**
-     * Displays DeleteCommentForm
-     *
-     * @return string
-     */
-
-    public function actionDeleteComment($id, $bool)
-    {
-        $model = Comments::find()->where(['id_comments' => $id])->one();
-        $ideasModel = Ideas::find()->where(['id_ideas' => $model->ideas_id])->one();
-        if (Yii::$app->user->id == $model->users_id){
-            $model->delete();
-            if ($bool == '1') {
-                return $this->redirect('/ideas/idea?id=' . strval($ideasModel->id_ideas));
-            } else {
-                return $this->redirect('/users/profile?id=' . strval(Yii::$app->user->id));
-            }
-        }
-        return $this->redirect('idea?id='.strval($ideasModel->id_ideas));
-    }
 }
