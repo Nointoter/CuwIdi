@@ -88,11 +88,11 @@ class SiteController extends Controller
      * @return string
      */
 
-    public function actionSearchResults()
+    public function actionSearchResults($target)
     {
-        $model = new GlobalSearchForm();
-        $model->load(Yii::$app->request->getParam('term'), '%_');
-        $target = $model->target;
+        //$model = new GlobalSearchForm();
+        //$model->load(Yii::$app->request->getParam('target'), '%_');
+        //$target = $model->target;
         var_dump($target);
         $projects = Projects::find()
             ->joinWith('options')

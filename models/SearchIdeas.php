@@ -3,7 +3,6 @@
 
 namespace app\models;
 
-
 use yii\data\ActiveDataProvider;
 
 class SearchIdeas extends Ideas

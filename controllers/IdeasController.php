@@ -3,10 +3,13 @@
 
 namespace app\controllers;
 
+use app\models\AddCommentForm;
 use app\models\AddTagForm;
+use app\models\Comments;
 use app\models\Ideas;
 use app\models\IdeasForm;
 use app\models\ImagesForm;
+use app\models\SearchComments;
 use app\models\SearchIdeas;
 use app\models\SearchImages;
 use Yii;
@@ -76,6 +79,10 @@ class IdeasController extends Controller
                 ]),
             ];
         };
+
+        $searchModel = new SearchComments();
+        $dataProvider = $searchModel->search(Yii::$app->request->get(), $id);
+
         $ideasModel = new IdeasForm();
         $ideasModel->ideas_name = $model->info_short;
         $ideasModel->info_short = $model->info_short;
@@ -95,6 +102,16 @@ class IdeasController extends Controller
                 $tag->save(false);
             }
         }
+        $commentModel = new AddCommentForm();
+        if ($commentModel->load(Yii::$app->request->post())) {
+            if ($commentModel->comment != '') {
+                $comment = new Comments();
+                $comment->ideas_id = $id;
+                $comment->users_id = Yii::$app->user->id;
+                $comment->comment = $commentModel->comment;
+                $comment->save(false);
+            }
+        }
         if ($image_model->load(Yii::$app->request->post())) {
             $image_model->imageFile = UploadedFile::getInstance($image_model, 'imageFile');
             if ($image_model->imageFile != Null)
@@ -112,8 +129,10 @@ class IdeasController extends Controller
             'model' => $model,
             'ideasModel' => $ideasModel,
             'tagModel' => $tagModel,
+            'commentModel' => $commentModel,
             'carousel' => $carousel,
             'image_model' => $image_model,
+            'dataProvider' => $dataProvider,
         ]);
     }
 

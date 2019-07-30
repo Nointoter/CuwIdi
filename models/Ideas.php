@@ -42,4 +42,9 @@ class Ideas extends  ActiveRecord
         $tags = Tags::find()->where(['ideas_id' => $this->id_ideas])->all();
         return $tags;
     }
+
+    public function getComments()
+    {
+        return ($this->hasMany(Comments::className(), ['ideas_id' => 'id_ideas']));
+    }
 }

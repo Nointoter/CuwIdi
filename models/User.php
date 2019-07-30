@@ -19,6 +19,11 @@ class User extends ActiveRecord implements \yii\web\IdentityInterface
         return ($this->hasMany(Ideas::className(), ['creators_id' => 'id_users']));
     }
 
+    public function getComments()
+    {
+        return ($this->hasMany(Comments::className(), ['users_id' => 'id_users']));
+    }
+
     /**
      * {@inheritdoc}
      */
