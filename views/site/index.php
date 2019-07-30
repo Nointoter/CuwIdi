@@ -8,7 +8,7 @@ $this->title = 'CuwIdi';
 
 <h1>Пять последних идей</h1>
 <div class="row">
-    <?php foreach ($ideas as $idea) :  ?>
+    <?php foreach (array_reverse($ideas) as $idea) :  ?>
     <?php $image = array_shift($idea->getImages()); ?>
         <div class="row" style="border: 2px solid #000000;">
         </div>
