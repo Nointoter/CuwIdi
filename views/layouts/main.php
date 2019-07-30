@@ -99,7 +99,7 @@ AppAsset::register($this);
         <p class="pull-left"><a class="invisible"">____</p>
         <p class="pull-left"><a class="btn-link" href=<?= Url::toRoute("site/about")?>>&copy; Noin <?= date('Y') ?></p>
         <p class="pull-left"><a class="invisible"">____</p>
-        <p class="pull-left"><a class="btn-link" href=<?= Url::toRoute("site/contact")?>> Связь</p>
+        <p class="pull-left"><a class="btn-link" href=<?= Url::toRoute("site/contact")?>> Связь</a></p>
     </div>
 </footer>
 
