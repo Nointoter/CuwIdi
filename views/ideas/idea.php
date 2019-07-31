@@ -48,7 +48,6 @@ $this->title = 'Просмотр идеи '.strval($model->ideas_name);
                 foreach($model->getTags() as $tag) {
                     $array_tags[] = strval($tag->tag).' ';
                 }
-                implode(", ", $array_tags);
             ?>
             <h3><?= implode(", ", $array_tags) ?></h3>
         </div>

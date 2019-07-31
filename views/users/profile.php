@@ -59,7 +59,7 @@ $this->title = 'Профиль ' . strval($user->users_name);
 </div>
 <?php ActiveForm::end(); ?>
 <div class="row" STYLE="background-color: #FFFFFF; color: #000000">
-    <div class="col-lg-4">
+    <div class="col-lg-12">
         <h2>
             Идеи пользователя
         </h2>
@@ -208,10 +208,12 @@ $this->title = 'Профиль ' . strval($user->users_name);
     ])?>
 </div>
 <div class="row" STYLE="background-color: #FFFFFF; color: #000000">
-    <div class="col-lg-4">
+    <div class="col-lg-12">
+        <?php if($commentProvider->totalCount > 0) : ?>
         <h2>
             Комментарии пользователя
         </h2>
+        <?php endif ?>
     </div>
 </div>
 <!--<div class="col-lg-10 col-lg-offset-1">-->
