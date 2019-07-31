@@ -99,7 +99,9 @@ $this->title = 'Просмотр идеи '.strval($model->ideas_name);
 <div class="row" STYLE="background-color: #FFFFFF; color: #000000">
     <div class="form-group">
         <div class="col-lg-3">
+            <?php if (Yii::$app->user->id == $model->creators_id) : ?>
             <h3>Изображения:</h3>
+            <?php endif ?>
         </div>
         <div class="col-lg-2">
             <?php
