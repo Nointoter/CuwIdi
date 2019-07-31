@@ -67,6 +67,7 @@ $this->title = 'Профиль ' . strval($user->users_name);
         <?php endif ?>
     </div>
 </div>
+<?php if ($ideasProvider->totalCount > 0) : ?>
 <div class="view-ideas" STYLE="background-color: #FFFFFF; color: #000000">
     <?= GridView::widget([
         'dataProvider' => $ideasProvider,
@@ -209,6 +210,7 @@ $this->title = 'Профиль ' . strval($user->users_name);
         ],
     ])?>
 </div>
+<?php endif; ?>
 <div class="row" STYLE="background-color: #FFFFFF; color: #000000">
     <div class="col-lg-12">
         <?php if($commentProvider->totalCount > 0) : ?>

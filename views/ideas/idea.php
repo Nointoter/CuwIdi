@@ -117,7 +117,7 @@ $this->title = 'Просмотр идеи '.strval($model->ideas_name);
             </p>
             <?php
             if ((Yii::$app->user->id == $model->creators_id || $user->users_role == 'admin') && $carousel != Null) {
-                echo '<a href="delete-idea-images?id=' . strval($model->id_ideas) . '" class="btn btn-danger" role="button">Удалить <br> изображения</a>';
+                echo '<a href="delete-idea-images?id=' . strval($model->id_ideas) . '" class="btn btn-danger" role="button">Удалить изображения</a>';
             }
             ?>
         </div>
@@ -159,7 +159,7 @@ $this->title = 'Просмотр идеи '.strval($model->ideas_name);
     <div class="form-group">
         <div class="col-lg-3 col-lg-offset-9">
             <?php if (Yii::$app->user->id == $model->creators_id || $user->users_role == 'admin') {
-                echo Html::submitButton('Созранить <br> изменения', ['class' => 'btn btn-primary', 'name' => 'change-idea-info-button']);
+                echo Html::submitButton('Созранить изменения', ['class' => 'btn btn-primary', 'name' => 'change-idea-info-button']);
             }
             ?>
         </div>
@@ -183,7 +183,7 @@ $this->title = 'Просмотр идеи '.strval($model->ideas_name);
     <div class="form-group">
         <div class="col-lg-3 col-lg-offset-9">
             <?php if (!Yii::$app->user->isGuest) {
-                    echo Html::submitButton('Добавить <br> комментарий', ['class' => 'btn btn-primary', 'name' => 'add-ideas-comment-button']);
+                    echo Html::submitButton('Добавить комментарий', ['class' => 'btn btn-primary', 'name' => 'add-ideas-comment-button']);
                     echo '<h3><br></h3>';
                 }
             ?>
