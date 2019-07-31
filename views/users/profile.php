@@ -74,7 +74,7 @@ $this->title = 'Профиль ' . strval($user->users_name);
             [
                 'attribute' => 'id_ideas',
                 'label' => 'Id',
-                'contentOptions'=>['style'=>'width : 200px; background-color: #FFFFFF; color: #000000'],
+                'contentOptions'=>['style'=>'width : 100px; background-color: #FFFFFF; color: #000000'],
                 'filter' => Select2::widget([
                     'name' => 'id_ideas',
                     'model' => $searchModel,
@@ -116,7 +116,7 @@ $this->title = 'Профиль ' . strval($user->users_name);
             ],
             [
                 'label' => 'Тэги',
-                'contentOptions'=>['style'=>'width : 150px; background-color: #FFFFFF; color: #000000'],
+                'contentOptions'=>['style'=>'width : 250px; background-color: #FFFFFF; color: #000000'],
                 'format' => 'raw',
                 'value' => function ($data) {
                     $array_tags = [];
@@ -129,7 +129,7 @@ $this->title = 'Профиль ' . strval($user->users_name);
             [
                 'attribute' => 'creations_day',
                 'label' => 'День',
-                'contentOptions'=>['style'=>'width : 180px; background-color: #FFFFFF; color: #000000'],
+                'contentOptions'=>['style'=>'width : 100px; background-color: #FFFFFF; color: #000000'],
                 'filter' => Select2::widget([
                     'name' => 'creations_day',
                     'model' => $searchModel,
@@ -150,7 +150,7 @@ $this->title = 'Профиль ' . strval($user->users_name);
             [
                 'attribute' => 'creations_month',
                 'label' => 'Месяц',
-                'contentOptions'=>['style'=>'width : 200px; background-color: #FFFFFF; color: #000000'],
+                'contentOptions'=>['style'=>'width : 150px; background-color: #FFFFFF; color: #000000'],
                 'filter' => Select2::widget([
                     'name' => 'creations_month',
                     'model' => $searchModel,
@@ -171,7 +171,7 @@ $this->title = 'Профиль ' . strval($user->users_name);
             [
                 'attribute' => 'creations_year',
                 'label' => 'Год',
-                'contentOptions'=>['style'=>'width : 180px; background-color: #FFFFFF; color: #000000'],
+                'contentOptions'=>['style'=>'width : 130px; background-color: #FFFFFF; color: #000000'],
                 'filter' => Select2::widget([
                     'name' => 'creations_year',
                     'model' => $searchModel,

@@ -116,12 +116,12 @@ $this->title = 'Идеи';
             [
                 'attribute' => 'info_short',
                 'label' => 'Описание',
-                'contentOptions'=>['style'=>'width : 150px; background-color: #FFFFFF; color: #000000'],
+                'contentOptions'=>['style'=>'width : 170px; background-color: #FFFFFF; color: #000000'],
             ],
             [
                 'attribute' => 'creators_id',
                 'label' => 'Создатель',
-                'contentOptions'=>['style'=>'white-space: normal; background-color: #FFFFFF; color: #000000'],
+                'contentOptions'=>['style'=>'white-space: normal; width : 150px; background-color: #FFFFFF; color: #000000'],
                 'value' => function ($data) {
                     return Html::a(Html::encode($data->getAuthorsName()), Url::toRoute(['/users/profile', 'id' => $data->creators_id]));
                 },
@@ -204,7 +204,7 @@ $this->title = 'Идеи';
             ],
             [
                 'class' => 'yii\grid\ActionColumn',
-                'contentOptions' => ['style' => 'background-color: #FFFFFF; color: #000000'],
+                'contentOptions' => ['style' => 'width : 60px; background-color: #FFFFFF; color: #000000'],
                 'buttons' => [
                     'view' => function ($url, $model, $key) {
                         return Html::a('', Url::toRoute(['/ideas/idea' , 'id' => strval($key),]), ['class' => 'glyphicon glyphicon-eye-open']);
