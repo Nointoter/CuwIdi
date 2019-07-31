@@ -10,7 +10,7 @@ class Comments extends ActiveRecord
 {
     public static function tableName()
     {
-        return '{{comments}}';
+        return '{{ideas_comments}}';
     }
 
     public function getIdeas()
