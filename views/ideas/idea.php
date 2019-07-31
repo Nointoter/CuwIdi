@@ -9,7 +9,6 @@ use yii\bootstrap\Carousel;
 use yii\helpers\Url;
 
 $user = User::find()->where(['id_users' => Yii::$app->user->id])->one();
-
 $form = ActiveForm::begin();
 $this->title = 'Просмотр идеи '.strval($model->ideas_name);
 ?>
@@ -34,7 +33,7 @@ $this->title = 'Просмотр идеи '.strval($model->ideas_name);
         <div class="col-lg-3">
             <h3>Создатель идеи:</h3>
         </div>
-        <div class="col-lg-3">
+        <div class="col-lg-9">
             <h3><a href="/users/profile?id=<?= strval($model->creators_id) ?>" class="" role="button"><?php echo $model->getAuthorsName() ?></a></h3>
         </div>
     </div>
