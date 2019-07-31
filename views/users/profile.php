@@ -19,10 +19,10 @@ $this->title = 'Профиль ' . strval($user->users_name);
 ?>
 <div class="row" STYLE="background-color: #FFFFFF; color: #000000">
     <div class="col-lg-5">
-        <h2>Профиль <?= Html::encode($user->users_name) ?></h2>
+        <h3>Профиль <?= Html::encode($user->users_name) ?></h3>
         <?php
         if (Yii::$app->user->id == $user->id_users) {
-            echo '<html><body><a href="re-profile?id=' . strval($user->id_users) . '" class="btn btn-primary" role="button">Редактировать</a></body></html>';
+            echo '<a href="re-profile?id=' . strval($user->id_users) . '" class="btn btn-primary" role="button">Редактировать</a>';
             echo '<h4>Логин : ' . Html::encode($user->username) . '</h4>';
             echo '<h4>' . Html::button('Сменить пароль', ['value' => Url::to('/users/change-password'), 'class' => 'btn btn-success', 'name' => 'change-password-button', 'id' => 'modalButton2']) . '</h4>';
             Modal::begin([
@@ -48,7 +48,7 @@ $this->title = 'Профиль ' . strval($user->users_name);
 <div class="row" STYLE="background-color: #FFFFFF; color: #000000">
     <?php if ($user->users_info != null) : ?>
     <div class="col-lg-3">
-        <h2>Информация : </h2>
+        <h3>Информация:</h3>
     </div>
     <div class="col-lg-9">
         <?php
@@ -60,9 +60,11 @@ $this->title = 'Профиль ' . strval($user->users_name);
 <?php ActiveForm::end(); ?>
 <div class="row" STYLE="background-color: #FFFFFF; color: #000000">
     <div class="col-lg-12">
-        <h2>
-            Идеи пользователя
-        </h2>
+        <?php if($ideasProvider->totalCount > 0) : ?>
+            <h2>
+                Идеи пользователя
+            </h2>
+        <?php endif ?>
     </div>
 </div>
 <div class="view-ideas" STYLE="background-color: #FFFFFF; color: #000000">
@@ -216,7 +218,6 @@ $this->title = 'Профиль ' . strval($user->users_name);
         <?php endif ?>
     </div>
 </div>
-<!--<div class="col-lg-10 col-lg-offset-1">-->
 <?php if ($commentProvider->totalCount > 0) : ?>
     <div class="view-idea-comments">
         <?= GridView::widget([
