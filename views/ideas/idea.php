@@ -123,7 +123,7 @@ $this->title = 'Просмотр идеи '.strval($model->ideas_name);
 <div class="row" STYLE="background-color: #FFFFFF; color: #000000">
     <div class="form-group">
         <div class="col-lg-3">
-            <h3>Описание : </h3>
+            <h3>Описание:</h3>
         </div>
         <div class="col-lg-9">
             <?php
@@ -139,11 +139,7 @@ $this->title = 'Просмотр идеи '.strval($model->ideas_name);
 <div class="row" STYLE="background-color: #FFFFFF; color: #000000">
     <div class="form-group">
         <div class="col-lg-3">
-            <h3>Информация : <br><br><br> </h3>
-            <?php if (Yii::$app->user->id == $model->creators_id) {
-                echo Html::submitButton('Созранить <br> изменения', ['class' => 'btn btn-primary', 'name' => 'change-idea-info-button']);
-            }
-            ?>
+            <h3>Информация:</h3>
         </div>
         <div class="col-lg-9">
             <?php
@@ -158,8 +154,11 @@ $this->title = 'Просмотр идеи '.strval($model->ideas_name);
 </div>
 <div class="row" STYLE="background-color: #FFFFFF; color: #000000">
     <div class="form-group">
-        <div class="col-lg-3 col-lg-offset-6">
-
+        <div class="col-lg-3 col-lg-offset-9">
+            <?php if (Yii::$app->user->id == $model->creators_id) {
+                echo Html::submitButton('Созранить <br> изменения', ['class' => 'btn btn-primary', 'name' => 'change-idea-info-button']);
+            }
+            ?>
         </div>
     </div>
 </div>
