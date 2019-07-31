@@ -31,6 +31,7 @@ $this->params['breadcrumbs'][] = $this->title;*/
 
             <div class="form-group">
                 <?= Html::submitButton('Добавить', ['class' => 'btn btn-primary', 'name' => 'add-project-button']) ?>
+                <?= Html::resetButton('Отмена', ['class' => 'btn btn-warning', 'data-dismiss' => 'modal', 'name' => 're-pass-cancel-button']) ?>
             </div>
 
             <?php ActiveForm::end(); ?>
