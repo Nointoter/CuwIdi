@@ -11,6 +11,7 @@ use yii\grid\GridView;
 use yii\helpers\Html;
 use yii\helpers\Url;
 use yii\widgets\ActiveForm;
+use app\models\User;
 
 $this->title = 'Идеи';
 ?>
@@ -213,10 +214,15 @@ $this->title = 'Идеи';
                         return Html::a('',  Url::toRoute(['/site/re-project', 'id' => strval($key), 'bool' => 'false']), ['class' => '']);
                     },
                     'delete' => function ($url, $model, $key){
-                        if (Yii::$app->user->id != $model->creators_id){
-                            return Html::a('', Url::toRoute(['/ideas/delete-idea', 'id' => strval($key),]), ['class' => '']);
-                        } else {
+                        $user = User::find()->where(['id_users' => Yii::$app->user->id])->one();
+                        if ($user->users_role == 'admin'){
                             return Html::a('', Url::toRoute(['/ideas/delete-idea', 'id' => strval($key),]), ['class' => 'glyphicon glyphicon-trash']);
+                        } else {
+                            if (Yii::$app->user->id != $model->creators_id) {
+                                return Html::a('', Url::toRoute(['/ideas/delete-idea', 'id' => strval($key),]), ['class' => '']);
+                            } else {
+                                return Html::a('', Url::toRoute(['/ideas/delete-idea', 'id' => strval($key),]), ['class' => 'glyphicon glyphicon-trash']);
+                            }
                         }
                     }
                 ]
