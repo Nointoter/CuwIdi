@@ -146,7 +146,7 @@ $this->title = 'Просмотр идеи '.strval($model->ideas_name);
         <div class="col-lg-9">
             <?php
             if (Yii::$app->user->id != $model->creators_id) {
-                echo '<div style="border: 1px solid #c0c0c0;"><h3>' . Html::encode($model->info_long) . '</h3></div>';
+                echo '<h3><div style="border: 1px solid #c0c0c0;">' . Html::encode($model->info_long) .'</div></h3>';
             } else {
                 echo '<h3>'.$form->field($ideasModel, 'info_long')->textarea(['autofocus' => true, 'rows' => 10, 'cols' => 65])->label(false).'</h3>';
             }
