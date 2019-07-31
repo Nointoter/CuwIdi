@@ -60,7 +60,7 @@ $this->title = 'Просмотр идеи '.strval($model->ideas_name);
             <?php
             if (Yii::$app->user->id == $model->creators_id) {
                 echo '<h1>' . $form->field($tagModel, 'tag')->textarea(['autofocus' => true, 'cols' => 1, 'rows' => 1])->label(false) . '</h1>'.
-                    Html::submitButton('Добавить <br> тэг', ['class' => 'btn btn-primary', 'name' => 'add-idea-tag-button']);
+                    Html::submitButton('Добавить Тэг', ['class' => 'btn btn-primary', 'name' => 'add-idea-tag-button']);
             }
             ?>
         </div>
