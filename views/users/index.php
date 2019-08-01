@@ -102,26 +102,47 @@ $this->title = 'Пользователи';
                 'contentOptions' => ['style' => 'width : 60px; background-color: #FFFFFF; color: #000000'],
                 'buttons' => [
                     'view' => function ($url, $model, $key) {
+                        return Html::a('', Url::toRoute(['/users/profile' , 'id' => strval($key),]), ['class' => '']);
+                    },
+                    'update' => function ($url, $model, $key) {
+                        return Html::a('',  Url::toRoute(['/site/re-project', 'id' => strval($key), 'bool' => 'false']), ['class' => '']);
+                    },
+                    'delete' => function ($url, $model, $key){
+                        $user = User::find()->where(['id_users' => Yii::$app->user->id])->one();
+
+                        if ($user->users_role == 'admin' && $model->users_role != 'admin'){
+                            return Html::a('', Url::toRoute(['/users/delete', 'id' => strval($key),]), ['class' => 'glyphicon glyphicon-trash', 'name' => 'delete-user-button', 'id' => 'modalButton3']);
+                        } else {
+                            return Html::a('', Url::toRoute(['/users/delete', 'id' => strval($key),]), ['class' => '']);
+                        }
+                    }
+                ],
+                'visible' => ((User::find()->where(['id_users' => Yii::$app->user->id])->one())->users_role == 'admin'),
+            ],
+            [
+                'class' => 'yii\grid\ActionColumn',
+                'contentOptions' => ['style' => 'width : 60px; background-color: #FFFFFF; color: #000000'],
+                'buttons' => [
+                    'view' => function ($url, $model, $key) {
                         return Html::a('', Url::toRoute(['/users/profile' , 'id' => strval($key),]), ['class' => 'glyphicon glyphicon-eye-open']);
                     },
                     'update' => function ($url, $model, $key) {
                         return Html::a('',  Url::toRoute(['/site/re-project', 'id' => strval($key), 'bool' => 'false']), ['class' => '']);
                     },
                     'delete' => function ($url, $model, $key){
-                        return Html::a('', Url::toRoute(['/ideas/delete-idea', 'id' => strval($key),]), ['class' => '']);
-                        /*$user = User::find()->where(['id_users' => Yii::$app->user->id])->one();
-                        if ($user->users_role == 'admin'){
-                            return Html::a('', Url::toRoute(['/ideas/delete-idea', 'id' => strval($key),]), ['class' => 'glyphicon glyphicon-trash']);
-                        } else {
-                            if (Yii::$app->user->id != $model->creators_id) {
-                                return Html::a('', Url::toRoute(['/ideas/delete-idea', 'id' => strval($key),]), ['class' => '']);
-                            } else {
-                                return Html::a('', Url::toRoute(['/ideas/delete-idea', 'id' => strval($key),]), ['class' => 'glyphicon glyphicon-trash']);
-                            }
-                        }*/
-                    }
+                                return Html::a('', Url::toRoute(['/users/delete-user', 'id' => strval($key),]), ['class' => '']);
+                    },
                 ]
             ],
         ],
     ])?>
 </div>
+<?php
+    Modal::begin([
+        'header' => '<h4>Удалить пользователя</h4>',
+        'id' => 'modal3',
+        'size' => 'modal-lg',
+    ]);
+    echo "<div id='modalContent3'></div>";
+    Modal::end();
+?>

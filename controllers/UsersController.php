@@ -5,6 +5,7 @@ namespace app\controllers;
 
 
 use app\models\ChangePasswordForm;
+use app\models\IdeasForm;
 use app\models\ImagesForm;
 use app\models\LoginForm;
 use app\models\SearchComments;
@@ -188,6 +189,29 @@ class UsersController extends Controller
             'commentProvider' => $commentProvider,
             'commentSearchModel' => $commentSearchModel,
         ]);
+    }
+
+    /**
+     * Displays delete
+     *
+     * @return string
+     */
+
+    public function actionDelete($id)
+    {
+        $bool = (Ideas::find()->where(['creators_id' => $id])->all() != []);
+        if (isset($_POST['deleteUser']))
+        {
+            $user = User::find()->where(['id_users' => $id])->one();
+            $user->delete();
+            return $this->redirect('/users');
+        }
+        else
+        {
+            return $this->renderAjax('delete',[
+                'bool' => $bool,
+            ]);
+        }
     }
 
     /**

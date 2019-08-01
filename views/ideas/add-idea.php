@@ -19,7 +19,7 @@ $this->params['breadcrumbs'][] = $this->title;*/
     </p>
 
     <div class="row">
-        <div class="col-xs-12">
+        <div class="col-lg-12">
 
             <?php $form = ActiveForm::begin(); ?>
 
@@ -38,4 +38,4 @@ $this->params['breadcrumbs'][] = $this->title;*/
 
         </div>
     </div>
-</div
+</div>
