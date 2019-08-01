@@ -94,6 +94,22 @@ $this->title = 'Пользователи';
             [
                 'attribute' => 'users_role',
                 'label' => 'Роль',
+                'filter' => Select2::widget([
+                    'name' => 'users_role',
+                    'model' => $searchModel,
+                    'attribute' => 'users_role',
+                    'data' => $users_role,
+                    'theme' => Select2::THEME_BOOTSTRAP,
+                    'value' => $searchModel->users_role,
+                    'hideSearch' => true,
+                    'options' => [
+                        'placeholder' => ''
+                    ],
+                    'pluginOptions' => [
+                        'selectOnClose' => true,
+                        'allowClear' => true,
+                    ]
+                ]),
                 'contentOptions' => ['style'=>'width : 170px; background-color: #FFFFFF; color: #000000'],
                 'visible' => ((User::find()->where(['id_users' => Yii::$app->user->id])->one())->users_role == 'admin'),
             ],
@@ -111,7 +127,8 @@ $this->title = 'Пользователи';
                         $user = User::find()->where(['id_users' => Yii::$app->user->id])->one();
 
                         if ($user->users_role == 'admin' && $model->users_role != 'admin'){
-                            return Html::a('', Url::toRoute(['/users/delete', 'id' => strval($key),]), ['class' => 'glyphicon glyphicon-trash', 'name' => 'delete-user-button', 'id' => 'modalButton3']);
+                            //return Html::a('', Url::toRoute(['/users/delete', 'id' => strval($key),]), ['class' => 'glyphicon glyphicon-trash', 'name' => 'delete-user-button', 'id' => 'modalButton3']);
+                            return Html::button('',['value' => Url::toRoute(['/users/delete', 'id' => strval($key),]) ,'class' => 'glyphicon glyphicon-trash', 'name' => 'delete-user-button', 'id' => 'modalButton3']);
                         } else {
                             return Html::a('', Url::toRoute(['/users/delete', 'id' => strval($key),]), ['class' => '']);
                         }
