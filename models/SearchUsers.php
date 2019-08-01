@@ -20,6 +20,7 @@ class SearchUsers extends User
             [['users_info'], 'string'],
             [['users_image'], 'string'],
             [['users_role'], 'string'],
+            [['usersSearch'], 'string'],
         ];
     }
 

@@ -21,7 +21,7 @@ $this->title = 'Пользователи';
 
             <?php $form = ActiveForm::begin(['action' => '/users', 'method' => 'get']); ?>
 
-            <?= $form->field($model, 'usersSearch')->label('Поиск Идей') ?>
+            <?= $form->field($model, 'usersSearch')->label('Поиск пользователей') ?>
 
             <div class="form-group">
                 <?= Html::submitButton('Поиск', ['class' => 'btn btn-primary', 'name' => 'search-users-button']) ?>
@@ -60,7 +60,6 @@ $this->title = 'Пользователи';
                 ]),
             ],
             [
-                'attribute' => 'users_name',
                 'label' => 'Имя',
                 'contentOptions'=>['style'=>'white-space: normal; width : 150px; background-color: #FFFFFF; color: #000000'],
                 'value' => function ($data) {
@@ -69,21 +68,34 @@ $this->title = 'Пользователи';
                 'format' => 'raw',
             ],
             [
-                'attribute' => 'users_info',
                 'label' => 'Информация',
-                'contentOptions'=>['style'=>'width : 170px; background-color: #FFFFFF; color: #000000'],
+                'contentOptions'=>['style'=>'width : 250px; background-color: #FFFFFF; color: #000000'],
+                'value' => function ($model) {
+                    if ($model->users_info != null)
+                        return $model->users_info;
+                    else
+                        return '';
+                },
             ],
             [
                 'label' => 'Изображение',
                 'format' => 'html',
+                'contentOptions' => ['style'=>'width : 170px; background-color: #FFFFFF; color: #000000'],
                 'value' => function ($model) {
                     if ($model->users_image != null)
-                        return Html::img($model->getImageUrl(),
-                            ['width' => '80px',
-                                'height' => '80px']);
+                        return Html::img($model->getImageUrl(), [
+                                    'width' => '140px',
+                                    'height' => '140px'
+                        ]);
                     else
                         return '';
                 },
+            ],
+            [
+                'attribute' => 'users_role',
+                'label' => 'Роль',
+                'contentOptions' => ['style'=>'width : 170px; background-color: #FFFFFF; color: #000000'],
+                'visible' => ((User::find()->where(['id_users' => Yii::$app->user->id])->one())->users_role == 'admin'),
             ],
             [
                 'class' => 'yii\grid\ActionColumn',
