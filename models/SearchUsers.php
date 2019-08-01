@@ -8,6 +8,8 @@ use yii\data\ActiveDataProvider;
 
 class SearchUsers extends User
 {
+    public $usersSearch;
+
     public function rules()
     {
         return[
@@ -33,14 +35,17 @@ class SearchUsers extends User
         if (!($this->load($params) && $this->validate())) {
             return $dataProvider;
         }
-
+        $query->orFilterWhere(['id_users' => $this->usersSearch])
+            ->orFilterWhere(['users_name' => $this->usersSearch])
+            ->orFilterWhere(['username' => $this->usersSearch])
+            ->orFilterWhere(['password' => $this->usersSearch])
+            ->orFilterWhere(['users_role' => $this->usersSearch]);
         // изменяем запрос добавляя в его фильтрацию
-        $query->andFilterWhere(['id_users' => $this->id_users])->
-            andFilterWhere(['users_name' => $this->users_name])->
-            andFilterWhere(['username' => $this->username])->
-            andFilterWhere(['password' => $this->password])->
-            andFilterWhere(['users_role' => $this->users_role]);
-
+        $query->andFilterWhere(['id_users' => $this->id_users])
+            ->andFilterWhere(['users_name' => $this->users_name])
+            ->andFilterWhere(['username' => $this->username])
+            ->andFilterWhere(['password' => $this->password])
+            ->andFilterWhere(['users_role' => $this->users_role]);
 
         return $dataProvider;
     }

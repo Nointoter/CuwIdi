@@ -3,6 +3,7 @@
 namespace app\models;
 
 use yii\db\ActiveRecord;
+use yii\helpers\Url;
 
 class User extends ActiveRecord implements \yii\web\IdentityInterface
 {
@@ -18,6 +19,12 @@ class User extends ActiveRecord implements \yii\web\IdentityInterface
     {
         return ($this->hasMany(Ideas::className(), ['creators_id' => 'id_users']));
     }
+
+    public function getImageUrl()
+    {
+        return Url::to('@web/images/' . $this->users_image, true);
+    }
+
 
     public function getComments()
     {

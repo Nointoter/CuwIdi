@@ -54,24 +54,25 @@ AppAsset::register($this);
             'style' => 'background-color: #000000; color: #FFFFFF',
         ],
         'items' => [
-            Yii::$app->user->isGuest ? (
-            ['label' => 'Зарегистрироваться', 'url' => ['/users/sing-up']]
-            ) : (
-            ['label' => 'Профиль', 'url' => ['/users/profile?id='.strval(Yii::$app->user->id)]]
-            ),
-            Yii::$app->user->isGuest ? (
-            ['label' => 'Войти', 'url' => ['/users/login']]
-            ) : (
-                '<li>'
-                . Html::beginForm(['/users/logout'], 'post')
-                . Html::submitButton(
-                    'Выйти (' . Yii::$app->user->identity->username . ')',
-                    ['class' => 'btn btn-link logout']
-                )
-                . Html::endForm()
-                . '</li>'
-            ),
-        ],
+                ['label' => 'Пользователи', 'url' => ['/users']],
+                Yii::$app->user->isGuest ? (
+                ['label' => 'Зарегистрироваться', 'url' => ['/users/sing-up']]
+                ) : (
+                ['label' => 'Профиль', 'url' => ['/users/profile?id='.strval(Yii::$app->user->id)]]
+                ),
+                Yii::$app->user->isGuest ? (
+                ['label' => 'Войти', 'url' => ['/users/login']]
+                ) : (
+                    '<li>'
+                    . Html::beginForm(['/users/logout'], 'post')
+                    . Html::submitButton(
+                        'Выйти (' . Yii::$app->user->identity->username . ')',
+                        ['class' => 'btn btn-link logout']
+                    )
+                    . Html::endForm()
+                    . '</li>'
+                ),
+            ],
     ]);
     $term = 'asd';
     ?>

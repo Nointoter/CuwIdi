@@ -8,6 +8,7 @@ use app\models\ChangePasswordForm;
 use app\models\ImagesForm;
 use app\models\LoginForm;
 use app\models\SearchComments;
+use app\models\SearchUsers;
 use app\models\SingUpForm;
 use app\models\User;
 use Yii;
@@ -66,6 +67,34 @@ class UsersController extends Controller
                 'fixedVerifyCode' => YII_ENV_TEST ? 'testme' : null,
             ],
         ];
+    }
+
+    /**
+     * Displays index
+     *
+     * @return string
+     */
+
+    public function actionIndex()
+    {
+        $model = User::find()->all();
+        $searchModel = new SearchUsers();
+        $dataProvider = $searchModel->search(Yii::$app->request->get(), NULL);
+        $id_users = ArrayHelper::map($model,'id_users', 'id_users');
+        $users_name = ArrayHelper::map($model,'users_name', 'users_name');
+        $username = ArrayHelper::map($model,'username', 'username');
+        $password = ArrayHelper::map($model,'password', 'password');
+        $model = new SearchUsers();
+        $model->load(Yii::$app->request->get());
+        return $this->render('index',[
+            'model' => $model,
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+            'id_users' => $id_users,
+            'users_name' => $users_name,
+            'username' => $username,
+            'password' => $password,
+        ]);
     }
 
     /**
