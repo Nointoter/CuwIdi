@@ -199,21 +199,13 @@ class UsersController extends Controller
 
     public function actionDelete($id)
     {
-        $bool = (Ideas::find()->where(['creators_id' => $id])->all() != []);
-        if (isset($_POST['deleteUser']))
-        {
+        if (User::findIdentity(Yii::$app->user->id)->users_role == 'admin') {
             $user = User::find()->where(['id_users' => $id])->one();
             $user->delete();
-            return $this->redirect('/users');
         }
-        else
-        {
-            return $this->renderAjax('delete',[
-                'bool' => $bool,
-            ]);
-        }
+        return $this->redirect('/users');
     }
-
+    
     /**
      * Displays change-password form.
      *

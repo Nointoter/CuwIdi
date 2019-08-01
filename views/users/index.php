@@ -4,6 +4,7 @@
 /* @var $form \yii\bootstrap\ActiveForm */
 /* @var $model app\models\Ideas */
 
+use app\models\Ideas;
 use kartik\select2\Select2;
 use yii\bootstrap\Modal;
 use yii\grid\GridView;
@@ -124,13 +125,20 @@ $this->title = 'Пользователи';
                         return Html::a('',  Url::toRoute(['/site/re-project', 'id' => strval($key), 'bool' => 'false']), ['class' => '']);
                     },
                     'delete' => function ($url, $model, $key){
-                        $user = User::find()->where(['id_users' => Yii::$app->user->id])->one();
-
-                        if ($user->users_role == 'admin' && $model->users_role != 'admin'){
-                            //return Html::a('', Url::toRoute(['/users/delete', 'id' => strval($key),]), ['class' => 'glyphicon glyphicon-trash', 'name' => 'delete-user-button', 'id' => 'modalButton3']);
-                            return Html::button('',['value' => Url::toRoute(['/users/delete', 'id' => strval($key),]) ,'class' => 'glyphicon glyphicon-trash', 'name' => 'delete-user-button', 'id' => 'modalButton3']);
+                        //$user = User::find()->where(['id_users' => Yii::$app->user->id])->one();
+                        $ideas = Ideas::find()->where(['creators_id' => $key])->all();
+                        if ($ideas) {
+                            return Html::a('', '', [
+                                'class' => 'glyphicon glyphicon-trash',
+                                'name' => 'delete-user-button',
+                                'id' => 'modalButton3']);
                         } else {
-                            return Html::a('', Url::toRoute(['/users/delete', 'id' => strval($key),]), ['class' => '']);
+                            return Html::a('', Url::toRoute(['/users/delete', 'id' => strval($key),]), [
+                                'data-confirm' => 'Are you sure you want to delete?',
+                                'data-method' => 'post',
+                                'data-pjax' => '0',
+                                'class' => 'glyphicon glyphicon-trash',
+                                'name' => 'delete-user-button',]);
                         }
                     }
                 ],
@@ -156,10 +164,10 @@ $this->title = 'Пользователи';
 </div>
 <?php
     Modal::begin([
-        'header' => '<h4>Удалить пользователя</h4>',
+        'header' => '<h4>Невозможно удалить пользователя</h4>',
         'id' => 'modal3',
         'size' => 'modal-lg',
     ]);
-    echo "<div id='modalContent3'></div>";
+    echo "<div id='modalContent3'>У пользователя остались идеи</div>";
     Modal::end();
 ?>
