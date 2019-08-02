@@ -6,6 +6,7 @@
 /* @var $image  */
 /* @var $user app\models\User */
 
+use app\models\Ideas;
 use app\models\User;
 use kartik\select2\Select2;
 use yii\bootstrap\ActiveForm;
@@ -50,7 +51,24 @@ $this->title = 'Профиль ' . strval($user->users_name);
 </div>
 <div class="row">
     <div class="col-lg-4">
-        <p></p>
+        <?php
+            $ideas = Ideas::find()->where(['creators_id' => $user->id_users])->all();
+            if ($ideas) {
+                echo Html::button('Удалить профиль', [
+                        //'value' => Url::to('/ideas/add-idea?bool='.strval(false)),
+                        'class' => 'btn btn-warning',
+                        'name' => 'add-idea-button',
+                        'id' => 'modalButton4']);
+            } else {
+                echo Html::button('Удалить профиль', [
+                        'value' => Url::toRoute(['/users/delete', 'id' => strval($user->id_users),]),
+                        'data-confirm' => 'Are you sure you want to delete?',
+                        'data-method' => 'post',
+                        'data-pjax' => '0',
+                        'class' => 'btn btn-warning',
+                        'name' => 'delete-user-button',]);
+            }
+        ?>
     </div>
     <div class="col-lg-4">
         <?php
@@ -63,5 +81,14 @@ $this->title = 'Профиль ' . strval($user->users_name);
         ?>
     </div>
 </div>
+<?php
+Modal::begin([
+    'header' => '<h4>Невозможно удалить пользователя</h4>',
+    'id' => 'modal4',
+    'size' => 'modal-lg',
+]);
+echo "<div id='modalContent4'>У пользователя остались идеи</div>";
+Modal::end();
+?>
 <?php ActiveForm::end(); ?>
 

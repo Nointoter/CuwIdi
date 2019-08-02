@@ -17,4 +17,10 @@ $(function(){
             .find('#modalContent3')
             .load($(this).attr('value'));
     });
+
+    $('#modalButton4').click(function(){
+        $('#modal4').modal('show')
+            .find('#modalContent4')
+            .load($(this).attr('value'));
+    });
 });

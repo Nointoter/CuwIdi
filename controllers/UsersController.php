@@ -205,7 +205,7 @@ class UsersController extends Controller
         }
         return $this->redirect('/users');
     }
-    
+
     /**
      * Displays change-password form.
      *

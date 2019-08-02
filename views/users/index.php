@@ -119,7 +119,7 @@ $this->title = 'Пользователи';
                 'contentOptions' => ['style' => 'width : 60px; background-color: #FFFFFF; color: #000000'],
                 'buttons' => [
                     'view' => function ($url, $model, $key) {
-                        return Html::a('', Url::toRoute(['/users/profile' , 'id' => strval($key),]), ['class' => '']);
+                        return Html::a('', Url::toRoute(['/users/profile' , 'id' => strval($key),]), ['class' => 'glyphicon glyphicon-eye-open']);
                     },
                     'update' => function ($url, $model, $key) {
                         return Html::a('',  Url::toRoute(['/site/re-project', 'id' => strval($key), 'bool' => 'false']), ['class' => '']);
@@ -143,21 +143,6 @@ $this->title = 'Пользователи';
                     }
                 ],
                 'visible' => ((User::find()->where(['id_users' => Yii::$app->user->id])->one())->users_role == 'admin'),
-            ],
-            [
-                'class' => 'yii\grid\ActionColumn',
-                'contentOptions' => ['style' => 'width : 60px; background-color: #FFFFFF; color: #000000'],
-                'buttons' => [
-                    'view' => function ($url, $model, $key) {
-                        return Html::a('', Url::toRoute(['/users/profile' , 'id' => strval($key),]), ['class' => 'glyphicon glyphicon-eye-open']);
-                    },
-                    'update' => function ($url, $model, $key) {
-                        return Html::a('',  Url::toRoute(['/site/re-project', 'id' => strval($key), 'bool' => 'false']), ['class' => '']);
-                    },
-                    'delete' => function ($url, $model, $key){
-                                return Html::a('', Url::toRoute(['/users/delete-user', 'id' => strval($key),]), ['class' => '']);
-                    },
-                ]
             ],
         ],
     ])?>
