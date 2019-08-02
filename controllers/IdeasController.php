@@ -32,27 +32,17 @@ class IdeasController extends Controller
 
     public function actionIndex()
     {
-        $model = Ideas::find()->all();
+        $allIdeas = Ideas::find()->all();
         $searchModel = new SearchIdeas();
         $dataProvider = $searchModel->search(Yii::$app->request->get(), NULL);
-        $id_ideas = ArrayHelper::map($model,'id_ideas', 'id_ideas');
-        $ideas_name = ArrayHelper::map($model,'ideas_name', 'ideas_name');
-        $info_short = ArrayHelper::map($model,'info_short', 'info_short');
-        $creations_day = ArrayHelper::map($model,'creations_day', 'creations_day');
-        $creations_month = ArrayHelper::map($model,'creations_month', 'creations_month');
-        $creations_year = ArrayHelper::map($model,'creations_year', 'creations_year');
+
         $model = new SearchIdeas();
         $model->load(Yii::$app->request->get());
         return $this->render('index',[
             'model' => $model,
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
-            'id_ideas' => $id_ideas,
-            'ideas_name' => $ideas_name,
-            'info_short' => $info_short,
-            'creations_day' => $creations_day,
-            'creations_month' => $creations_month,
-            'creations_year' => $creations_year,
+            'allIdeas' => $allIdeas,
         ]);
     }
 

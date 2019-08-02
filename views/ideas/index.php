@@ -1,10 +1,4 @@
 <?php
-
-/* @var $this yii\web\View */
-/* @var $form yii\bootstrap\ActiveForm */
-/* @var $model app\models\Ideas */
-
-
 use kartik\select2\Select2;
 use yii\bootstrap\Modal;
 use yii\grid\GridView;
@@ -12,6 +6,14 @@ use yii\helpers\Html;
 use yii\helpers\Url;
 use yii\widgets\ActiveForm;
 use app\models\User;
+use app\models\Ideas;
+use yii\helpers\ArrayHelper;
+
+/* @var $this yii\web\View */
+/* @var $form yii\bootstrap\ActiveForm */
+/* @var $model app\models\Ideas */
+/* @var Ideas[] $allIdeas */
+/* @var Ideas[] $dataProvider */
 
 $this->title = 'Идеи';
 ?>
@@ -80,7 +82,7 @@ $this->title = 'Идеи';
                     'name' => 'id_ideas',
                     'model' => $searchModel,
                     'attribute' => 'id_ideas',
-                    'data' => $id_ideas,
+                    'data' => ArrayHelper ::map($allIdeas,'id_ideas', 'id_ideas'),
                     'theme' => Select2::THEME_BOOTSTRAP,
                     'value' => $searchModel->id_ideas,
                     'hideSearch' => true,
@@ -101,7 +103,7 @@ $this->title = 'Идеи';
                     'name' => 'ideas_name',
                     'model' => $searchModel,
                     'attribute' => 'ideas_name',
-                    'data' => $ideas_name,
+                    'data' => ArrayHelper ::map($allIdeas,'ideas_name', 'ideas_name'),
                     'theme' => Select2::THEME_BOOTSTRAP,
                     'value' => $searchModel->ideas_name,
                     'hideSearch' => true,
@@ -148,7 +150,7 @@ $this->title = 'Идеи';
                     'name' => 'creations_day',
                     'model' => $searchModel,
                     'attribute' => 'creations_day',
-                    'data' => $creations_day,
+                    'data' => ArrayHelper ::map($allIdeas,'creations_day', 'creations_day'),
                     'theme' => Select2::THEME_BOOTSTRAP,
                     'value' => $searchModel->creations_day,
                     'hideSearch' => true,
@@ -169,7 +171,7 @@ $this->title = 'Идеи';
                     'name' => 'creations_month',
                     'model' => $searchModel,
                     'attribute' => 'creations_month',
-                    'data' => $creations_month,
+                    'data' => ArrayHelper ::map($allIdeas,'creations_month', 'creations_month'),
                     'theme' => Select2::THEME_BOOTSTRAP,
                     'value' => $searchModel->creations_month,
                     'hideSearch' => true,
@@ -190,7 +192,7 @@ $this->title = 'Идеи';
                     'name' => 'creations_year',
                     'model' => $searchModel,
                     'attribute' => 'creations_year',
-                    'data' => $creations_year,
+                    'data' => ArrayHelper ::map($allIdeas,'creations_year', 'creations_year'),
                     'theme' => Select2::THEME_BOOTSTRAP,
                     'value' => $searchModel->creations_year,
                     'hideSearch' => true,
