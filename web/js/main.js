@@ -19,6 +19,7 @@ $(function(){
     });
 
     $('#modalButton4').click(function(){
+        event.preventDefault();
         $('#modal4').modal('show')
             .find('#modalContent4')
             .load($(this).attr('value'));

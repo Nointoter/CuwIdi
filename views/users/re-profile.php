@@ -58,7 +58,8 @@ $this->title = 'Профиль ' . strval($user->users_name);
                         //'value' => Url::to('/ideas/add-idea?bool='.strval(false)),
                         'class' => 'btn btn-warning',
                         'name' => 'add-idea-button',
-                        'id' => 'modalButton4']);
+                        'id' => 'modalButton4'
+                    ]);
             } else {
                 echo Html::button('Удалить профиль', [
                         'value' => Url::toRoute(['/users/delete', 'id' => strval($user->id_users),]),
@@ -66,7 +67,8 @@ $this->title = 'Профиль ' . strval($user->users_name);
                         'data-method' => 'post',
                         'data-pjax' => '0',
                         'class' => 'btn btn-warning',
-                        'name' => 'delete-user-button',]);
+                        'name' => 'delete-user-button',
+                    ]);
             }
         ?>
     </div>
