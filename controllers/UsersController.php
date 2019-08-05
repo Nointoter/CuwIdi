@@ -196,7 +196,7 @@ class UsersController extends Controller
 
     public function actionDelete($id)
     {
-        if(!(User::findIdentity(Yii::$app->user->id))->status) {
+        if((User::findIdentity(Yii::$app->user->id))->status) {
             return $this->redirect('profile?id=' . strval($id));
         }
         $ideas = Ideas::find()->where(['creators_id' => $id])->all();
@@ -215,7 +215,7 @@ class UsersController extends Controller
 
     public function actionFreeze($id)
     {
-        if(!(User::findIdentity(Yii::$app->user->id))->status) {
+        if((User::findIdentity(Yii::$app->user->id))->status) {
             return $this->redirect('profile?id=' . strval($id));
         }
         if ((User::findIdentity(Yii::$app->user->id)->users_role == 'admin') || (Yii::$app->user->id == $id)) {
@@ -251,7 +251,7 @@ class UsersController extends Controller
      */
     public function actionChangePassword()
     {
-        if(!(User::findIdentity(Yii::$app->user->id))->status) {
+        if((User::findIdentity(Yii::$app->user->id))->status) {
             return $this->redirect('profile?id=' . strval(Yii::$app->user->id));
         }
         $model = new ChangePasswordForm();

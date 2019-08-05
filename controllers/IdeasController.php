@@ -137,7 +137,7 @@ class IdeasController extends Controller
 
     public function actionAddIdea($bool)
     {
-        if(!(User::findIdentity(Yii::$app->user->id))->status) {
+        if((User::findIdentity(Yii::$app->user->id))->status) {
             return $this->redirect('/site');
         }
         $image_model = new IdeasForm();
@@ -170,7 +170,7 @@ class IdeasController extends Controller
 
     public function actionDeleteIdea($id, $bool)
     {
-        if(!(User::findIdentity(Yii::$app->user->id))->status) {
+        if((User::findIdentity(Yii::$app->user->id))->status) {
             return $this->redirect('/site');
         }
         $model = Ideas::find()->where(['id_ideas' => $id])->one();
@@ -196,7 +196,7 @@ class IdeasController extends Controller
 
     public function actionDeleteIdeaImages($id)
     {
-        if(!(User::findIdentity(Yii::$app->user->id))->status) {
+        if((User::findIdentity(Yii::$app->user->id))->status) {
             return $this->redirect('/site');
         }
         $ideasModel = Ideas::find()->where(['id_ideas' => $id])->one();
