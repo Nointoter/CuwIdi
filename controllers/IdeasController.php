@@ -32,12 +32,11 @@ class IdeasController extends Controller
 
     public function actionIndex()
     {
-        $allIdeas = Ideas::find()->all();
-        $searchModel = new SearchIdeas();
-        $dataProvider = $searchModel->search(Yii::$app->request->get(), NULL);
-
         $model = new SearchIdeas();
         $model->load(Yii::$app->request->get());
+        $allIdeas = new Ideas();
+        $searchModel = new SearchIdeas();
+        $dataProvider = $searchModel->search(Yii::$app->request->get(), NULL, Null);
         return $this->render('index',[
             'model' => $model,
             'searchModel' => $searchModel,
@@ -71,7 +70,7 @@ class IdeasController extends Controller
         };
 
         $searchModel = new SearchComments();
-        $dataProvider = $searchModel->search(Yii::$app->request->get(), $id, true);
+        $dataProvider = $searchModel->search(Yii::$app->request->get(), $id, true, Null);
 
         $ideasModel = new IdeasForm();
         $ideasModel->ideas_name = $model->info_short;

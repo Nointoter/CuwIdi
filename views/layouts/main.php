@@ -77,9 +77,9 @@ AppAsset::register($this);
     $term = 'asd';
     ?>
     <form class="navbar-form navbar-right" name = "target" action="/site/search-results" method="get" id="main-global-search-form">
-        <div class="form-group has-feedback search">
+        <div class="form-group has-feedback search field-globalsearchform-target">
             <p>
-                <input type="string" class="form-control" placeholder="Search" >
+                <input type="target" id ="globalsearchform-target" class="form-control" name = "GlobalSearchForm[target]" placeholder="Найти" >
             </p>
             <i class="glyphicon glyphicon-search form-control-feedback"></i>
         </div>

@@ -80,7 +80,7 @@ class UsersController extends Controller
     {
         $model = User::find()->all();
         $searchModel = new SearchUsers();
-        $dataProvider = $searchModel->search(Yii::$app->request->get(), NULL);
+        $dataProvider = $searchModel->search(Yii::$app->request->get(), NULL, Null);
         $id_users = ArrayHelper::map($model,'id_users', 'id_users');
         $users_name = ArrayHelper::map($model,'users_name', 'users_name');
         $username = ArrayHelper::map($model,'username', 'username');
@@ -150,7 +150,7 @@ class UsersController extends Controller
     {
         $model = Ideas::find()->where(['creators_id' => $id])->all();
         $searchModel = new SearchIdeas();
-        $ideasProvider = $searchModel->search(Yii::$app->request->get(), $id);
+        $ideasProvider = $searchModel->search(Yii::$app->request->get(), $id, Null);
         $id_ideas = ArrayHelper::map($model,'id_ideas', 'id_ideas');
         $ideas_name = ArrayHelper::map($model,'ideas_name', 'ideas_name');
         $info_short = ArrayHelper::map($model,'info_short', 'info_short');

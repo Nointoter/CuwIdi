@@ -4,35 +4,15 @@ namespace app\controllers;
 
 
 use app\models\Ideas;
-use app\models\ImageForm;
-use kartik\select2\Select2;
+use app\models\SearchComments;
 use Yii;
-use yii\filters\AccessControl;
-use yii\grid\GridView;
-use yii\helpers\Html;
-use yii\helpers\Url;
 use yii\web\Controller;
 use yii\web\Response;
-use yii\web\UploadedFile;
-use yii\data\ActiveDataProvider;
-use SebastianBergmann\CodeCoverage\Report\Xml\Project;
-use yii\filters\VerbFilter;
-use yii\imagine\Image;
-use app\models\Projects;
-use app\models\LoginForm;
 use app\models\ContactForm;
-use yii\data\Pagination;
-use yii\helpers\ArrayHelper;
-use app\models\SearchProjects;
-use app\models\Options;
-use app\models\SearchOptions;
 use app\models\GlobalSearchForm;
-use app\models\Search;
-use app\models\RequestIds;
-use app\models\RequestIdsForm;
-use app\models\SingUpForm;
 use app\models\User;
-use yii\console\widgets\Table;
+use app\models\SearchUsers;
+use app\models\SearchIdeas;
 
 class SiteController extends Controller
 {
@@ -69,20 +49,6 @@ class SiteController extends Controller
     }
 
     /**
-     * Displays global-search.
-     *
-     * @return string
-     */
-
-    public function actionGlobalSearch()
-    {
-        $model = new GlobalSearchForm();
-        return $this->render('global-search', [
-            'model' => $model,
-        ]);
-    }
-
-    /**
      * Displays search-results.
      *
      * @return string
@@ -93,37 +59,22 @@ class SiteController extends Controller
         $model = new GlobalSearchForm();
         $model->load(Yii::$app->request->get());
         $target = $model->target;
-        var_dump($target);
-        $projects = Projects::find()
-            ->joinWith('options')
-            ->where(['name' => $target])
-            ->orWhere(['info' => $target])
-            ->orWhere(['options_name' => $target])
-            ->orWhere(['options_value' => $target]);
 
-        $options = Options::find()
-            ->joinWith('projects')
-            ->where(['options_name' => $target])
-            ->orWhere(['options_value' => $target])
-            ->orWhere(['name' => $target])
-            ->orWhere(['info' => $target]);
+        $ideasModel = new SearchIdeas();
+        $ideasProvider = $ideasModel->search(Yii::$app->request->get(), Null, $target);
+        $usersModel = new SearchUsers();
+        $usersProvider = $usersModel->search(Yii::$app->request->get(), Null, $target);
+        $commentsModel = new SearchComments();
+        $commentsProvider = $commentsModel->search(Yii::$app->request->get(), Null,false,  $target);
 
-        $searchModel = new Search();
-        $dataProvider = $searchModel->search(Yii::$app->request->get(),$target);
-
-        $id = ArrayHelper::map($projects->all(),'id', 'id');
-        $name = ArrayHelper::map($projects->all(),'name', 'name');
-        $info = ArrayHelper::map($projects->all(),'info', 'info');
-        $options_name = ArrayHelper::map($options->all(),'options_name', 'options_name');
-        $options_value = ArrayHelper::map($options->all(),'options_value', 'options_value');
         return $this->render('search-results',[
-            'dataProvider'=> $dataProvider,
-            'searchModel' => $searchModel,
-            'options_name' => $options_name,
-            'options_value' => $options_value,
-            'name' => $name,
-            'info' => $info,
-            'id' => $id,
+            'target' => $target,
+            'ideasProvider'=> $ideasProvider,
+            'ideasModel' => $ideasModel,
+            'usersProvider'=> $usersProvider,
+            'usersModel' => $usersModel,
+            'commentsProvider' => $commentsProvider,
+            'commentsModel' => $commentsModel,
         ]);
     }
 
