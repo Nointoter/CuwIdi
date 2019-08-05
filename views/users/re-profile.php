@@ -61,12 +61,11 @@ $this->title = 'Профиль ' . strval($user->users_name);
                         'id' => 'modalButton4'
                     ]);
             } else {
-                echo Html::button('Удалить профиль', [
-                        'value' => Url::toRoute(['/users/delete', 'id' => strval($user->id_users),]),
+                echo Html::a('Удалить профиль', Url::toRoute(['/users/delete', 'id' => strval($user->id_users),]), [
                         'data-confirm' => 'Вы уверены, что хотите удалить профиль?',
                         'data-method' => 'post',
                         'data-pjax' => '0',
-                        'class' => 'btn btn-warning',
+                        'class' => 'btn btn-danger',
                         'name' => 'delete-user-button',
                     ]);
             }
