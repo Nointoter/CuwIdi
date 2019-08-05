@@ -41,7 +41,15 @@ $this->title = 'Идеи';
             <div class="form-group">
                 <?php if (!Yii::$app->user->isGuest)
                         {
-                            echo Html::button('Добавить идею',['value' => Url::to('/ideas/add-idea?bool='.strval(false)) ,'class' => 'btn btn-success', 'name' => 'add-idea-button', 'id' => 'modalButton1']);
+                            if (!(User::findIdentity(Yii::$app->user->id))->status) {
+                                echo Html::button('Добавить идею', ['value' => Url::to('/ideas/add-idea?bool=' . strval(false)), 'class' => 'btn btn-success', 'name' => 'add-idea-button', 'id' => 'modalButton1']);
+                            } else {
+                                echo '<html> 
+                                    <body> 
+                                        <h4>Для добавления идеи востановите свой аккаунт </h4> 
+                                    </body> 
+                                  </html>';
+                            }
                         }
                         else
                         {
@@ -126,7 +134,11 @@ $this->title = 'Идеи';
                 'label' => 'Создатель',
                 'contentOptions'=>['style'=>'white-space: normal; width : 150px; background-color: #FFFFFF; color: #000000'],
                 'value' => function ($data) {
-                    return Html::a(Html::encode($data->getAuthorsName()), Url::toRoute(['/users/profile', 'id' => $data->creators_id]));
+                    if (!(User::findIdentity($data->creators_id))->status){
+                        return Html::a(Html::encode($data->getAuthorsName()), Url::toRoute(['/users/profile', 'id' => $data->creators_id]));
+                    } else {
+                        return "заблокирован";
+                    }
                 },
                 'format' => 'raw',
             ],

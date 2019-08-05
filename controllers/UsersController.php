@@ -107,16 +107,14 @@ class UsersController extends Controller
 
     public function actionProfile($id)
     {
-        $model = Ideas::find()->where(['creators_id' => $id])->all();
-        $searchModel = new SearchIdeas();
-        $ideasProvider = $searchModel->search(Yii::$app->request->get(), $id, Null);
-        $id_ideas = ArrayHelper::map($model,'id_ideas', 'id_ideas');
-        $ideas_name = ArrayHelper::map($model,'ideas_name', 'ideas_name');
-        $info_short = ArrayHelper::map($model,'info_short', 'info_short');
-        $creations_day = ArrayHelper::map($model,'creations_day', 'creations_day');
-        $creations_month = ArrayHelper::map($model,'creations_month', 'creations_month');
-        $creations_year = ArrayHelper::map($model,'creations_year', 'creations_year');
         $user = User::findIdentity($id);
+        if(!$user){
+            return $this->redirect('/users/index');
+        }
+        $model = Ideas::find()->where(['creators_id' => $id])->all();
+        $ideasModel = new SearchIdeas();
+        $ideasProvider = $ideasModel->search(Yii::$app->request->get(), $id, Null);
+
         $image = Html::img('@web/images/' . $user->users_image, [
             'width' => '160px',
             'height' => '160px'
@@ -137,14 +135,8 @@ class UsersController extends Controller
             'user' => $user,
             'image' => $image,
             'image_model' => $image_model,
-            'searchModel' => $searchModel,
+            'ideasModel' => $ideasModel,
             'ideasProvider' => $ideasProvider,
-            'id_ideas' => $id_ideas,
-            'ideas_name' => $ideas_name,
-            'info_short' => $info_short,
-            'creations_day' => $creations_day,
-            'creations_month' => $creations_month,
-            'creations_year' => $creations_year,
             'commentProvider' => $commentProvider,
             'commentSearchModel' => $commentSearchModel,
         ]);
@@ -158,10 +150,13 @@ class UsersController extends Controller
 
     public function actionReProfile($id)
     {
-        if (Yii::$app->user->id != $id) {
+        $user = User::findIdentity($id);
+        if(!$user){
+            return $this->redirect('/users/index');
+        }
+        if (Yii::$app->user->id != $id || (User::findIdentity($id))->status != 0) {
             $this->redirect('profile?id=' . strval($id));
         }
-        $user = User::findIdentity($id);
         $image = Html::img('@web/images/' . $user->users_image, [
             'width' => '140px',
             'height' => '140px'
@@ -205,6 +200,40 @@ class UsersController extends Controller
         if ((User::findIdentity(Yii::$app->user->id)->users_role == 'admin' || Yii::$app->user->id == $id) && !$ideas) {
             $user = User::find()->where(['id_users' => $id])->one();
             $user->delete();
+        }
+        return $this->redirect('/users');
+    }
+
+    /**
+     * Displays delete
+     *
+     * @return string
+     */
+
+    public function actionFreeze($id)
+    {
+        if ((User::findIdentity(Yii::$app->user->id)->users_role == 'admin') || (Yii::$app->user->id == $id)) {
+            $user = User::find()->where(['id_users' => $id])->one();
+            $user->status = 1;
+            $user->save(false);
+            return $this->redirect('/users/profile?id='.strval($id));
+        }
+        return $this->redirect('/users');
+    }
+
+    /**
+     * Displays reProfile.
+     *
+     * @return string
+     */
+
+    public function actionReStatus($id)
+    {
+        if ((User::findIdentity(Yii::$app->user->id)->users_role == 'admin') || (Yii::$app->user->id == $id)) {
+            $user = User::find()->where(['id_users' => $id])->one();
+            $user->status = 0;
+            $user->save(false);
+            return $this->redirect('/users/profile?id='.strval($id));
         }
         return $this->redirect('/users');
     }
@@ -255,6 +284,7 @@ class UsersController extends Controller
             $model->password = $user->password;
             $user->users_role = 'user';
             $user->users_image = 'first_log_pic.jpg';
+            $user->status = 0;
             $user->save(false);
             $model->login();
             return $this->redirect('profile?id='.strval(Yii::$app->user->id));

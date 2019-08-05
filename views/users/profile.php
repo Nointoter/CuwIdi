@@ -17,6 +17,7 @@ $form = ActiveForm::begin();
 
 $this->title = 'Профиль ' . strval($user->users_name);
 ?>
+<?php if(!$user->status) : ?>
 <div class="row" STYLE="background-color: #FFFFFF; color: #000000">
     <div class="col-lg-5">
         <h3>Профиль <?= Html::encode($user->users_name) ?></h3>
@@ -71,51 +72,18 @@ $this->title = 'Профиль ' . strval($user->users_name);
 <div class="view-ideas" STYLE="background-color: #FFFFFF; color: #000000">
     <?= GridView::widget([
         'dataProvider' => $ideasProvider,
-        'filterModel' => $searchModel,
+        'filterModel' => $ideasModel,
         'layout' => '{items}{pager}',
         'columns' => [
             [
                 'attribute' => 'id_ideas',
                 'label' => 'Id',
                 'contentOptions'=>['style'=>'width : 100px; background-color: #FFFFFF; color: #000000'],
-                'filter' => Select2::widget([
-                    'name' => 'id_ideas',
-                    'model' => $searchModel,
-                    'attribute' => 'id_ideas',
-                    'data' => $id_ideas,
-                    'theme' => Select2::THEME_BOOTSTRAP,
-                    'value' => $searchModel->id_ideas,
-                    'hideSearch' => true,
-                    'options' => [
-                        'placeholder' => ''
-                    ],
-                    'pluginOptions' => [
-                        'selectOnClose' => true,
-                        'allowClear' => true,
-                    ]
-                ]),
             ],
             [
                 'attribute' => 'ideas_name',
                 'label' => 'Имя',
-                //'contentOptions'=>['style'=>'white-space: normal;'],
                 'contentOptions'=>['style'=>'width : 300px; background-color: #FFFFFF; color: #000000'],
-                'filter' => Select2::widget([
-                    'name' => 'ideas_name',
-                    'model' => $searchModel,
-                    'attribute' => 'ideas_name',
-                    'data' => $ideas_name,
-                    'theme' => Select2::THEME_BOOTSTRAP,
-                    'value' => $searchModel->ideas_name,
-                    'hideSearch' => true,
-                    'options' => [
-                        'placeholder' => '',
-                    ],
-                    'pluginOptions' => [
-                        'selectOnClose' => true,
-                        'allowClear' => true,
-                    ]
-                ]),
             ],
             [
                 'label' => 'Тэги',
@@ -133,64 +101,16 @@ $this->title = 'Профиль ' . strval($user->users_name);
                 'attribute' => 'creations_day',
                 'label' => 'День',
                 'contentOptions'=>['style'=>'width : 100px; background-color: #FFFFFF; color: #000000'],
-                'filter' => Select2::widget([
-                    'name' => 'creations_day',
-                    'model' => $searchModel,
-                    'attribute' => 'creations_day',
-                    'data' => $creations_day,
-                    'theme' => Select2::THEME_BOOTSTRAP,
-                    'value' => $searchModel->creations_day,
-                    'hideSearch' => true,
-                    'options' => [
-                        'placeholder' => ''
-                    ],
-                    'pluginOptions' => [
-                        'selectOnClose' => true,
-                        'allowClear' => true,
-                    ]
-                ]),
             ],
             [
                 'attribute' => 'creations_month',
                 'label' => 'Месяц',
                 'contentOptions'=>['style'=>'width : 150px; background-color: #FFFFFF; color: #000000'],
-                'filter' => Select2::widget([
-                    'name' => 'creations_month',
-                    'model' => $searchModel,
-                    'attribute' => 'creations_month',
-                    'data' => $creations_month,
-                    'theme' => Select2::THEME_BOOTSTRAP,
-                    'value' => $searchModel->creations_month,
-                    'hideSearch' => true,
-                    'options' => [
-                        'placeholder' => ''
-                    ],
-                    'pluginOptions' => [
-                        'selectOnClose' => true,
-                        'allowClear' => true,
-                    ]
-                ]),
             ],
             [
                 'attribute' => 'creations_year',
                 'label' => 'Год',
                 'contentOptions'=>['style'=>'width : 130px; background-color: #FFFFFF; color: #000000'],
-                'filter' => Select2::widget([
-                    'name' => 'creations_year',
-                    'model' => $searchModel,
-                    'attribute' => 'creations_year',
-                    'data' => $creations_year,
-                    'theme' => Select2::THEME_BOOTSTRAP,
-                    'value' => $searchModel->creations_year,
-                    'hideSearch' => true,
-                    'options' => [
-                        'placeholder' => ''
-                    ],
-                    'pluginOptions' => [
-                        'selectOnClose' => true,
-                        'allowClear' => true,
-                    ]
-                ]),
             ],
             [
                 'class' => 'yii\grid\ActionColumn',
@@ -263,4 +183,27 @@ $this->title = 'Профиль ' . strval($user->users_name);
         ])?>
     </div>
 <?php endif; ?>
-<!--</div>-->
+<?php else : ?>
+    <h1>Аккаунт временно заблокирован</h1>
+    <?php if(($user->id_users == Yii::$app->user->id) && ($user->status != 2)) : ?>
+        <?php
+            echo Html::a('Востановить профиль', Url::toRoute(['/users/re-status', 'id' => strval($user->id_users),]), [
+                'data-confirm' => 'Вы уверены, что хотите востановить профиль?',
+                'data-method' => 'post',
+                'data-pjax' => '0',
+                'class' => 'btn btn-primary',
+                'name' => 'delete-user-button',
+            ]);
+        ?>
+        <?php
+/*        Modal::begin([
+            'header' => '<h4>Невозможно удалить пользователя</h4>',
+            'id' => 'modal4',
+            'size' => 'modal-lg',
+        ]);
+        echo "<div id='modalContent4'>У пользователя остались идеи или комментарии</div>";
+        Modal::end();
+        */?>
+    <?php endif;?>
+<?php endif; ?>
+

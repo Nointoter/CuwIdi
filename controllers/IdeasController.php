@@ -54,6 +54,9 @@ class IdeasController extends Controller
     public function actionIdea($id)
     {
         $model = Ideas::find()->where(['id_ideas' => $id])->one();
+        if (($model->getUser())->status) {
+            $this->redirect('/ideas');
+        }
         $image_model = new ImagesForm();
         $images = $model->getImages();
         $carousel = [];

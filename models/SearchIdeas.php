@@ -33,11 +33,13 @@ class SearchIdeas extends Ideas
             $query = Ideas::find()
                 ->joinWith('ideas_tags')
                 ->joinWith('users')
-                ->where(['creators_id' => $id]);
+                ->where(['creators_id' => $id])
+                ->andWhere(['status' => 0]);
         } else {
             $query = Ideas::find()
                 ->joinWith('ideas_tags')
-                ->joinWith('users');
+                ->joinWith('users')
+                ->where(['status' => 0]);
         }
         $dataProvider = new ActiveDataProvider([
             'query' => $query,

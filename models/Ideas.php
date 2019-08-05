@@ -27,6 +27,10 @@ class Ideas extends  ActiveRecord
         return User::findIdentity($this->creators_id)->users_name;
     }
 
+    public function getUser(){
+        return User::findIdentity($this->creators_id);
+    }
+
     public function getImages(){
         $images = Images::find()->where(['ideas_id' => $this->id_ideas])->all();
         return $images;

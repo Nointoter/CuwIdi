@@ -29,10 +29,14 @@ class SearchComments extends Comments
         if ($id != Null) {
             if ($bool) {
                 $query = Comments::find()
-                    ->where(['ideas_id' => $id]);
+                    ->joinWith('users')
+                    ->where(['ideas_id' => $id])
+                    ->andWhere(['status' => 0]);;
             } else {
                 $query = Comments::find()
-                    ->where(['users_id' => $id]);
+                    ->joinWith('users')
+                    ->where(['users_id' => $id])
+                    ->andWhere(['status' => 0]);
             }
         } else {
             $query = Comments::find();

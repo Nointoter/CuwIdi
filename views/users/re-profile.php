@@ -7,6 +7,7 @@
 /* @var $user app\models\User */
 
 use app\models\Ideas;
+use app\models\Comments;
 use app\models\User;
 use kartik\select2\Select2;
 use yii\bootstrap\ActiveForm;
@@ -51,25 +52,7 @@ $this->title = 'Профиль ' . strval($user->users_name);
 </div>
 <div class="row">
     <div class="col-lg-4">
-        <?php
-            $ideas = Ideas::find()->where(['creators_id' => $user->id_users])->all();
-            if ($ideas) {
-                echo Html::button('Удалить профиль', [
-                        //'value' => Url::to('/ideas/add-idea?bool='.strval(false)),
-                        'class' => 'btn btn-warning',
-                        'name' => 'add-idea-button',
-                        'id' => 'modalButton4'
-                    ]);
-            } else {
-                echo Html::a('Удалить профиль', Url::toRoute(['/users/delete', 'id' => strval($user->id_users),]), [
-                        'data-confirm' => 'Вы уверены, что хотите удалить профиль?',
-                        'data-method' => 'post',
-                        'data-pjax' => '0',
-                        'class' => 'btn btn-danger',
-                        'name' => 'delete-user-button',
-                    ]);
-            }
-        ?>
+
     </div>
     <div class="col-lg-4">
         <?php
@@ -82,13 +65,56 @@ $this->title = 'Профиль ' . strval($user->users_name);
         ?>
     </div>
 </div>
+<br>
+<br>
+<br>
+<div class="row">
+    <div class="col-lg-3">
+        <h2>Удаление профиля:</h2>
+    </div>
+    <div class="col-lg-3">
+        <br>
+        <?php
+        $ideas = Ideas::find()->where(['creators_id' => $user->id_users])->all();
+        $comments = Comments::find()->where(['users_id' => $user->id_users])->all();
+        if ($ideas || $comments) {
+            echo Html::button('Удалить профиль', [
+                //'value' => Url::to('/ideas/add-idea?bool='.strval(false)),
+                'class' => 'btn btn-warning',
+                'name' => 'add-idea-button',
+                'id' => 'modalButton4'
+            ]);
+        } else {
+            echo Html::a('Удалить профиль', Url::toRoute(['/users/delete', 'id' => strval($user->id_users),]), [
+                'data-confirm' => 'Вы уверены, что хотите удалить профиль?',
+                'data-method' => 'post',
+                'data-pjax' => '0',
+                'class' => 'btn btn-danger',
+                'name' => 'delete-user-button',
+            ]);
+        }
+        ?>
+    </div>
+    <div class="col-lg-3">
+        <br>
+        <?php
+            echo Html::a('Заморозить профиль', Url::toRoute(['/users/freeze', 'id' => strval($user->id_users),]), [
+                'data-confirm' => 'Вы уверены, что хотите заморозить профиль?',
+                'data-method' => 'post',
+                'data-pjax' => '0',
+                'class' => 'btn btn-warning',
+                'name' => 'delete-user-button',
+            ]);
+        ?>
+    </div>
+</div>
 <?php
 Modal::begin([
     'header' => '<h4>Невозможно удалить пользователя</h4>',
     'id' => 'modal4',
     'size' => 'modal-lg',
 ]);
-echo "<div id='modalContent4'>У пользователя остались идеи</div>";
+echo "<div id='modalContent4'>У пользователя остались идеи или комментарии</div>";
 Modal::end();
 ?>
 <?php ActiveForm::end(); ?>

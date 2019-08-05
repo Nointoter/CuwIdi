@@ -28,9 +28,11 @@ class SearchUsers extends User
     {
         if ($id != Null){
             $query = User::find()
-                ->where(['id_users' => $id]);
+                ->where(['id_users' => $id])
+                ->andWhere(['status' => 0]);
         } else {
-            $query = User::find();
+            $query = User::find()
+                ->where(['status' => 0]);
         }
         //echo '<pre>';
         //var_dump($params);

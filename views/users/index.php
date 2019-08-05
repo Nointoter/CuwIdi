@@ -4,7 +4,7 @@
 /* @var $form \yii\bootstrap\ActiveForm */
 /* @var $model app\models\Ideas */
 
-use app\models\Ideas;
+use app\models\Comments;use app\models\Ideas;
 use kartik\select2\Select2;
 use yii\bootstrap\Modal;
 use yii\grid\GridView;
@@ -125,9 +125,9 @@ $this->title = 'Пользователи';
                         return Html::a('',  Url::toRoute(['/site/re-project', 'id' => strval($key), 'bool' => 'false']), ['class' => '']);
                     },
                     'delete' => function ($url, $model, $key){
-                        //$user = User::find()->where(['id_users' => Yii::$app->user->id])->one();
-                        $ideas = Ideas::find()->where(['creators_id' => $key])->all();
-                        if ($ideas) {
+                        $ideas = Ideas::find()->where(['creators_id' => $user->id_users])->all();
+                         $comments = Comments::find()->where(['users_id' => $user->id_users])->all();
+                        if ($ideas || $comments) {
                             return Html::a('', '', [
                                 'class' => 'glyphicon glyphicon-trash',
                                 'name' => 'delete-user-button',
