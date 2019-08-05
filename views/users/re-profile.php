@@ -82,7 +82,7 @@ $this->title = 'Профиль ' . strval($user->users_name);
         }
         ?>
         <?php
-            echo Html::a('Заморозить профиль', Url::toRoute(['/users/freeze', 'id' => strval($user->id_users),]), [
+            echo Html::a('Заморозить профиль', Url::toRoute(['/users/freeze', 'id' => strval($user->id_users), 'bool' => false]), [
                 'data-confirm' => 'Вы уверены, что хотите заморозить профиль?',
                 'data-method' => 'post',
                 'data-pjax' => '0',

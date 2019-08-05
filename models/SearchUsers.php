@@ -48,14 +48,13 @@ class SearchUsers extends User
         $query->orFilterWhere(['id_users' => $this->usersSearch])
             ->orFilterWhere(['users_name' => $this->usersSearch])
             ->orFilterWhere(['username' => $this->usersSearch])
-            ->orFilterWhere(['password' => $this->usersSearch])
-            ->orFilterWhere(['users_role' => $this->usersSearch]);
+            ->orFilterWhere(['password' => $this->usersSearch]);
+
 
         $query->andFilterWhere(['id_users' => $this->id_users])
             ->andFilterWhere(['users_name' => $this->users_name])
             ->andFilterWhere(['username' => $this->username])
-            ->andFilterWhere(['password' => $this->password])
-            ->andFilterWhere(['users_role' => $this->users_role]);
+            ->andFilterWhere(['password' => $this->password]);
         // загружаем данные формы поиска и производим валидацию
         if (!($this->load($params) && $this->validate())) {
             return $dataProvider;
@@ -63,14 +62,12 @@ class SearchUsers extends User
         $query->orFilterWhere(['id_users' => $this->usersSearch])
             ->orFilterWhere(['users_name' => $this->usersSearch])
             ->orFilterWhere(['username' => $this->usersSearch])
-            ->orFilterWhere(['password' => $this->usersSearch])
-            ->orFilterWhere(['users_role' => $this->usersSearch]);
+            ->orFilterWhere(['password' => $this->usersSearch]);
         // изменяем запрос добавляя в его фильтрацию
         $query->andFilterWhere(['id_users' => $this->id_users])
             ->andFilterWhere(['users_name' => $this->users_name])
             ->andFilterWhere(['username' => $this->username])
-            ->andFilterWhere(['password' => $this->password])
-            ->andFilterWhere(['users_role' => $this->users_role]);
+            ->andFilterWhere(['password' => $this->password]);
 
         return $dataProvider;
     }

@@ -25,16 +25,21 @@ $i = 0;
                     <h4>Информация : <?= $idea->info_long ?></h4>
                 </div>
                 <div class="col-lg-4">
+                    <?php
+                        $tags = $idea->getTags();
+                        if ($tags) :
+                            ?>
                     <h2>Тэги :
                         <h3>
                             <?php
-                                $tags = $idea->getTags();
-                                foreach ($tags as $tag) {
-                                    echo $tag->tag . ', ';
-                                }
+
+                                    foreach ($tags as $tag) {
+                                        echo $tag->tag . ', ';
+                                    }
                             ?>
                         </h3>
                     </h2>
+                    <?php endif; ?>
                 </div>
                 <div class="col-lg-3">
                     <p><br><br>

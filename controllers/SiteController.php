@@ -63,7 +63,7 @@ class SiteController extends Controller
         $ideasModel = new SearchIdeas();
         $ideasProvider = $ideasModel->search(Yii::$app->request->get(), Null, $target);
         $usersModel = new SearchUsers();
-        $usersProvider = $usersModel->search(Yii::$app->request->get(), Null, $target);
+        $usersProvider = $usersModel->search(Yii::$app->request->get(), Null, $target, true);
         $commentsModel = new SearchComments();
         $commentsProvider = $commentsModel->search(Yii::$app->request->get(), Null,false,  $target);
 
