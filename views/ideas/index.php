@@ -221,9 +221,9 @@ $this->title = 'Идеи';
                             return Html::a('', Url::toRoute(['/ideas/delete-idea', 'id' => strval($key),]), ['class' => 'glyphicon glyphicon-trash']);
                         } else {
                             if (Yii::$app->user->id != $model->creators_id) {
-                                return Html::a('', Url::toRoute(['/ideas/delete-idea', 'id' => strval($key),]), ['class' => '']);
+                                return Html::a('', Url::toRoute(['/ideas/delete-idea', 'id' => strval($key), 'bool' => false]), ['class' => '']);
                             } else {
-                                return Html::a('', Url::toRoute(['/ideas/delete-idea', 'id' => strval($key),]), ['class' => 'glyphicon glyphicon-trash']);
+                                return Html::a('', Url::toRoute(['/ideas/delete-idea', 'id' => strval($key), 'bool' => false]), ['class' => 'glyphicon glyphicon-trash']);
                             }
                         }
                     }

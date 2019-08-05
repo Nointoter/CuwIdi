@@ -134,7 +134,7 @@ $this->title = 'Пользователи';
                                 'id' => 'modalButton3']);
                         } else {
                             return Html::a('', Url::toRoute(['/users/delete', 'id' => strval($key),]), [
-                                'data-confirm' => 'Are you sure you want to delete?',
+                                'data-confirm' => 'Вы уверены, что хотите удалить профиль?',
                                 'data-method' => 'post',
                                 'data-pjax' => '0',
                                 'class' => 'glyphicon glyphicon-trash',

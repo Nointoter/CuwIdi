@@ -63,7 +63,7 @@ $this->title = 'Профиль ' . strval($user->users_name);
             } else {
                 echo Html::button('Удалить профиль', [
                         'value' => Url::toRoute(['/users/delete', 'id' => strval($user->id_users),]),
-                        'data-confirm' => 'Are you sure you want to delete?',
+                        'data-confirm' => 'Вы уверены, что хотите удалить профиль?',
                         'data-method' => 'post',
                         'data-pjax' => '0',
                         'class' => 'btn btn-warning',

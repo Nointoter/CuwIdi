@@ -162,7 +162,7 @@ class IdeasController extends Controller
      * @return string
      */
 
-    public function actionDeleteIdea($id)
+    public function actionDeleteIdea($id, $bool)
     {
         $model = Ideas::find()->where(['id_ideas' => $id])->one();
         if ($model != null) {
@@ -172,7 +172,11 @@ class IdeasController extends Controller
                 $model->delete();
             }
         }
-        return $this->redirect('ideas');
+        if ($bool) {
+            return $this->redirect('index');
+        } else {
+            return $this->redirect('/users/profile?id='.strval(Yii::$app->user->id));
+        }
     }
 
     /**

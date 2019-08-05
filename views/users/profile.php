@@ -203,7 +203,7 @@ $this->title = 'Профиль ' . strval($user->users_name);
                         return Html::a('',  Url::toRoute(['/site/re-project', 'id' => strval($key), 'bool' => 'false']), ['class' => '']);
                     },
                     'delete' => function ($url, $model, $key){
-                        return Html::a('', Url::toRoute(['/ideas/delete-idea', 'id' => strval($key),]), ['class' => 'glyphicon glyphicon-trash']);
+                        return Html::a('', Url::toRoute(['/ideas/delete-idea', 'id' => strval($key), 'bool' => false]), ['class' => 'glyphicon glyphicon-trash']);
                     }
                 ]
             ],
