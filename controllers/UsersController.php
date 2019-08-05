@@ -199,9 +199,12 @@ class UsersController extends Controller
 
     public function actionDelete($id)
     {
-        if (User::findIdentity(Yii::$app->user->id)->users_role == 'admin') {
+        var_dump(true);
+        $ideas = Ideas::find()->where(['creators_id' => $id])->all();
+        if ((User::findIdentity(Yii::$app->user->id)->users_role == 'admin' || Yii::$app->user->id == $id) && $ideas) {
             $user = User::find()->where(['id_users' => $id])->one();
             $user->delete();
+            var_dump($user);
         }
         return $this->redirect('/users');
     }
