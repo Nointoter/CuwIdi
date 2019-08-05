@@ -24,15 +24,16 @@ class SearchUsers extends User
         ];
     }
 
-    public function search($params, $id, $target)
+    public function search($params, $id, $target, $bool)
     {
         if ($id != Null){
             $query = User::find()
-                ->where(['id_users' => $id])
-                ->andWhere(['status' => 0]);
+                ->where(['id_users' => $id]);
         } else {
-            $query = User::find()
-                ->where(['status' => 0]);
+            $query = User::find();
+        }
+        if (!$bool) {
+            $query->andWhere(['status' => 0]);
         }
         //echo '<pre>';
         //var_dump($params);

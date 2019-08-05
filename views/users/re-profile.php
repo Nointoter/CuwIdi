@@ -50,21 +50,8 @@ $this->title = 'Профиль ' . strval($user->users_name);
         ?>
     </div>
 </div>
-<div class="row">
-    <div class="col-lg-4">
-
-    </div>
-    <div class="col-lg-4">
-        <?php
-            echo Html::submitButton('Созранить<br>изменения', ['class' => 'btn btn-info', 'name' => 'save-profile-changes-button']);
-        ?>
-    </div>
-    <div class="col-lg-4">
-        <?php
-            echo '<html><body><a href="profile?id=' . strval($user->id_users) . '" class="btn btn-primary" role="button">Закончить<br>редактироавние</a></body></html>';
-        ?>
-    </div>
-</div>
+<br>
+<br>
 <br>
 <br>
 <br>
@@ -72,7 +59,7 @@ $this->title = 'Профиль ' . strval($user->users_name);
     <div class="col-lg-3">
         <h2>Удаление профиля:</h2>
     </div>
-    <div class="col-lg-3">
+    <div class="col-lg-6">
         <br>
         <?php
         $ideas = Ideas::find()->where(['creators_id' => $user->id_users])->all();
@@ -94,9 +81,6 @@ $this->title = 'Профиль ' . strval($user->users_name);
             ]);
         }
         ?>
-    </div>
-    <div class="col-lg-3">
-        <br>
         <?php
             echo Html::a('Заморозить профиль', Url::toRoute(['/users/freeze', 'id' => strval($user->id_users),]), [
                 'data-confirm' => 'Вы уверены, что хотите заморозить профиль?',
@@ -105,6 +89,16 @@ $this->title = 'Профиль ' . strval($user->users_name);
                 'class' => 'btn btn-warning',
                 'name' => 'delete-user-button',
             ]);
+        ?>
+    </div>
+</div>
+<div class="row">
+    <div class="col-lg-3 col-lg-offset-9 col-lg-push-1">
+        <?php
+            echo Html::submitButton('Созранить', ['class' => 'btn btn-info', 'name' => 'save-profile-changes-button']);
+        ?>
+        <?php
+            echo '<html><body><a href="profile?id=' . strval($user->id_users) . '" class="btn btn-primary" role="button">Закончить</a></body></html>';
         ?>
     </div>
 </div>

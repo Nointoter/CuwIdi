@@ -80,7 +80,7 @@ class UsersController extends Controller
     {
         $model = User::find()->all();
         $searchModel = new SearchUsers();
-        $dataProvider = $searchModel->search(Yii::$app->request->get(), NULL, Null);
+        $dataProvider = $searchModel->search(Yii::$app->request->get(), NULL, Null, true);
         $id_users = ArrayHelper::map($model,'id_users', 'id_users');
         $users_name = ArrayHelper::map($model,'users_name', 'users_name');
         $username = ArrayHelper::map($model,'username', 'username');
@@ -213,7 +213,7 @@ class UsersController extends Controller
      * @return string
      */
 
-    public function actionFreeze($id)
+    public function actionFreeze($id, $bool)
     {
         if((User::findIdentity(Yii::$app->user->id))->status) {
             return $this->redirect('profile?id=' . strval($id));
@@ -222,7 +222,11 @@ class UsersController extends Controller
             $user = User::find()->where(['id_users' => $id])->one();
             $user->status = 1;
             $user->save(false);
-            return $this->redirect('/users/profile?id='.strval($id));
+            if ($bool){
+                return $this->redirect('/users');
+            } else {
+                return $this->redirect('/users/profile?id='.strval($id));
+            }
         }
         return $this->redirect('/users');
     }
@@ -233,13 +237,17 @@ class UsersController extends Controller
      * @return string
      */
 
-    public function actionReStatus($id)
+    public function actionReStatus($id, $bool)
     {
         if ((User::findIdentity(Yii::$app->user->id)->users_role == 'admin') || (Yii::$app->user->id == $id)) {
             $user = User::find()->where(['id_users' => $id])->one();
             $user->status = 0;
             $user->save(false);
-            return $this->redirect('/users/profile?id='.strval($id));
+            if ($bool){
+                return $this->redirect('/users');
+            } else {
+                return $this->redirect('/users/profile?id='.strval($id));
+            }
         }
         return $this->redirect('/users');
     }

@@ -121,12 +121,26 @@ $this->title = 'Пользователи';
                     'view' => function ($url, $model, $key) {
                         return Html::a('', Url::toRoute(['/users/profile' , 'id' => strval($key),]), ['class' => 'glyphicon glyphicon-eye-open']);
                     },
-                    'update' => function ($url, $model, $key) {
-                        return Html::a('',  Url::toRoute(['/site/re-project', 'id' => strval($key), 'bool' => 'false']), ['class' => '']);
+                    'update' => function ($url, $model, $key){
+                        if ((User::findIdentity($key))->status) {
+                            return Html::a('', Url::toRoute(['/users/re-status', 'id' => strval($key), 'bool' => strval(true)]), [
+                                'data-confirm' => 'Вы уверены, что хотите востановить профиль?',
+                                'data-method' => 'post',
+                                'data-pjax' => '0',
+                                'class' => 'glyphicon glyphicon-off',
+                                'name' => 're-status-user-button',]);
+                        } else {
+                            return Html::a('', Url::toRoute(['/users/freeze', 'id' => strval($key), 'bool' => strval(true)]), [
+                                'data-confirm' => 'Вы уверены, что хотите заморзить профиль?',
+                                'data-method' => 'post',
+                                'data-pjax' => '0',
+                                'class' => 'glyphicon glyphicon-time',
+                                'name' => 'freeze-user-button',]);
+                        }
                     },
                     'delete' => function ($url, $model, $key){
                         $ideas = Ideas::find()->where(['creators_id' => $user->id_users])->all();
-                         $comments = Comments::find()->where(['users_id' => $user->id_users])->all();
+                        $comments = Comments::find()->where(['users_id' => $user->id_users])->all();
                         if ($ideas || $comments) {
                             return Html::a('', '', [
                                 'class' => 'glyphicon glyphicon-trash',
@@ -140,7 +154,7 @@ $this->title = 'Пользователи';
                                 'class' => 'glyphicon glyphicon-trash',
                                 'name' => 'delete-user-button',]);
                         }
-                    }
+                    },
                 ],
                 'visible' => ((User::find()->where(['id_users' => Yii::$app->user->id])->one())->users_role == 'admin'),
             ],

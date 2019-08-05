@@ -17,20 +17,15 @@ use yii\helpers\ArrayHelper;
 
 $this->title = 'Идеи';
 ?>
-
 <div class="search-ideas">
     <div class="row">
         <div class="col-lg-6">
-
             <?php $form = ActiveForm::begin(['action' => '/ideas', 'method' => 'get']); ?>
-
             <?= $form->field($model, 'ideasSearch')->label('Поиск Идей') ?>
-
             <div class="form-group">
                 <?= Html::submitButton('Поиск', ['class' => 'btn btn-primary', 'name' => 'search-ideas-button']) ?>
                 <?php ActiveForm::end(); ?>
                 <a href="ideas" class="btn btn-default" role="button">Очистить</a>
-                <?/*= Html::a('Reset', ['class' => 'btn btn-default', 'name' => 'reset-ideas-button']) */?>
             </div>
         </div>
     </div>
