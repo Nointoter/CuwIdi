@@ -19,6 +19,7 @@ use yii\web\UploadedFile;
 use yii\helpers\Html;
 use yii\imagine\Image;
 use app\models\Images;
+use app\models\User;
 use app\models\Tags;
 
 
@@ -136,6 +137,9 @@ class IdeasController extends Controller
 
     public function actionAddIdea($bool)
     {
+        if(!(User::findIdentity(Yii::$app->user->id))->status) {
+            return $this->redirect('/site');
+        }
         $image_model = new IdeasForm();
         if ($image_model->load(Yii::$app->request->post()) && $image_model->validate())
         {
@@ -166,6 +170,9 @@ class IdeasController extends Controller
 
     public function actionDeleteIdea($id, $bool)
     {
+        if(!(User::findIdentity(Yii::$app->user->id))->status) {
+            return $this->redirect('/site');
+        }
         $model = Ideas::find()->where(['id_ideas' => $id])->one();
         if ($model != null) {
             if (Yii::$app->user->id != $model->creators_id){
@@ -189,6 +196,9 @@ class IdeasController extends Controller
 
     public function actionDeleteIdeaImages($id)
     {
+        if(!(User::findIdentity(Yii::$app->user->id))->status) {
+            return $this->redirect('/site');
+        }
         $ideasModel = Ideas::find()->where(['id_ideas' => $id])->one();
         if ($ideasModel != null) {
             if (Yii::$app->user->id != $ideasModel->creators_id){
