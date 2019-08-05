@@ -98,6 +98,58 @@ class UsersController extends Controller
         ]);
     }
 
+
+    /**
+     * Displays profile.
+     *
+     * @return string
+     */
+
+    public function actionProfile($id)
+    {
+        $model = Ideas::find()->where(['creators_id' => $id])->all();
+        $searchModel = new SearchIdeas();
+        $ideasProvider = $searchModel->search(Yii::$app->request->get(), $id, Null);
+        $id_ideas = ArrayHelper::map($model,'id_ideas', 'id_ideas');
+        $ideas_name = ArrayHelper::map($model,'ideas_name', 'ideas_name');
+        $info_short = ArrayHelper::map($model,'info_short', 'info_short');
+        $creations_day = ArrayHelper::map($model,'creations_day', 'creations_day');
+        $creations_month = ArrayHelper::map($model,'creations_month', 'creations_month');
+        $creations_year = ArrayHelper::map($model,'creations_year', 'creations_year');
+        $user = User::findIdentity($id);
+        $image = Html::img('@web/images/' . $user->users_image, [
+            'width' => '160px',
+            'height' => '160px'
+        ]);
+
+        $commentSearchModel = new SearchComments();
+        $commentProvider = $commentSearchModel->search(Yii::$app->request->get(), $id, false, Null);
+
+        $image_model = new ImagesForm();
+        if ($image_model->load(Yii::$app->request->post()))
+        {
+            $image_model->imageFile = UploadedFile::getInstance($image_model, 'imageFile');
+            $image_model->imageFile->name = $user->users_name . '_image.jpg';
+            $user->users_image = $image_model->imageFile->name;
+            $image_model->upload();
+        }
+        return $this->render('profile', [
+            'user' => $user,
+            'image' => $image,
+            'image_model' => $image_model,
+            'searchModel' => $searchModel,
+            'ideasProvider' => $ideasProvider,
+            'id_ideas' => $id_ideas,
+            'ideas_name' => $ideas_name,
+            'info_short' => $info_short,
+            'creations_day' => $creations_day,
+            'creations_month' => $creations_month,
+            'creations_year' => $creations_year,
+            'commentProvider' => $commentProvider,
+            'commentSearchModel' => $commentSearchModel,
+        ]);
+    }
+
     /**
      * Displays reProfile.
      *
@@ -140,56 +192,6 @@ class UsersController extends Controller
         }
     }
 
-    /**
-     * Displays profile.
-     *
-     * @return string
-     */
-
-    public function actionProfile($id)
-    {
-        $model = Ideas::find()->where(['creators_id' => $id])->all();
-        $searchModel = new SearchIdeas();
-        $ideasProvider = $searchModel->search(Yii::$app->request->get(), $id, Null);
-        $id_ideas = ArrayHelper::map($model,'id_ideas', 'id_ideas');
-        $ideas_name = ArrayHelper::map($model,'ideas_name', 'ideas_name');
-        $info_short = ArrayHelper::map($model,'info_short', 'info_short');
-        $creations_day = ArrayHelper::map($model,'creations_day', 'creations_day');
-        $creations_month = ArrayHelper::map($model,'creations_month', 'creations_month');
-        $creations_year = ArrayHelper::map($model,'creations_year', 'creations_year');
-        $user = User::findIdentity($id);
-        $image = Html::img('@web/images/' . $user->users_image, [
-            'width' => '160px',
-            'height' => '160px'
-        ]);
-
-        $commentSearchModel = new SearchComments();
-        $commentProvider = $commentSearchModel->search(Yii::$app->request->get(), $id, false);
-
-        $image_model = new ImagesForm();
-        if ($image_model->load(Yii::$app->request->post()))
-        {
-            $image_model->imageFile = UploadedFile::getInstance($image_model, 'imageFile');
-            $image_model->imageFile->name = $user->users_name . '_image.jpg';
-            $user->users_image = $image_model->imageFile->name;
-            $image_model->upload();
-        }
-        return $this->render('profile', [
-            'user' => $user,
-            'image' => $image,
-            'image_model' => $image_model,
-            'searchModel' => $searchModel,
-            'ideasProvider' => $ideasProvider,
-            'id_ideas' => $id_ideas,
-            'ideas_name' => $ideas_name,
-            'info_short' => $info_short,
-            'creations_day' => $creations_day,
-            'creations_month' => $creations_month,
-            'creations_year' => $creations_year,
-            'commentProvider' => $commentProvider,
-            'commentSearchModel' => $commentSearchModel,
-        ]);
-    }
 
     /**
      * Displays delete
