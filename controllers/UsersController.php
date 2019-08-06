@@ -3,6 +3,7 @@
 namespace app\controllers;
 
 use app\models\ChangePasswordForm;
+use app\models\Comments;
 use app\models\Ideas;
 use app\models\ImagesForm;
 use app\models\LoginForm;
@@ -98,17 +99,17 @@ class UsersController extends Controller
         if(!$user){
             return $this->redirect('/users/index');
         }
-        $model = Ideas::find()->where(['creators_id' => $id])->all();
-        $ideasModel = new SearchIdeas();
-        $ideasProvider = $ideasModel->search(Yii::$app->request->get(), $id, Null);
+
+        $ideasSearch = new SearchIdeas();
+        $ideasProvider = $ideasSearch->search(Yii::$app->request->get(), $id, Null);
 
         $image = Html::img('@web/images/' . $user->users_image, [
             'width' => '160px',
             'height' => '160px'
         ]);
 
-        $commentSearchModel = new SearchComments();
-        $commentProvider = $commentSearchModel->search(Yii::$app->request->get(), $id, false, Null);
+        $commentsSearch = new SearchComments();
+        $commentsProvider = $commentsSearch->search(Yii::$app->request->get(), $id, false, Null);
 
         $image_model = new ImagesForm();
         if ($image_model->load(Yii::$app->request->post()))
@@ -122,10 +123,10 @@ class UsersController extends Controller
             'user' => $user,
             'image' => $image,
             'image_model' => $image_model,
-            'ideasModel' => $ideasModel,
+            'ideasSearch' => $ideasSearch,
             'ideasProvider' => $ideasProvider,
-            'commentProvider' => $commentProvider,
-            'commentSearchModel' => $commentSearchModel,
+            'commentsProvider' => $commentsProvider,
+            'commentsSearch' => $commentsSearch,
         ]);
     }
 
@@ -186,7 +187,8 @@ class UsersController extends Controller
             return $this->redirect('profile?id=' . strval($id));
         }
         $ideas = Ideas::find()->where(['creators_id' => $id])->all();
-        if ((User::findIdentity(Yii::$app->user->id)->users_role == 'admin' || Yii::$app->user->id == $id) && !$ideas) {
+        $comments = Comments::find()->where(['users_id' => $id])->all();
+        if ((User::findIdentity(Yii::$app->user->id)->users_role == 'admin' || Yii::$app->user->id == $id) && !$ideas && !$comments) {
             $user = User::find()->where(['id_users' => $id])->one();
             $user->delete();
         }
