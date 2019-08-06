@@ -1,10 +1,13 @@
 <?php
 
+use app\models\IdeasForm;
+use yii\bootstrap\ActiveForm;
+use yii\helpers\Html;
+
+
 /* @var $form yii\bootstrap\ActiveForm */
 /* @var $image_model app\models\IdeasForm */
 
-use yii\bootstrap\ActiveForm;
-use yii\helpers\Html;
 
 /*$this->title = 'Добавить идею';
 $this->params['breadcrumbs'][] = $this->title;*/

@@ -15,8 +15,8 @@ use app\models\SearchUsers;
 /* @var yii\web\View $this */
 /* @var ActiveForm $form */
 /* @var Ideas $model*/
-/* @var SearchUsers[] $dataProvider */
-/* @var SearchUsers $searchModel */
+/* @var SearchUsers[] usersProvider */
+/* @var SearchUsers $usersSearch */
 /* @var User[] $allUsers */
 
 $this->title = 'Пользователи';
@@ -26,9 +26,7 @@ $this->title = 'Пользователи';
         <div class="col-lg-6">
 
             <?php $form = ActiveForm::begin(['action' => '/users', 'method' => 'get']); ?>
-
             <?= $form->field($model, 'usersSearch')->label('Поиск пользователей') ?>
-
             <div class="form-group">
                 <?= Html::submitButton('Поиск', ['class' => 'btn btn-primary', 'name' => 'search-users-button']) ?>
                 <?php ActiveForm::end(); ?>
@@ -39,8 +37,8 @@ $this->title = 'Пользователи';
 </div>
 <div class="view-users">
     <?= GridView::widget([
-        'dataProvider' => $dataProvider,
-        'filterModel' => $searchModel,
+        'dataProvider' => $usersProvider,
+        'filterModel' => $usersSearch,
         'layout' => '{items}{pager}',
         'columns' => [
             [
@@ -49,11 +47,11 @@ $this->title = 'Пользователи';
                 'contentOptions'=>['style'=>'width : 95px; background-color: #FFFFFF; color: #000000'],
                 'filter' => Select2::widget([
                     'name' => 'id_users',
-                    'model' => $searchModel,
+                    'model' => $usersSearch,
                     'attribute' => 'id_users',
                     'data' => ArrayHelper::map($allUsers,'id_users', 'id_users'),
                     'theme' => Select2::THEME_BOOTSTRAP,
-                    'value' => $searchModel->id_users,
+                    'value' => $usersSearch->id_users,
                     'hideSearch' => true,
                     'options' => [
                         'placeholder' => ''
@@ -101,11 +99,11 @@ $this->title = 'Пользователи';
                 'label' => 'Роль',
                 'filter' => Select2::widget([
                     'name' => 'users_role',
-                    'model' => $searchModel,
+                    'model' => $usersSearch,
                     'attribute' => 'users_role',
                     'data' => ArrayHelper::map($allUsers, 'users_role', 'users_role'),
                     'theme' => Select2::THEME_BOOTSTRAP,
-                    'value' => $searchModel->users_role,
+                    'value' => $usersSearch->users_role,
                     'hideSearch' => true,
                     'options' => [
                         'placeholder' => ''
@@ -143,8 +141,8 @@ $this->title = 'Пользователи';
                         }
                     },
                     'delete' => function ($url, $model, $key){
-                        $ideas = Ideas::find()->where(['creators_id' => $user->id_users])->all();
-                        $comments = Comments::find()->where(['users_id' => $user->id_users])->all();
+                        $ideas = Ideas::find()->where(['creators_id' => $key])->all();
+                        $comments = Comments::find()->where(['users_id' => $key])->all();
                         if ($ideas || $comments) {
                             return Html::a('', '', [
                                 'class' => 'glyphicon glyphicon-trash',

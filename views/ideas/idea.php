@@ -1,5 +1,16 @@
 <?php
 
+use app\models\AddCommentForm;
+use app\models\AddTagForm;
+use app\models\Ideas;
+use app\models\ImagesForm;
+use app\models\User;
+use yii\bootstrap\ActiveForm;
+use yii\grid\GridView;
+use yii\helpers\Html;
+use yii\bootstrap\Carousel;
+use yii\helpers\Url;
+
 /* @var $form yii\bootstrap\ActiveForm */
 /* @var $ideasModel app\models\Ideas */
 /* @var $tagModel app\models\AddTagForm */
@@ -8,16 +19,11 @@
 /* @var $commentsProvider \yii\data\ActiveDataProvider */
 /* @var $carousel []*/
 
-use app\models\User;
-use yii\bootstrap\ActiveForm;
-use yii\grid\GridView;
-use yii\helpers\Html;
-use yii\bootstrap\Carousel;
-use yii\helpers\Url;
 
 $user = User::find()->where(['id_users' => Yii::$app->user->id])->one();
 $form = ActiveForm::begin();
 $this->title = 'Просмотр идеи '.strval($model->ideas_name);
+
 ?>
 <div class="row" STYLE="background-color: #FFFFFF; color: #000000">
     <div class="form-group">

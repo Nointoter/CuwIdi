@@ -1,12 +1,14 @@
 <?php
 
-/* @var $form yii\bootstrap\ActiveForm */
-/* @var $ideasModel app\models\Ideas */
-/* @var $imagesProvider \yii\data\ActiveDataProvider*/
-
+use app\models\Ideas;
+use yii\bootstrap\ActiveForm;
 use yii\grid\GridView;
 use yii\helpers\Html;
 use yii\helpers\Url;
+
+/* @var $form yii\bootstrap\ActiveForm */
+/* @var $ideasModel app\models\Ideas */
+/* @var $imagesProvider \yii\data\ActiveDataProvider*/
 
 $this->title = 'Удаление изображений идеи : '.strval($ideasModel->ideas_name);
 

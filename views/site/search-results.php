@@ -1,6 +1,4 @@
 <?php
-$this->title = 'Результаты поиска: '.strval($target);
-$this->params['breadcrumbs'][] = $this->title;
 
 use app\models\Ideas;
 use app\models\User;
@@ -11,6 +9,19 @@ use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
 use yii\helpers\Url;
 use yii\widgets\LinkPager;
+
+/* @var $ideasProvider \yii\data\ActiveDataProvider*/
+/* @var $ideasModel \app\models\SearchIdeas*/
+/* @var $usersProvider \yii\data\ActiveDataProvider*/
+/* @var $usersModel \app\models\SearchUsers*/
+/* @var $commentsProvider \yii\data\ActiveDataProvider*/
+/* @var $commentsModel \app\models\SearchComments*/
+
+
+
+$this->title = 'Результаты поиска: '.strval($target);
+$this->params['breadcrumbs'][] = $this->title;
+
 ?>
 <?php if ($ideasProvider->totalCount > 0) : ?>
     <h2>Идеи</h2>
