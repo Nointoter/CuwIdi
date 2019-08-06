@@ -20,7 +20,7 @@ use yii\helpers\Html;
 use yii\web\Controller;
 use yii\web\Response;
 use yii\web\UploadedFile;
-use app\models\UsersForm;
+use app\models\ReUsersForm;
 use app\models\Ideas;
 use app\models\SearchIdeas;
 
@@ -161,7 +161,7 @@ class UsersController extends Controller
             'width' => '140px',
             'height' => '140px'
         ]);
-        $profileModel = new UsersForm();
+        $profileModel = new ReUsersForm();
         $profileModel->imageFile = $image;
         $profileModel->users_name = $user->users_name;
         $profileModel->users_info = $user->users_info;

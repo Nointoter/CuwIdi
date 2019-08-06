@@ -1,7 +1,10 @@
 <?php
 
+/* @var $form yii\bootstrap\ActiveForm */
+/* @var $ideasModel app\models\Ideas */
+/* @var $imagesProvider \yii\data\ActiveDataProvider*/
+
 use app\models\User;
-use kartik\select2\Select2;
 use yii\bootstrap\ActiveForm;
 use yii\grid\GridView;
 use yii\helpers\Html;

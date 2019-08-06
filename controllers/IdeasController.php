@@ -204,19 +204,11 @@ class IdeasController extends Controller
             if (Yii::$app->user->id != $ideasModel->creators_id){
                 return $this->redirect('idea?id='.strval($id));
             } else {
-                $model = Images::find()->where(['ideas_id' => $id])->all();
-                $searchModel = new SearchImages();
-                $dataProvider = $searchModel->search(Yii::$app->request->get(), $id);
-                $id_ideas_images = ArrayHelper::map($ideasModel,'id_ideas_images', 'id_ideas_images');
-                $images_name = ArrayHelper::map($ideasModel,'images_name', 'images_name');
-                $ideas_id = ArrayHelper::map($ideasModel,'ideas_id', 'ideas_id');
+                $imagesSearch = new SearchImages();
+                $imagesProvider = $imagesSearch->search(Yii::$app->request->get(), $id);
                 return $this->render('delete-idea-images',[
                     'ideasModel' => $ideasModel,
-                    'searchModel' => $searchModel,
-                    'dataProvider' => $dataProvider,
-                    'id_ideas_images' => $id_ideas_images,
-                    'images_name' => $images_name,
-                    'ideas_id' => $ideas_id,
+                    'imagesProvider' => $imagesProvider,
                 ]);
             }
         }

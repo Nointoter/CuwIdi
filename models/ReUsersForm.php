@@ -5,7 +5,7 @@ namespace app\models;
 
 use yii\base\Model;
 
-class UsersForm extends Model
+class ReUsersForm extends Model
 {
     public $users_name;
     public $users_info;

@@ -1,30 +1,30 @@
 <?php
 
-$this->title = 'Удаление изображений идеи : '.strval($model->ideas_name);
+/* @var $form yii\bootstrap\ActiveForm */
+/* @var $ideasModel app\models\Ideas */
+/* @var $imagesProvider \yii\data\ActiveDataProvider*/
 
 use yii\grid\GridView;
 use yii\helpers\Html;
-use yii\helpers\Url; ?>
+use yii\helpers\Url;
+
+$this->title = 'Удаление изображений идеи : '.strval($ideasModel->ideas_name);
+
+ ?>
 <div class="row">
     <h2><?= $this->title ?></h2>
 </div>
 <div class="row">
     <div class="col-lg-6">
-        <div class="col-lg-4">
-            <p></p>
-        </div>
-        <div class="col-lg-4">
-        <?php
-            echo '<br><br><br><br><br><a href="idea?id=' . strval($ideasModel->id_ideas) . '" class="btn btn-primary" role="button">Вернуться на<br>страницу идеи</a>';
-        ?>
-        </div>
-        <div class="col-lg-4">
-            <p></p>
+        <div class="col-lg-4 col-lg-offset-4">
+            <?php
+                echo '<br><br><br><br><br><a href="idea?id=' . strval($ideasModel->id_ideas) . '" class="btn btn-primary" role="button">Вернуться на<br>страницу идеи</a>';
+            ?>
         </div>
     </div>
     <div class="col-lg-6">
         <?= GridView::widget([
-            'dataProvider' => $dataProvider,
+            'dataProvider' => $imagesProvider,
             'layout' => '{items}{pager}',
             'columns' => [
                 [
