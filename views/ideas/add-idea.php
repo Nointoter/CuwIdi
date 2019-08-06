@@ -3,10 +3,10 @@
 use app\models\IdeasForm;
 use yii\bootstrap\ActiveForm;
 use yii\helpers\Html;
-
+use yii\widgets\Pjax;
 
 /* @var $form yii\bootstrap\ActiveForm */
-/* @var $image_model app\models\IdeasForm */
+/* @var $ideasModel app\models\IdeasForm */
 
 
 /*$this->title = 'Добавить идею';
@@ -20,15 +20,17 @@ $this->params['breadcrumbs'][] = $this->title;*/
     </p>
     <div class="row">
         <div class="col-lg-12">
-            <?php $form = ActiveForm::begin(); ?>
-            <?= $form->field($image_model, 'ideas_name')->textInput(['autofocus' => true])->label('Имя') ?>
-            <?= $form->field($image_model, 'info_short')->textInput(['autofocus' => true])->label('Описание') ?>
-            <?= $form->field($image_model, 'info_long')->textarea(['rows' => 8, 'autofocus' => true])->label('Информация') ?>
-            <div class="form-group">
-                <?= Html::submitButton('Добавить', ['class' => 'btn btn-primary', 'name' => 'add-project-button']) ?>
-                <?= Html::resetButton('Отмена', ['class' => 'btn btn-warning', 'data-dismiss' => 'modal', 'name' => 'add-project-cancel-button']) ?>
-            </div>
-            <?php ActiveForm::end(); ?>
+            <?php Pjax::begin(['id' => 'add-idea']) ?>
+                <?php $form = ActiveForm::begin(['options' => ['data-pjax' => true], 'id' => 'addNewIdeaForm']); ?>
+                    <?= $form->field($ideasModel, 'ideas_name')->textInput(['autofocus' => true])->label('Имя') ?>
+                    <?= $form->field($ideasModel, 'info_short')->textInput(['autofocus' => true])->label('Описание') ?>
+                    <?= $form->field($ideasModel, 'info_long')->textarea(['rows' => 8, 'autofocus' => true])->label('Информация') ?>
+                    <div class="form-group">
+                        <?= Html::submitButton('Добавить', ['class' => 'btn btn-primary', 'name' => 'add-project-button']) ?>
+                        <?= Html::resetButton('Отмена', ['class' => 'btn btn-warning', 'data-dismiss' => 'modal', 'name' => 'add-project-cancel-button']) ?>
+                    </div>
+                <?php ActiveForm::end(); ?>
+            <?php Pjax::end(); ?>
         </div>
     </div>
 </div>

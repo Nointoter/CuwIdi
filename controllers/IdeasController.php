@@ -79,11 +79,12 @@ class IdeasController extends Controller
         $commentsProvider = $commentsSearch->search(Yii::$app->request->get(), $id, true, Null);
 
         $ideasModel = new IdeasForm();
-        $ideasModel->ideas_name = $model->info_short;
+        $ideasModelName = new IdeasForm();
+        $ideasModelName->ideas_name = $model->ideas_name;
         $ideasModel->info_short = $model->info_short;
         $ideasModel->info_long = $model->info_long;
-        if ($ideasModel->load(Yii::$app->request->post())) {
-            $model->ideas_name = $ideasModel->ideas_name;
+        if ($ideasModel->load(Yii::$app->request->post()) && $ideasModel->load(Yii::$app->request->post())) {
+            $model->ideas_name = $ideasModelName->ideas_name;
             $model->info_short = $ideasModel->info_short;
             $model->info_long = $ideasModel->info_long;
             $model->save();
@@ -115,15 +116,16 @@ class IdeasController extends Controller
             {
                 $idea_image = new Images();
                 $idea_image->ideas_id = $id;
-                $idea_image->images_name = $model->ideas_name . $image_model->imageFile->baseName . '.jpg';
-                $image_model->imageFile->name = $idea_image->images_name;
+                $idea_image->images_name = $model->ideas_name . $imageModel->imageFile->baseName . '.jpg';
+                $imageModel->imageFile->name = $idea_image->images_name;
                 $idea_image->save(false);
-                $image_model->imageFile->saveAs('images/' . $image_model->imageFile->baseName . '.jpg');
+                $imageModel->imageFile->saveAs('images/' . $imageModel->imageFile->baseName . '.jpg');
                 return $this->redirect('idea?id='.strval($id));
             }
         }
         return $this->render('idea',[
             'model' => $model,
+            'ideasModelName' => $ideasModelName,
             'ideasModel' => $ideasModel,
             'tagModel' => $tagModel,
             'commentModel' => $commentModel,
@@ -144,13 +146,13 @@ class IdeasController extends Controller
         if((User::findIdentity(Yii::$app->user->id))->status) {
             return $this->redirect('/site');
         }
-        $image_model = new IdeasForm();
-        if ($image_model->load(Yii::$app->request->post()) && $image_model->validate())
+        $ideasModel = new IdeasForm();
+        if ($ideasModel->load(Yii::$app->request->post()) && $ideasModel->validate())
         {
             $model = new Ideas();
-            $model->ideas_name = $image_model->ideas_name;
-            $model->info_short = $image_model->info_short;
-            $model->info_long = $image_model->info_long;
+            $model->ideas_name = $ideasModel->ideas_name;
+            $model->info_short = $ideasModel->info_short;
+            $model->info_long = $ideasModel->info_long;
             $model->creations_day = date('d');
             $model->creations_month = date('M');
             $model->creations_year = date('y');
@@ -161,7 +163,7 @@ class IdeasController extends Controller
         else
         {
             return $this->renderAjax('add-idea',[
-                'image_model' => $image_model,
+                'ideasModel' => $ideasModel,
             ]);
         }
     }
