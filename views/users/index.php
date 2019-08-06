@@ -144,10 +144,9 @@ $this->title = 'Пользователи';
                         $ideas = Ideas::find()->where(['creators_id' => $key])->all();
                         $comments = Comments::find()->where(['users_id' => $key])->all();
                         if ($ideas || $comments) {
-                            return Html::a('', '', [
-                                'class' => 'glyphicon glyphicon-trash modalButton3',
-                                'name' => 'delete-user-button',
-                                /*'id' => 'modalButton3'*/]);
+                            return Html::a('<span class="glyphicon glyphicon-trash"></span>', '', [
+                                'class' => 'modalButton3',
+                                'name' => 'delete-user-button',]);
                         } else {
                             return Html::a('', Url::toRoute(['/users/delete', 'id' => strval($key),]), [
                                 'data-confirm' => 'Вы уверены, что хотите удалить профиль?',
