@@ -1,14 +1,14 @@
 <?php
 
-
 namespace app\controllers;
 
-
 use app\models\ChangePasswordForm;
-use app\models\IdeasForm;
+use app\models\Ideas;
 use app\models\ImagesForm;
 use app\models\LoginForm;
+use app\models\ReUsersForm;
 use app\models\SearchComments;
+use app\models\SearchIdeas;
 use app\models\SearchUsers;
 use app\models\SingUpForm;
 use app\models\User;
@@ -20,14 +20,9 @@ use yii\helpers\Html;
 use yii\web\Controller;
 use yii\web\Response;
 use yii\web\UploadedFile;
-use app\models\ReUsersForm;
-use app\models\Ideas;
-use app\models\SearchIdeas;
-
 
 class UsersController extends Controller
 {
-
     /**
      * {@inheritdoc}
      */
@@ -75,36 +70,29 @@ class UsersController extends Controller
      *
      * @return string
      */
-
     public function actionIndex()
     {
         $model = User::find()->all();
         $searchModel = new SearchUsers();
         $dataProvider = $searchModel->search(Yii::$app->request->get(), NULL, Null, true);
-        $id_users = ArrayHelper::map($model,'id_users', 'id_users');
-        $users_name = ArrayHelper::map($model,'users_name', 'users_name');
-        $username = ArrayHelper::map($model,'username', 'username');
-        $password = ArrayHelper::map($model,'password', 'password');
+        $allUsers = User::find()->all();
+
         $model = new SearchUsers();
         $model->load(Yii::$app->request->get());
+
         return $this->render('index',[
             'model' => $model,
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
-            'id_users' => $id_users,
-            'users_name' => $users_name,
-            'username' => $username,
-            'password' => $password,
+            'allUsers' => $allUsers,
         ]);
     }
-
 
     /**
      * Displays profile.
      *
      * @return string
      */
-
     public function actionProfile($id)
     {
         $user = User::findIdentity($id);
@@ -147,7 +135,6 @@ class UsersController extends Controller
      *
      * @return string
      */
-
     public function actionReProfile($id)
     {
         $user = User::findIdentity($id);
@@ -168,8 +155,7 @@ class UsersController extends Controller
         if ($profileModel->load(Yii::$app->request->post()))
         {
             $profileModel->imageFile = UploadedFile::getInstance($profileModel, 'imageFile');
-            if ($profileModel->imageFile != Null) {
-
+            if ($profileModel->imageFile != null) {
                 $profileModel->imageFile->name = $user->users_name . '_image.jpg';
                 $user->users_image = $profileModel->imageFile->name;
                 $profileModel->upload();
@@ -187,13 +173,14 @@ class UsersController extends Controller
         }
     }
 
-
     /**
-     * Displays delete
+     * Delete User
      *
-     * @return string
+     * @param $id
+     * @return Response
+     * @throws \Throwable
+     * @throws \yii\db\StaleObjectException
      */
-
     public function actionDelete($id)
     {
         if((User::findIdentity(Yii::$app->user->id))->status) {
@@ -208,11 +195,12 @@ class UsersController extends Controller
     }
 
     /**
-     * Displays delete
+     * Freeze User
      *
-     * @return string
+     * @param $id
+     * @param $bool
+     * @return Response
      */
-
     public function actionFreeze($id, $bool)
     {
         if((User::findIdentity(Yii::$app->user->id))->status) {
@@ -236,7 +224,6 @@ class UsersController extends Controller
      *
      * @return string
      */
-
     public function actionReStatus($id, $bool)
     {
         if ((User::findIdentity(Yii::$app->user->id)->users_role == 'admin') || (Yii::$app->user->id == $id)) {
@@ -342,8 +329,6 @@ class UsersController extends Controller
     public function actionLogout()
     {
         Yii::$app->user->logout();
-
         return $this->goHome();
     }
-
 }

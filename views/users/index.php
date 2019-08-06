@@ -1,18 +1,23 @@
 <?php
 
-/* @var $this yii\web\View */
-/* @var $form \yii\bootstrap\ActiveForm */
-/* @var $model app\models\Ideas */
-
-use app\models\Comments;use app\models\Ideas;
+use app\models\Comments;
+use app\models\Ideas;
 use kartik\select2\Select2;
 use yii\bootstrap\Modal;
 use yii\grid\GridView;
 use yii\helpers\Html;
 use yii\helpers\Url;
-use yii\web\View;
 use yii\widgets\ActiveForm;
 use app\models\User;
+use yii\helpers\ArrayHelper;
+use app\models\SearchUsers;
+
+/* @var yii\web\View $this */
+/* @var ActiveForm $form */
+/* @var Ideas $model*/
+/* @var SearchUsers[] $dataProvider */
+/* @var SearchUsers $searchModel */
+/* @var User[] $allUsers */
 
 $this->title = 'Пользователи';
 ?>
@@ -28,7 +33,6 @@ $this->title = 'Пользователи';
                 <?= Html::submitButton('Поиск', ['class' => 'btn btn-primary', 'name' => 'search-users-button']) ?>
                 <?php ActiveForm::end(); ?>
                 <a href="users" class="btn btn-default" role="button">Очистить</a>
-                <?/*= Html::a('Reset', ['class' => 'btn btn-default', 'name' => 'reset-ideas-button']) */?>
             </div>
         </div>
     </div>
@@ -47,7 +51,7 @@ $this->title = 'Пользователи';
                     'name' => 'id_users',
                     'model' => $searchModel,
                     'attribute' => 'id_users',
-                    'data' => $id_users,
+                    'data' => ArrayHelper::map($allUsers,'id_users', 'id_users'),
                     'theme' => Select2::THEME_BOOTSTRAP,
                     'value' => $searchModel->id_users,
                     'hideSearch' => true,
@@ -99,7 +103,7 @@ $this->title = 'Пользователи';
                     'name' => 'users_role',
                     'model' => $searchModel,
                     'attribute' => 'users_role',
-                    'data' => $users_role,
+                    'data' => ArrayHelper::map($allUsers, 'users_role', 'users_role'),
                     'theme' => Select2::THEME_BOOTSTRAP,
                     'value' => $searchModel->users_role,
                     'hideSearch' => true,
