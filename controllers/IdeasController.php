@@ -36,12 +36,12 @@ class IdeasController extends Controller
         $model = new SearchIdeas();
         $model->load(Yii::$app->request->get());
         $allIdeas = new Ideas();
-        $searchModel = new SearchIdeas();
-        $dataProvider = $searchModel->search(Yii::$app->request->get(), NULL, Null);
+        $ideasSearch = new SearchIdeas();
+        $ideasProvider = $ideasSearch->search(Yii::$app->request->get(), NULL, $model->ideasSearch);
         return $this->render('index',[
             'model' => $model,
-            'searchModel' => $searchModel,
-            'dataProvider' => $dataProvider,
+            'ideasSearch' => $ideasSearch,
+            'ideasProvider' => $ideasProvider,
             'allIdeas' => $allIdeas,
         ]);
     }
@@ -58,12 +58,12 @@ class IdeasController extends Controller
         if (($model->getUser())->status) {
             $this->redirect('/ideas');
         }
-        $image_model = new ImagesForm();
+        $imageModel = new ImagesForm();
         $images = $model->getImages();
         $carousel = [];
         foreach($images as $image) {
-            $nimage = Yii::getAlias('@app/web/images/' . $image->images_name);
-            Image::resize($nimage, 1400, 400)
+            $newImage = Yii::getAlias('@app/web/images/' . $image->images_name);
+            Image::resize($newImage, 1400, 400)
                 ->save(Yii::getAlias('@app/web/images/' . $model->ideas_name . '.' . $image->images_name), ['quality' => 80]);
             $carousel[] = [
                 'content' => Html::img('@web/images/' . $model->ideas_name . '.' .$image->images_name, [
@@ -105,9 +105,9 @@ class IdeasController extends Controller
                 $comment->save(false);
             }
         }
-        if ($image_model->load(Yii::$app->request->post())) {
-            $image_model->imageFile = UploadedFile::getInstance($image_model, 'imageFile');
-            if ($image_model->imageFile != Null)
+        if ($imageModel->load(Yii::$app->request->post())) {
+            $imageModel->imageFile = UploadedFile::getInstance($imageModel, 'imageFile');
+            if ($imageModel->imageFile != Null)
             {
                 $idea_image = new Images();
                 $idea_image->ideas_id = $id;
@@ -124,8 +124,8 @@ class IdeasController extends Controller
             'tagModel' => $tagModel,
             'commentModel' => $commentModel,
             'carousel' => $carousel,
-            'image_model' => $image_model,
-            'dataProvider' => $dataProvider,
+            'imageModel' => $imageModel,
+            'commentsProvider' => $commentsProvider,
         ]);
     }
 

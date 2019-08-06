@@ -13,7 +13,8 @@ use yii\helpers\ArrayHelper;
 /* @var $form yii\bootstrap\ActiveForm */
 /* @var $model app\models\Ideas */
 /* @var Ideas[] $allIdeas */
-/* @var Ideas[] $dataProvider */
+/* @var Ideas[] $ideasProvider */
+/* @var $ideasSearch \app\models\SearchIdeas*/
 
 $this->title = 'Идеи';
 ?>
@@ -62,19 +63,16 @@ $this->title = 'Идеи';
                 'id' => 'modal1',
                 'size' => 'modal-lg',
             ]);
-
             echo "<div id='modalContent1'></div>";
-
             Modal::end();
             ?>
         </div>
     </div>
 </div>
-
 <div class="view-ideas">
     <?= GridView::widget([
-        'dataProvider' => $dataProvider,
-        'filterModel' => $searchModel,
+        'dataProvider' => $ideasProvider,
+        'filterModel' => $ideasSearch,
         'layout' => '{items}{pager}',
         'columns' => [
             [
@@ -83,11 +81,11 @@ $this->title = 'Идеи';
                 'contentOptions'=>['style'=>'width : 95px; background-color: #FFFFFF; color: #000000'],
                 'filter' => Select2::widget([
                     'name' => 'id_ideas',
-                    'model' => $searchModel,
+                    'model' => $ideasSearch,
                     'attribute' => 'id_ideas',
                     'data' => ArrayHelper::map($allIdeas,'id_ideas', 'id_ideas'),
                     'theme' => Select2::THEME_BOOTSTRAP,
-                    'value' => $searchModel->id_ideas,
+                    'value' => $ideasSearch->id_ideas,
                     'hideSearch' => true,
                     'options' => [
                         'placeholder' => ''
@@ -104,11 +102,11 @@ $this->title = 'Идеи';
                 'contentOptions'=>['style'=>'width : 170px; background-color: #FFFFFF; color: #000000'],
                 'filter' => Select2::widget([
                     'name' => 'ideas_name',
-                    'model' => $searchModel,
+                    'model' => $ideasSearch,
                     'attribute' => 'ideas_name',
                     'data' =>  ArrayHelper::map($allIdeas,'ideas_name', 'ideas_name'),
                     'theme' => Select2::THEME_BOOTSTRAP,
-                    'value' => $searchModel->ideas_name,
+                    'value' => $ideasSearch->ideas_name,
                     'hideSearch' => true,
                     'options' => [
                         'placeholder' => '',
@@ -155,11 +153,11 @@ $this->title = 'Идеи';
                 'contentOptions'=>['style'=>'width : 90px; background-color: #FFFFFF; color: #000000'],
                 'filter' => Select2::widget([
                     'name' => 'creations_day',
-                    'model' => $searchModel,
+                    'model' => $ideasSearch,
                     'attribute' => 'creations_day',
                     'data' => ArrayHelper::map($allIdeas,'creations_day', 'creations_day'),
                     'theme' => Select2::THEME_BOOTSTRAP,
-                    'value' => $searchModel->creations_day,
+                    'value' => $ideasSearch->creations_day,
                     'hideSearch' => true,
                     'options' => [
                         'placeholder' => ''
@@ -176,11 +174,11 @@ $this->title = 'Идеи';
                 'contentOptions'=>['style'=>'width : 95px; background-color: #FFFFFF; color: #000000'],
                 'filter' => Select2::widget([
                     'name' => 'creations_month',
-                    'model' => $searchModel,
+                    'model' => $ideasSearch,
                     'attribute' => 'creations_month',
                     'data' =>  ArrayHelper::map($allIdeas,'creations_month', 'creations_month'),
                     'theme' => Select2::THEME_BOOTSTRAP,
-                    'value' => $searchModel->creations_month,
+                    'value' => $ideasSearch->creations_month,
                     'hideSearch' => true,
                     'options' => [
                         'placeholder' => ''
@@ -197,11 +195,11 @@ $this->title = 'Идеи';
                 'contentOptions'=>['style'=>'width : 90px; background-color: #FFFFFF; color: #000000'],
                 'filter' => Select2::widget([
                     'name' => 'creations_year',
-                    'model' => $searchModel,
+                    'model' => $ideasSearch,
                     'attribute' => 'creations_year',
                     'data' => ArrayHelper::map($allIdeas,'creations_year', 'creations_year'),
                     'theme' => Select2::THEME_BOOTSTRAP,
-                    'value' => $searchModel->creations_year,
+                    'value' => $ideasSearch->creations_year,
                     'hideSearch' => true,
                     'options' => [
                         'placeholder' => ''

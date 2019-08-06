@@ -2,7 +2,11 @@
 
 /* @var $form yii\bootstrap\ActiveForm */
 /* @var $ideasModel app\models\Ideas */
-/* @var $imagesProvider \yii\data\ActiveDataProvider*/
+/* @var $tagModel app\models\AddTagForm */
+/* @var $imageModel app\models\ImagesForm */
+/* @var $commentModel app\models\AddCommentForm */
+/* @var $commentsProvider \yii\data\ActiveDataProvider */
+/* @var $carousel []*/
 
 use app\models\User;
 use yii\bootstrap\ActiveForm;
@@ -109,7 +113,7 @@ $this->title = 'Просмотр идеи '.strval($model->ideas_name);
         <div class="col-lg-2">
             <?php
             if (Yii::$app->user->id == $model->creators_id || $user->users_role == 'admin'){
-                echo $form->field($image_model, 'imageFile')->fileInput(['autofocus' => true])->label('Добавить изображение');
+                echo $form->field($imageModel, 'imageFile')->fileInput(['autofocus' => true])->label('Добавить изображение');
                 echo Html::submitButton('Добавить', ['class' => 'btn btn-primary', 'name' => 'idea-button']);
             }
             ?>
@@ -193,11 +197,10 @@ $this->title = 'Просмотр идеи '.strval($model->ideas_name);
     </div>
 </div>
 <?php ActiveForm::end() ?>
-<?php if ($dataProvider->totalCount > 0) : ?>
+<?php if ($commentsProvider->totalCount > 0) : ?>
 <div class="view-idea-comments">
     <?= GridView::widget([
-        'dataProvider' => $dataProvider,
-        'filterModel' => $searchModel,
+        'dataProvider' => $commentsProvider,
         'layout' => '{items}{pager}',
         'columns' => [
             [

@@ -98,7 +98,7 @@ use yii\widgets\LinkPager;
     ])?>
 </div>
 <?php else: ?>
-    <h2>Идей нет</h2>>
+    <h2>Идей нет</h2>
 <?php endif; ?>
 <?php if ($usersProvider->totalCount > 0) : ?>
     <h2>Пользователи</h2>
