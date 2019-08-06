@@ -5,7 +5,6 @@ use yii\helpers\Html;
 $this->title = 'CuwIdi';
 $i = 0;
 ?>
-
 <h1>Пять последних идей</h1>
 <div class="row">
     <?php foreach (array_reverse($ideas) as $idea) :  ?>
@@ -32,10 +31,9 @@ $i = 0;
                     <h2>Тэги :
                         <h3>
                             <?php
-
-                                    foreach ($tags as $tag) {
-                                        echo $tag->tag . ', ';
-                                    }
+                                foreach ($tags as $tag) {
+                                    echo $tag->tag . ', ';
+                                }
                             ?>
                         </h3>
                     </h2>

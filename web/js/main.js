@@ -11,8 +11,13 @@ $(function(){
             .load($(this).attr('value'));
     });
 
-    $('#modalButton3').click(function(){
+    $('.modalButton3').click(function(){
         event.preventDefault();
+
+        console.log("Ура! Мы здесь.");
+        console.log("Вывод значения атрибута:");
+        console.log($(this).attr('value'));
+
         $('#modal3').modal('show')
             .find('#modalContent3')
             .load($(this).attr('value'));

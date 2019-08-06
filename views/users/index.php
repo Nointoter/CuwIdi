@@ -15,7 +15,7 @@ use app\models\SearchUsers;
 /* @var yii\web\View $this */
 /* @var ActiveForm $form */
 /* @var Ideas $model*/
-/* @var SearchUsers[] usersProvider */
+/* @var SearchUsers[] $usersProvider */
 /* @var SearchUsers $usersSearch */
 /* @var User[] $allUsers */
 
@@ -145,9 +145,9 @@ $this->title = 'Пользователи';
                         $comments = Comments::find()->where(['users_id' => $key])->all();
                         if ($ideas || $comments) {
                             return Html::a('', '', [
-                                'class' => 'glyphicon glyphicon-trash',
+                                'class' => 'glyphicon glyphicon-trash modalButton3',
                                 'name' => 'delete-user-button',
-                                'id' => 'modalButton3']);
+                                /*'id' => 'modalButton3'*/]);
                         } else {
                             return Html::a('', Url::toRoute(['/users/delete', 'id' => strval($key),]), [
                                 'data-confirm' => 'Вы уверены, что хотите удалить профиль?',
