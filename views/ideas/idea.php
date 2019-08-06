@@ -10,6 +10,7 @@ use yii\grid\GridView;
 use yii\helpers\Html;
 use yii\bootstrap\Carousel;
 use yii\helpers\Url;
+use yii\widgets\Pjax;
 
 /* @var $form yii\bootstrap\ActiveForm */
 /* @var $ideasModel app\models\Ideas */
@@ -22,6 +23,7 @@ use yii\helpers\Url;
 
 $user = User::find()->where(['id_users' => Yii::$app->user->id])->one();
 $form = ActiveForm::begin();
+
 $this->title = 'Просмотр идеи '.strval($model->ideas_name);
 
 ?>
@@ -191,6 +193,7 @@ $this->title = 'Просмотр идеи '.strval($model->ideas_name);
         <?php endif ?>
     </div>
 </div>
+
 <div class="row" STYLE="background-color: #FFFFFF; color: #000000">
     <div class="form-group">
         <div class="col-lg-3 col-lg-offset-9">
@@ -202,50 +205,54 @@ $this->title = 'Просмотр идеи '.strval($model->ideas_name);
         </div>
     </div>
 </div>
+<?php ActiveForm::end(); ?>
+<?php Pjax::begin(); ?>
 <?php if ($commentsProvider->totalCount > 0) : ?>
-<div class="view-idea-comments">
-    <?= GridView::widget([
-        'dataProvider' => $commentsProvider,
-        'layout' => '{items}{pager}',
-        'columns' => [
-            [
-                'attribute' => 'comment',
-                'label' => 'Комментарий',
-                'contentOptions'=>['style'=>'width : 500px; background-color: #FFFFFF; color: #000000'],
-            ],
-            [
-                'attribute' => 'creators_id',
-                'label' => 'Комментатор',
-                'contentOptions'=>['style'=>'width : 100px; background-color: #FFFFFF; color: #000000'],
-                'value' => function ($data) {
-                    return Html::a(Html::encode($data->getAuthorsName()), Url::toRoute(['/users/profile', 'id' => $data->users_id]));
-                },
-                'format' => 'raw',
-            ],
-            [
-                'class' => 'yii\grid\ActionColumn',
-                'contentOptions' => ['style' => 'width : 50px; background-color: #FFFFFF; color: #000000'],
-                'buttons' => [
-                    'view' => function ($url, $model, $key) {
-                        return Html::a('', Url::toRoute(['/ideas/idea' , 'id' => strval($key),]), ['class' => '/*glyphicon glyphicon-eye-open*/']);
+    <div class="view-idea-comments">
+        <?= GridView::widget([
+            'dataProvider' => $commentsProvider,
+            'layout' => '{items}{pager}',
+            'columns' => [
+                [
+                    'attribute' => 'comment',
+                    'label' => 'Комментарий',
+                    'contentOptions'=>['style'=>'width : 500px; background-color: #FFFFFF; color: #000000'],
+                ],
+                [
+                    'attribute' => 'creators_id',
+                    'label' => 'Комментатор',
+                    'contentOptions'=>['style'=>'width : 100px; background-color: #FFFFFF; color: #000000'],
+                    'value' => function ($data) {
+                        return Html::a(Html::encode($data->getAuthorsName()), Url::toRoute(['/users/profile', 'id' => $data->users_id]));
                     },
-                    'update' => function ($url, $model, $key) {
-                        return Html::a('',  Url::toRoute(['/comments/re-comment', 'id' => strval($key), 'bool' => 'false']), ['class' => '']);
-                    },
-                    'delete' => function ($url, $model, $key){
-                        if ($user->users_role == 'admin'){
-                            return Html::a('', Url::toRoute(['/ideas/delete-idea', 'id' => strval($key),]), ['class' => 'glyphicon glyphicon-trash']);
-                        } else {
-                            if (Yii::$app->user->id != $model->users_id) {
-                                return Html::a('', Url::toRoute(['/ideas/delete-idea', 'id' => strval($key),]), ['class' => '']);
-                            } else {
+                    'format' => 'raw',
+                ],
+                [
+                    'class' => 'yii\grid\ActionColumn',
+                    'contentOptions' => ['style' => 'width : 50px; background-color: #FFFFFF; color: #000000'],
+                    'buttons' => [
+                        'view' => function ($url, $model, $key) {
+                            return Html::a('', Url::toRoute(['/ideas/idea' , 'id' => strval($key),]), ['class' => '/*glyphicon glyphicon-eye-open*/']);
+                        },
+                        'update' => function ($url, $model, $key) {
+                            return Html::a('',  Url::toRoute(['/comments/re-comment', 'id' => strval($key), 'bool' => 'false']), ['class' => '']);
+                        },
+                        'delete' => function ($url, $model, $key){
+                            if ($user->users_role == 'admin'){
                                 return Html::a('', Url::toRoute(['/ideas/delete-idea', 'id' => strval($key),]), ['class' => 'glyphicon glyphicon-trash']);
+                            } else {
+                                if (Yii::$app->user->id != $model->users_id) {
+                                    return Html::a('', Url::toRoute(['/ideas/delete-idea', 'id' => strval($key),]), ['class' => '']);
+                                } else {
+                                    return Html::a('', Url::toRoute(['/ideas/delete-idea', 'id' => strval($key),]), ['class' => 'glyphicon glyphicon-trash']);
+                                }
                             }
                         }
-                    }
-                ]
+                    ]
+                ],
             ],
-        ],
-    ])?>
-</div>
+        ])?>
+    </div>
 <?php endif; ?>
+<?php Pjax::end(); ?>
+

@@ -95,6 +95,7 @@ class IdeasController extends Controller
             if ($tagModel->tag != '') {
                 $tag->tag = $tagModel->tag;
                 $tag->save(false);
+                $tagModel = new AddTagForm();
             }
         }
         $commentModel = new AddCommentForm();
@@ -105,6 +106,7 @@ class IdeasController extends Controller
                 $comment->users_id = Yii::$app->user->id;
                 $comment->comment = $commentModel->comment;
                 $comment->save(false);
+                $commentModel = new AddCommentForm();
             }
         }
         if ($imageModel->load(Yii::$app->request->post())) {
