@@ -75,8 +75,8 @@ class IdeasController extends Controller
             ];
         };
 
-        $searchModel = new SearchComments();
-        $dataProvider = $searchModel->search(Yii::$app->request->get(), $id, true, Null);
+        $commentsSearch = new SearchComments();
+        $commentsProvider = $commentsSearch->search(Yii::$app->request->get(), $id, true, Null);
 
         $ideasModel = new IdeasForm();
         $ideasModel->ideas_name = $model->info_short;
