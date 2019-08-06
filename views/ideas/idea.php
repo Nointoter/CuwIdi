@@ -202,7 +202,6 @@ $this->title = 'Просмотр идеи '.strval($model->ideas_name);
         </div>
     </div>
 </div>
-<?php var_dump($commentsProvider->totalCount); ?>
 <?php if ($commentsProvider->totalCount > 0) : ?>
 <div class="view-idea-comments">
     <?= GridView::widget([
