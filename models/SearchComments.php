@@ -36,6 +36,7 @@ class SearchComments extends Comments
                 $query = Comments::find()
                     ->joinWith('ideas')
                     ->where(['ideas_id' => $id])
+                    ->joinWith('users')
                     ->andWhere(['status' => 0]);
             }
         } else {

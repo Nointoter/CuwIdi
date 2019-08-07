@@ -41,7 +41,8 @@ class SearchIdeas extends Ideas
                 ->joinWith('users')
                 ->orderBy('id_ideas');
         }
-        if ($ideasSearch != Nnull) {
+        $query->andWhere(['status' => 0]);
+        if ($ideasSearch != Null) {
             $query->andWhere(
                 [
                     'AND',
@@ -56,21 +57,9 @@ class SearchIdeas extends Ideas
                         ['creators_id' => $this->ideasSearch],
                         ['users_name' => $this->ideasSearch],
                         ['tag' => $this->ideasSearch],
-                    ],
-                    [
-                        'status' => 0
-                    ]
-                ]);
-        } else {
-            $query->andWhere(
-                [
-                    'AND',
-                    [
-                        'status' => 0
                     ]
                 ]);
         }
-
         $query->andFilterWhere(['id_ideas' => $this->id_ideas])
             ->andFilterWhere(['like', 'ideas_name', $this->ideas_name])
             ->andFilterWhere(['like', 'info_short', $this->info_short])
@@ -87,7 +76,7 @@ class SearchIdeas extends Ideas
             return $dataProvider;
         }
         // изменяем запрос добавляя в его фильтрацию
-        if ($ideasSearch != Nnull) {
+        if ($ideasSearch != Null) {
             $query->andWhere(
                 [
                     'AND',
@@ -102,17 +91,6 @@ class SearchIdeas extends Ideas
                         ['creators_id' => $this->ideasSearch],
                         ['users_name' => $this->ideasSearch],
                         ['tag' => $this->ideasSearch],
-                    ],
-                    [
-                        'status' => 0
-                    ]
-                ]);
-        } else {
-            $query->andWhere(
-                [
-                    'AND',
-                    [
-                        'status' => 0
                     ]
                 ]);
         }
