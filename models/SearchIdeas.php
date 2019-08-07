@@ -51,11 +51,11 @@ class SearchIdeas extends Ideas
                         ['like', 'ideas_name', $this->ideasSearch],
                         ['like', 'info_short', $this->ideasSearch],
                         ['creations_day' => $this->ideasSearch],
-                        ['creations_month', $this->ideasSearch],
-                        ['creations_year', $this->ideasSearch],
-                        ['creators_id', $this->ideasSearch],
-                        ['users_name', $this->ideasSearch],
-                        ['tag', $this->ideasSearch],
+                        ['creations_month'=> $this->ideasSearch],
+                        ['creations_year' => $this->ideasSearch],
+                        ['creators_id' => $this->ideasSearch],
+                        ['users_name' => $this->ideasSearch],
+                        ['tag' => $this->ideasSearch],
                     ],
                     [
                         'status' => 0
@@ -97,11 +97,11 @@ class SearchIdeas extends Ideas
                         ['like', 'ideas_name', $this->ideasSearch],
                         ['like', 'info_short', $this->ideasSearch],
                         ['creations_day' => $this->ideasSearch],
-                        ['creations_month', $this->ideasSearch],
-                        ['creations_year', $this->ideasSearch],
-                        ['creators_id', $this->ideasSearch],
-                        ['users_name', $this->ideasSearch],
-                        ['tag', $this->ideasSearch],
+                        ['creations_month' => $this->ideasSearch],
+                        ['creations_year' => $this->ideasSearch],
+                        ['creators_id' => $this->ideasSearch],
+                        ['users_name' => $this->ideasSearch],
+                        ['tag' => $this->ideasSearch],
                     ],
                     [
                         'status' => 0
