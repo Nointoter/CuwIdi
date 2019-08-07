@@ -156,7 +156,7 @@ $this->title = 'Просмотр идеи '.strval($model->ideas_name);
                         if (Yii::$app->user->id == $model->creators_id || $user->users_role == 'admin') {
                             echo '<h3>'.$form->field($ideasModel, 'info_short')->textarea(['autofocus' => true, 'rows' => 2, 'cols' => 65])->label(false).'</h3>';
                         } else {
-                            echo '<h3><div style="border: 1px solid #c0c0c0;">' . Html::encode($model->info_short) .'</div></h3>';
+                            echo '<h3><!--<div style="border: 1px solid #c0c0c0;">-->' . Html::encode($model->info_short) .'<!--</div>--></h3>';
                         }
                     ?>
                 </div>
@@ -172,7 +172,7 @@ $this->title = 'Просмотр идеи '.strval($model->ideas_name);
                         if (Yii::$app->user->id == $model->creators_id || $user->users_role == 'admin') {
                             echo '<h3>'.$form->field($ideasModel, 'info_long')->textarea(['autofocus' => true, 'rows' => 10, 'cols' => 65])->label(false).'</h3>';
                         } else {
-                            echo '<h3><div style="border: 1px solid #c0c0c0;">' . Html::encode($model->info_long) .'</div></h3>';
+                            echo '<h3><!--<div style="border: 1px solid #c0c0c0;">-->' . Html::encode($model->info_long) .'<!--</div>--></h3>';
                         }
                     ?>
                 </div>
@@ -208,7 +208,7 @@ $this->title = 'Просмотр идеи '.strval($model->ideas_name);
         </div>
         <div class="row" STYLE="background-color: #FFFFFF; color: #000000">
             <div class="form-group">
-                <div class="col-lg-3 col-lg-offset-9">
+                <div class="pull-right">
                     <?php if (!Yii::$app->user->isGuest) {
                         echo Html::submitButton('Добавить комментарий', ['class' => 'btn btn-primary', 'name' => 'add-ideas-comment-button']);
                         echo '<h3><br></h3>';
@@ -250,12 +250,12 @@ $this->title = 'Просмотр идеи '.strval($model->ideas_name);
                             },
                             'delete' => function ($url, $model, $key){
                                 if ($user->users_role == 'admin'){
-                                    return Html::a('', Url::toRoute(['/ideas/delete-idea', 'id' => strval($key),]), ['class' => 'glyphicon glyphicon-trash']);
+                                    return Html::a('', Url::toRoute(['/comments/delete-comment', 'id' => strval($key), 'bool' => strval(true)]), ['class' => 'glyphicon glyphicon-trash']);
                                 } else {
                                     if (Yii::$app->user->id != $model->users_id) {
-                                        return Html::a('', Url::toRoute(['/ideas/delete-idea', 'id' => strval($key),]), ['class' => '']);
+                                        return Html::a('', Url::toRoute(['/comments/delete-comment', 'id' => strval($key),]), ['class' => '']);
                                     } else {
-                                        return Html::a('', Url::toRoute(['/ideas/delete-idea', 'id' => strval($key),]), ['class' => 'glyphicon glyphicon-trash']);
+                                        return Html::a('', Url::toRoute(['/comments/delete-comment', 'id' => strval($key), 'bool' => strval(true)]), ['class' => 'glyphicon glyphicon-trash']);
                                     }
                                 }
                             }

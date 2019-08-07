@@ -220,5 +220,4 @@ class IdeasController extends Controller
         }
         return $this->redirect('ideas');
     }
-
 }

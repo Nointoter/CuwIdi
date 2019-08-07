@@ -19,16 +19,17 @@ class CommentsController extends Controller
 
     public function actionDeleteComment($id, $bool)
     {
+        /*echo '<pre>';
+        var_dump($id);*/
         $model = Comments::find()->where(['id_comments' => $id])->one();
         $ideasModel = Ideas::find()->where(['id_ideas' => $model->ideas_id])->one();
         if (Yii::$app->user->id == $model->users_id){
             $model->delete();
-            if ($bool == '1') {
-                return $this->redirect('/ideas/idea?id=' . strval($ideasModel->id_ideas));
-            } else {
-                return $this->redirect('/users/profile?id=' . strval(Yii::$app->user->id));
-            }
         }
-        return $this->redirect('idea?id='.strval($ideasModel->id_ideas));
+        if ($bool == '1') {
+            return $this->redirect('/ideas/idea?id=' . strval($ideasModel->id_ideas));
+        } else {
+            return $this->redirect('/users/profile?id=' . strval(Yii::$app->user->id));
+        }
     }
 }
