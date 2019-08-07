@@ -41,33 +41,43 @@ class SearchIdeas extends Ideas
                 ->joinWith('users')
                 ->orderBy('id_ideas');
         }
-        $query->andWhere(
-            [
-                'AND',
-            [
-                'OR',
-                ['id_ideas' => $this->ideasSearch],
-                ['ideas_name' => $this->ideasSearch],
-                ['creations_day' => $this->ideasSearch],
-                ['creations_month' => $this->ideasSearch],
-                ['creations_year' => $this->ideasSearch],
-                ['creators_id' => $this->ideasSearch],
-                ['users_name' => $this->ideasSearch],
-                ['tag' => $this->ideasSearch],
-            ],
-            [
-                'status' => 0
-            ]
-        ]);
+        if ($ideasSearch != Nnull) {
+            $query->andWhere(
+                [
+                    'AND',
+                    [
+                        'OR',
+                        ['id_ideas' => $this->ideasSearch],
+                        ['like', 'ideas_name', $this->ideasSearch],
+                        ['like', 'info_short', $this->ideasSearch],
+                        ['creations_day' => $this->ideasSearch],
+                        ['creations_month', $this->ideasSearch],
+                        ['creations_year', $this->ideasSearch],
+                        ['creators_id', $this->ideasSearch],
+                        ['users_name', $this->ideasSearch],
+                        ['tag', $this->ideasSearch],
+                    ],
+                    [
+                        'status' => 0
+                    ]
+                ]);
+        } else {
+            $query->andWhere(
+                [
+                    'AND',
+                    [
+                        'status' => 0
+                    ]
+                ]);
+        }
 
         $query->andFilterWhere(['id_ideas' => $this->id_ideas])
-            ->andFilterWhere(['ideas_name' => $this->ideas_name])
-            ->andFilterWhere(['info_short' => $this->info_short])
+            ->andFilterWhere(['like', 'ideas_name', $this->ideas_name])
+            ->andFilterWhere(['like', 'info_short', $this->info_short])
             ->andFilterWhere(['creations_day' => $this->creations_day])
             ->andFilterWhere(['creations_month' => $this->creations_month])
             ->andFilterWhere(['creations_year' => $this->creations_year])
             ->andFilterWhere(['creators_id' => $this->creators_id]);
-
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
         ]);
@@ -77,19 +87,39 @@ class SearchIdeas extends Ideas
             return $dataProvider;
         }
         // изменяем запрос добавляя в его фильтрацию
-        $query->orFilterWhere(['id_ideas' => $this->ideasSearch])
-            ->orFilterWhere(['ideas_name' => $this->ideasSearch])
-            ->orFilterWhere(['info_short' => $this->ideasSearch])
-            ->orFilterWhere(['creations_day' => $this->ideasSearch])
-            ->orFilterWhere(['creations_month' => $this->ideasSearch])
-            ->orFilterWhere(['creations_year' => $this->ideasSearch])
-            ->orFilterWhere(['creators_id' => $this->ideasSearch])
-            ->orFilterWhere(['users_name' => $this->ideasSearch])
-            ->orFilterWhere(['tag' => $this->ideasSearch]);
+        if ($ideasSearch != Nnull) {
+            $query->andWhere(
+                [
+                    'AND',
+                    [
+                        'OR',
+                        ['id_ideas' => $this->ideasSearch],
+                        ['like', 'ideas_name', $this->ideasSearch],
+                        ['like', 'info_short', $this->ideasSearch],
+                        ['creations_day' => $this->ideasSearch],
+                        ['creations_month', $this->ideasSearch],
+                        ['creations_year', $this->ideasSearch],
+                        ['creators_id', $this->ideasSearch],
+                        ['users_name', $this->ideasSearch],
+                        ['tag', $this->ideasSearch],
+                    ],
+                    [
+                        'status' => 0
+                    ]
+                ]);
+        } else {
+            $query->andWhere(
+                [
+                    'AND',
+                    [
+                        'status' => 0
+                    ]
+                ]);
+        }
 
         $query->andFilterWhere(['id_ideas' => $this->id_ideas])
-            ->andFilterWhere(['ideas_name' => $this->ideas_name])
-            ->andFilterWhere(['info_short' => $this->info_short])
+            ->andFilterWhere(['like', 'ideas_name', $this->ideas_name])
+            ->andFilterWhere(['like', 'info_short', $this->info_short])
             ->andFilterWhere(['creations_day' => $this->creations_day])
             ->andFilterWhere(['creations_month' => $this->creations_month])
             ->andFilterWhere(['creations_year' => $this->creations_year])

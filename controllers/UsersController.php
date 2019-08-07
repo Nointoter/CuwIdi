@@ -163,6 +163,7 @@ class UsersController extends Controller
             $user->users_name = $profileModel->users_name;
             $user->users_info = $profileModel->users_info;
             $user->save(false);
+            Yii::$app->session->setFlash('success', "Изменения сохранены");
             return $this->redirect('re-profile?id='.strval($id));
         } else {
             return $this->render('re-profile', [

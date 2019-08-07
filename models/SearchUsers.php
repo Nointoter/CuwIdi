@@ -46,20 +46,19 @@ class SearchUsers extends User
         ]);
 
         $query->orFilterWhere(['id_users' => $this->usersSearch])
-            ->orFilterWhere(['users_name' => $this->usersSearch]);
-
+            ->orFilterWhere(['like', 'users_name', $this->usersSearch]);
 
         $query->andFilterWhere(['id_users' => $this->id_users])
-            ->andFilterWhere(['users_name' => $this->users_name]);
+            ->andFilterWhere(['like', 'users_name', $this->users_name]);
         // загружаем данные формы поиска и производим валидацию
         if (!($this->load($params) && $this->validate())) {
             return $dataProvider;
         }
         $query->orFilterWhere(['id_users' => $this->usersSearch])
-            ->orFilterWhere(['users_name' => $this->usersSearch]);
-        // изменяем запрос добавляя в его фильтрацию
+            ->orFilterWhere(['like', 'users_name', $this->usersSearch]);
+
         $query->andFilterWhere(['id_users' => $this->id_users])
-            ->andFilterWhere(['users_name' => $this->users_name]);
+            ->andFilterWhere(['like', 'users_name', $this->users_name]);
 
         return $dataProvider;
     }

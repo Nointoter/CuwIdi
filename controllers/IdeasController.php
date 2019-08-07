@@ -35,7 +35,7 @@ class IdeasController extends Controller
     {
         $model = new SearchIdeas();
         $model->load(Yii::$app->request->get());
-        $allIdeas = new Ideas();
+        $allIdeas = Ideas::find()->all();
 
         $ideasSearch = new SearchIdeas();
         $ideasProvider = $ideasSearch->search(Yii::$app->request->get(), NULL, $model->ideasSearch);

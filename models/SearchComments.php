@@ -27,15 +27,15 @@ class SearchComments extends Comments
             $this->commentsSearch = $target;
         }
         if ($id != Null) {
-            if ($bool) {
-                $query = Comments::find()
-                    ->joinWith('users')
-                    ->where(['ideas_id' => $id])
-                    ->andWhere(['status' => 0]);;
-            } else {
+            if (!$bool) {
                 $query = Comments::find()
                     ->joinWith('users')
                     ->where(['users_id' => $id])
+                    ->andWhere(['status' => 0]);
+            } else {
+                $query = Comments::find()
+                    ->joinWith('ideas')
+                    ->where(['ideas_id' => $id])
                     ->andWhere(['status' => 0]);
             }
         } else {
@@ -44,24 +44,19 @@ class SearchComments extends Comments
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
         ]);
-
         $query->orFilterWhere(['id_comments' => $this->commentsSearch])
-            ->orFilterWhere(['comment' => $this->commentsSearch]);
-
+            ->orFilterWhere(['like', 'comment', $this->commentsSearch]);
         $query->andFilterWhere(['id_comments' => $this->id_comments])
-            ->andFilterWhere(['comment' => $this->comment]);
-
+            ->andFilterWhere(['like', 'comment', $this->comment]);
         // загружаем данные формы поиска и производим валидацию
         if (!($this->load($params) && $this->validate())) {
             return $dataProvider;
         }
         // изменяем запрос добавляя в его фильтрацию
         $query->orFilterWhere(['id_comments' => $this->commentsSearch])
-            ->orFilterWhere(['comment' => $this->comment]);
-
+            ->orFilterWhere(['like', 'comment', $this->commentsSearch]);
         $query->andFilterWhere(['id_comments' => $this->id_comments])
-            ->andFilterWhere(['comment' => $this->comment]);
-
+            ->andFilterWhere(['like', 'comment', $this->comment]);
         return $dataProvider;
     }
 }

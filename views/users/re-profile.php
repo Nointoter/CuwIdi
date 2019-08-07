@@ -92,8 +92,15 @@ $this->title = 'Профиль ' . strval($user->users_name);
         <?php
             echo '<html><body><a href="profile?id=' . strval($user->id_users) . '" class="btn btn-primary btn-lg" role="button">Отменить</a></body></html>';
         ?>
+
     </div>
 </div>
+<?php /*if( Yii::$app->session->hasFlash('success') ): */?><!--
+            <div class="alert alert-success alert-dismissible" role="alert">
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <?php /*echo Yii::$app->session->getFlash('success'); */?>
+            </div>
+--><?php /*endif;*/?>
 <?php
     Modal::begin([
         'header' => '<h4>Невозможно удалить пользователя</h4>',

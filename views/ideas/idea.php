@@ -243,7 +243,7 @@ $this->title = 'Просмотр идеи '.strval($model->ideas_name);
                         'contentOptions' => ['style' => 'width : 50px; background-color: #FFFFFF; color: #000000'],
                         'buttons' => [
                             'view' => function ($url, $model, $key) {
-                                return Html::a('', Url::toRoute(['/ideas/idea' , 'id' => strval($key),]), ['class' => '/*glyphicon glyphicon-eye-open*/']);
+                                return Html::a('', Url::toRoute(['/ideas/idea' , 'id' => strval($key),]), ['class' => '']);
                             },
                             'update' => function ($url, $model, $key) {
                                 return Html::a('',  Url::toRoute(['/comments/re-comment', 'id' => strval($key), 'bool' => 'false']), ['class' => '']);

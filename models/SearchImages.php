@@ -26,7 +26,7 @@ class SearchImages extends Images
         // изменяем запрос добавляя в его фильтрацию
         $query->
         andFilterWhere(['id_ideas_images' => $this->id_ideas_images])->
-        andFilterWhere(['images_name' => $this->images_name])->
+        andFilterWhere(['like', 'images_name', $this->images_name])->
         andFilterWhere(['ideas_id' => $this->ideas_id]);
 
         return $dataProvider;
