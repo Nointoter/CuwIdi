@@ -16,7 +16,6 @@ use app\models\User;
 use Yii;
 use yii\filters\AccessControl;
 use yii\filters\VerbFilter;
-use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
 use yii\web\Controller;
 use yii\web\Response;
@@ -78,9 +77,9 @@ class UsersController extends Controller
         $allUsers = User::find()->all();
 
         $usersSearch = new SearchUsers();
-        $usersProvider = $usersSearch->search(Yii::$app->request->get(), NULL, Null, true);
+        $usersProvider = $usersSearch->search(Yii::$app->request->get(), null, null, true);
 
-        return $this->render('index',[
+        return $this->render('index', [
             'model' => $model,
             'usersSearch' => $usersSearch,
             'usersProvider' => $usersProvider,
@@ -96,24 +95,18 @@ class UsersController extends Controller
     public function actionProfile($id)
     {
         $user = User::findIdentity($id);
-        if(!$user){
+        if (!$user) {
             return $this->redirect('/users/index');
         }
 
         $ideasSearch = new SearchIdeas();
-        $ideasProvider = $ideasSearch->search(Yii::$app->request->get(), $id, Null);
-
-        $image = Html::img('@web/images/' . $user->users_image, [
-            'width' => '160px',
-            'height' => '160px'
-        ]);
+        $ideasProvider = $ideasSearch->search(Yii::$app->request->get(), $id, null);
 
         $commentsSearch = new SearchComments();
-        $commentsProvider = $commentsSearch->search(Yii::$app->request->get(), $id, false, Null);
+        $commentsProvider = $commentsSearch->search(Yii::$app->request->get(), $id, false, null);
 
         $image_model = new ImagesForm();
-        if ($image_model->load(Yii::$app->request->post()))
-        {
+        if ($image_model->load(Yii::$app->request->post())) {
             $image_model->imageFile = UploadedFile::getInstance($image_model, 'imageFile');
             $image_model->imageFile->name = $user->users_name . '_image.jpg';
             $user->users_image = $image_model->imageFile->name;
@@ -121,7 +114,6 @@ class UsersController extends Controller
         }
         return $this->render('profile', [
             'user' => $user,
-            'image' => $image,
             'image_model' => $image_model,
             'ideasSearch' => $ideasSearch,
             'ideasProvider' => $ideasProvider,
@@ -138,7 +130,7 @@ class UsersController extends Controller
     public function actionReProfile($id)
     {
         $user = User::findIdentity($id);
-        if(!$user){
+        if (!$user) {
             return $this->redirect('/users/index');
         }
         if (Yii::$app->user->id != $id || (User::findIdentity($id))->status != 0) {
@@ -152,8 +144,7 @@ class UsersController extends Controller
         $profileModel->imageFile = $image;
         $profileModel->users_name = $user->users_name;
         $profileModel->users_info = $user->users_info;
-        if ($profileModel->load(Yii::$app->request->post()))
-        {
+        if ($profileModel->load(Yii::$app->request->post())) {
             $profileModel->imageFile = UploadedFile::getInstance($profileModel, 'imageFile');
             if ($profileModel->imageFile != null) {
                 $profileModel->imageFile->name = $user->users_name . '_image.jpg';
@@ -184,12 +175,13 @@ class UsersController extends Controller
      */
     public function actionDelete($id)
     {
-        if((User::findIdentity(Yii::$app->user->id))->status) {
+        if ((User::findIdentity(Yii::$app->user->id))->status) {
             return $this->redirect('profile?id=' . strval($id));
         }
         $ideas = Ideas::find()->where(['creators_id' => $id])->all();
         $comments = Comments::find()->where(['users_id' => $id])->all();
-        if ((User::findIdentity(Yii::$app->user->id)->users_role == 'admin' || Yii::$app->user->id == $id) && !$ideas && !$comments) {
+        if ((User::findIdentity(Yii::$app->user->id)->users_role == 'admin' || Yii::$app->user->id == $id)
+            && !$ideas && !$comments) {
             $user = User::find()->where(['id_users' => $id])->one();
             $user->delete();
         }
@@ -205,14 +197,14 @@ class UsersController extends Controller
      */
     public function actionFreeze($id, $bool)
     {
-        if((User::findIdentity(Yii::$app->user->id))->status) {
+        if ((User::findIdentity(Yii::$app->user->id))->status) {
             return $this->redirect('profile?id=' . strval($id));
         }
         if ((User::findIdentity(Yii::$app->user->id)->users_role == 'admin') || (Yii::$app->user->id == $id)) {
             $user = User::find()->where(['id_users' => $id])->one();
             $user->status = 1;
             $user->save(false);
-            if ($bool){
+            if ($bool) {
                 return $this->redirect('/users');
             } else {
                 return $this->redirect('/users/profile?id='.strval($id));
@@ -232,7 +224,7 @@ class UsersController extends Controller
             $user = User::find()->where(['id_users' => $id])->one();
             $user->status = 0;
             $user->save(false);
-            if ($bool){
+            if ($bool) {
                 return $this->redirect('/users');
             } else {
                 return $this->redirect('/users/profile?id='.strval($id));
@@ -248,7 +240,7 @@ class UsersController extends Controller
      */
     public function actionChangePassword()
     {
-        if((User::findIdentity(Yii::$app->user->id))->status) {
+        if ((User::findIdentity(Yii::$app->user->id))->status) {
             return $this->redirect('profile?id=' . strval(Yii::$app->user->id));
         }
         $model = new ChangePasswordForm();
@@ -279,7 +271,7 @@ class UsersController extends Controller
             return $this->goHome();
         }
         $model = new SingUpForm();
-        if($model->load(Yii::$app->request->post()) && $model->validate()) {
+        if ($model->load(Yii::$app->request->post()) && $model->validate()) {
             $user = new User();
             $user->username = $model->username;
             $user->users_name = $model->users_name;
@@ -293,12 +285,9 @@ class UsersController extends Controller
             $user->save(false);
             $model->login();
             return $this->redirect('profile?id='.strval(Yii::$app->user->id));
-        }
-        else
-        {
+        } else {
             return $this->render('sing-up', compact('model'));
         }
-
     }
 
     /**
