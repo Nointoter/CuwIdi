@@ -20,7 +20,7 @@ $this->params['breadcrumbs'][] = $this->title;*/
     </p>
     <div class="row">
         <div class="col-lg-12">
-            <?php Pjax::begin(['id' => 'add-idea']) ?>
+            <?php /*Pjax::begin(['id' => 'add-idea']) */?>
                 <?php $form = ActiveForm::begin(['options' => ['data-pjax' => true], 'id' => 'addNewIdeaForm']); ?>
                     <?= $form->field($ideasModel, 'ideas_name')->textInput(['autofocus' => true])->label('Имя') ?>
                     <?= $form->field($ideasModel, 'info_short')->textInput(['autofocus' => true])->label('Описание') ?>
@@ -30,7 +30,7 @@ $this->params['breadcrumbs'][] = $this->title;*/
                         <?= Html::resetButton('Отмена', ['class' => 'btn btn-warning', 'data-dismiss' => 'modal', 'name' => 'add-project-cancel-button']) ?>
                     </div>
                 <?php ActiveForm::end(); ?>
-            <?php Pjax::end(); ?>
+            <?php /*Pjax::end(); */?>
         </div>
     </div>
 </div>

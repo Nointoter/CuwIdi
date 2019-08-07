@@ -218,6 +218,29 @@ $this->title = 'Просмотр идеи '.strval($model->ideas_name);
             </div>
         </div>
     <?php ActiveForm::end(); ?>
+<?php $this->registerJs("
+        $(document).on('ready pjax:success', function() {
+            $('.pjax-delete-link').on('click', function(e) {
+                e.preventDefault();
+                var deleteUrl = $(this).attr('delete-url');
+                var pjaxContainer = $(this).attr('pjax-container');
+                var result = confirm('Delete this item, are you sure?');                                
+                if(result) {
+                    $.ajax({
+                        url: /comments/delete-comment,
+                        type: 'post',
+                        error: function(xhr, status, error) {
+                            alert('There was an error with your request.' + xhr.responseText);
+                        }
+                    }).done(function(data) {
+                        $.pjax.reload('#' + $.trim(pjaxContainer), {timeout: 3000});
+                    });
+                }
+            });
+
+        });
+    ");
+?>
     <?php if ($commentsProvider->totalCount > 0) : ?>
         <div class="view-idea-comments">
             <?= GridView::widget([
@@ -248,7 +271,15 @@ $this->title = 'Просмотр идеи '.strval($model->ideas_name);
                             'update' => function ($url, $model, $key) {
                                 return Html::a('',  Url::toRoute(['/comments/re-comment', 'id' => strval($key), 'bool' => 'false']), ['class' => '']);
                             },
-                            'delete' => function ($url, $model, $key){
+                            'delete' => function ($url, $model) {
+                                return Html::a('<span class="glyphicon glyphicon-trash"></span>', false, [
+                                    'class' => 'pjax-delete-link',
+                                    'delete-url' => $url,
+                                    'pjax-container' => 'my_pjax',
+                                    'title' => Yii::t('yii', 'Delete')
+                                ]);
+                            }
+                            /*'delete' => function ($url, $model, $key){
                                 if ($user->users_role == 'admin'){
                                     return Html::a('', Url::toRoute(['/comments/delete-comment', 'id' => strval($key), 'bool' => strval(true)]), ['class' => 'glyphicon glyphicon-trash']);
                                 } else {
@@ -258,7 +289,7 @@ $this->title = 'Просмотр идеи '.strval($model->ideas_name);
                                         return Html::a('', Url::toRoute(['/comments/delete-comment', 'id' => strval($key), 'bool' => strval(true)]), ['class' => 'glyphicon glyphicon-trash']);
                                     }
                                 }
-                            }
+                            }*/
                         ]
                     ],
                 ],

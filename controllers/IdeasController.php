@@ -128,9 +128,9 @@ class IdeasController extends Controller
             'ideasModelName' => $ideasModelName,
             'ideasModel' => $ideasModel,
             'tagModel' => $tagModel,
-            'commentModel' => $commentModel,
             'carousel' => $carousel,
             'imageModel' => $imageModel,
+            'commentModel' => $commentModel,
             'commentsProvider' => $commentsProvider,
         ]);
     }
@@ -158,7 +158,8 @@ class IdeasController extends Controller
             $model->creations_year = date('y');
             $model->creators_id = Yii::$app->user->id;
             $model->save(false);
-                return $this->redirect('/ideas');
+
+            return $this->redirect('/ideas');
         }
         else
         {
@@ -187,7 +188,7 @@ class IdeasController extends Controller
                 $model->delete();
             }
         }
-        if ($bool) {
+        if (!$bool) {
             return $this->redirect('index');
         } else {
             return $this->redirect('/users/profile?id='.strval(Yii::$app->user->id));

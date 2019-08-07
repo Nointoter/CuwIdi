@@ -6,14 +6,11 @@ use app\models\Comments;
 use app\models\Ideas;
 use Yii;
 use yii\web\Controller;
+use yii\web\Response;
 
 class CommentsController extends Controller
 {
-    /**
-     * Displays DeleteCommentForm
-     *
-     * @return string
-     */
+
 
     public function actionDeleteComment($id, $bool)
     {
@@ -24,10 +21,17 @@ class CommentsController extends Controller
         if (Yii::$app->user->id == $model->users_id){
             $model->delete();
         }
-        if ($bool == '1') {
-            return $this->redirect('/ideas/idea?id=' . strval($ideasModel->id_ideas));
-        } else {
-            return $this->redirect('/users/profile?id=' . strval(Yii::$app->user->id));
+        if (Yii::$app->request->isAjax) {
+            Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
+            return ['success' => true];
         }
+        Yii::$app->response->format = Response::FORMAT_JSON;
+        return $this->redirect(['/ideas/index']);
     }
+
+    /**
+     * Displays DeleteCommentForm
+     *
+     * @return string array
+     */
 }

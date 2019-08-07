@@ -31,13 +31,15 @@ class SearchComments extends Comments
                 $query = Comments::find()
                     ->joinWith('users')
                     ->where(['users_id' => $id])
-                    ->andWhere(['status' => 0]);
+                    ->andWhere(['status' => 0])
+                    ->orderBy('id_comments DESC');
             } else {
                 $query = Comments::find()
                     ->joinWith('ideas')
                     ->where(['ideas_id' => $id])
                     ->joinWith('users')
-                    ->andWhere(['status' => 0]);
+                    ->andWhere(['status' => 0])
+                    ->orderBy('id_comments DESC');
             }
         } else {
             $query = Comments::find();
