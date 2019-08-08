@@ -5,35 +5,35 @@ $(function(){
             .load($(this).attr('value'));
     });
 
-    $('#modalButton2').click(function(){
-        $('#modal2').modal('show')
-            .find('#modalContent2')
+    $('#modalButtonChangePassword').click(function(){
+        $('#modalChangePassword').modal('show')
+            .find('#modalContentChangePassword')
             .load($(this).attr('value'));
     });
 
-    $('.modalButton3').click(function(){
+    $('.modalButtonDeleteUserUsersIndex').click(function(){
         event.preventDefault();
 
         console.log("Ура! Мы здесь.");
         console.log("Вывод значения атрибута:");
         console.log($(this).attr('value'));
 
-        $('#modal3').modal('show')
-            .find('#modalContent3')
+        $('#modalDeleteUserUsersIndex').modal('show')
+            .find('#modalContentDeleteUserUsersIndex')
             .load($(this).attr('value'));
     });
 
-    $('#modalButton4').click(function(){
+    $('#modalButtonDeleteProfile').click(function(){
         event.preventDefault();
-        $('#modal4').modal('show')
-            .find('#modalContent4')
+        $('#modalDeleteProfile').modal('show')
+            .find('#modalContentDeleteProfile')
             .load($(this).attr('value'));
     });
 
-    $('#modalButton5').click(function(){
+    $('#modalButtonDeleteUserSieSearch').click(function(){
         event.preventDefault();
-        $('#modal5').modal('show')
-            .find('#modalContent5')
+        $('#modalDeleteUserSieSearch').modal('show')
+            .find('#modalContentDeleteUserSieSearch')
             .load($(this).attr('value'));
     });
 });

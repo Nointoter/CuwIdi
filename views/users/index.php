@@ -186,7 +186,7 @@ $this->title = 'Пользователи';
                                 </span>',
                                 '',
                                 [
-                                    'class' => 'modalButton3',
+                                    'class' => 'modalButtonDeleteUserUsersIndex',
                                     'name' => 'delete-user-button',
                                 ]
                             );
@@ -211,10 +211,10 @@ $this->title = 'Пользователи';
         'header' => '<h4>
                         Невозможно удалить пользователя
                     </h4>',
-        'id' => 'modal3',
+        'id' => 'modalDeleteUserUsersIndex',
         'size' => 'modal-lg',
     ]);
-    echo "<div id='modalContent3'>
+    echo "<div id='modalContentDeleteUserUsersIndex'>
             У пользователя остались идеи
          </div>";
     Modal::end();

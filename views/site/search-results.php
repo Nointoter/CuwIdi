@@ -249,7 +249,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                 return Html::a('', '', [
                                     'class' => 'glyphicon glyphicon-trash',
                                     'name' => 'delete-user-button',
-                                    'id' => 'modalButton5']);
+                                    'id' => 'modalButtonDeleteUserSieSearch']);
                             } else {
                                 return Html::a('', Url::toRoute(['/users/delete', 'id' => strval($key),]), [
                                     'data-confirm' => 'Вы уверены, что хотите удалить профиль?',
@@ -271,10 +271,10 @@ $this->params['breadcrumbs'][] = $this->title;
             'header' => '<h4>
                             Невозможно удалить пользователя
                         </h4>',
-            'id' => 'modal5',
+            'id' => 'modalDeleteUserSieSearch',
             'size' => 'modal-lg',
         ]);
-        echo "<div id='modalContent5'>
+        echo "<div id='modalContentDeleteUserSieSearch'>
                 У пользователя остались идеи
              </div>";
         Modal::end();

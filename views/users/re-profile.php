@@ -79,7 +79,7 @@ $this->title = 'Профиль ' . strval($user->users_name);
                 [
                     'class' => 'btn btn-warning',
                     'name' => 'add-idea-button',
-                    'id' => 'modalButton4'
+                    'id' => 'modalButtonDeleteProfile'
                 ]
             );
         } else {
@@ -136,10 +136,10 @@ $this->title = 'Профиль ' . strval($user->users_name);
 <?php
     Modal::begin([
         'header' => '<h4>Невозможно удалить пользователя</h4>',
-        'id' => 'modal4',
+        'id' => 'modalDeleteProfile',
         'size' => 'modal-lg',
     ]);
-    echo "<div id='modalContent4'>У пользователя остались идеи или комментарии</div>";
+    echo "<div id='modalContentDeleteProfile'>У пользователя остались идеи или комментарии</div>";
     Modal::end();
     ?>
 <?php ActiveForm::end(); ?>

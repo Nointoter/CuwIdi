@@ -35,7 +35,7 @@ $this->title = 'Профиль ' . strval($user->users_name);
                         'value' => Url::to('/users/change-password'),
                         'class' => 'btn btn-success',
                         'name' => 'change-password-button',
-                        'id' => 'modalButton2'
+                        'id' => 'modalButtonChangePassword'
                     ]) ?>
                 </h4>
             <?php endif; ?>
@@ -249,9 +249,9 @@ $this->title = 'Профиль ' . strval($user->users_name);
         'header' => '<h4>
                         Сменить пароль
                     </h4>',
-        'id' => 'modal2',
+        'id' => 'modalChangePassword',
         'size' => 'modal-lg',
     ]);
-        echo "<div id='modalContent2'></div>";
+        echo "<div id='modalContentChangePassword'></div>";
     Modal::end();
     ?>
