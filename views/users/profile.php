@@ -27,7 +27,9 @@ $this->title = 'Профиль ' . strval($user->users_name);
                 <a href="re-profile?id=<?= strval($user->id_users) ?>" class="btn btn-primary" role="button">
                     Редактировать
                 </a>
-                <h4>Логин : <?= Html::encode($user->username) ?></h4>
+                <h4>
+                    Логин : <?= Html::encode($user->username) ?>
+                </h4>
                 <h4>
                     <?= Html::button('Сменить пароль', [
                         'value' => Url::to('/users/change-password'),
@@ -50,7 +52,9 @@ $this->title = 'Профиль ' . strval($user->users_name);
     <div class="row" style="background-color: #fff; color: #000">
         <?php if ($user->users_info) : ?>
             <div class="col-lg-3">
-                <h3>Информация:</h3>
+                <h3>
+                    Информация:
+                </h3>
             </div>
             <div class="col-lg-9">
                 <?php
@@ -221,7 +225,9 @@ $this->title = 'Профиль ' . strval($user->users_name);
         </div>
     <?php endif; ?>
 <?php else : ?>
-    <h1>Аккаунт временно заблокирован</h1>
+    <h1>
+        Аккаунт временно заблокирован
+    </h1>
     <?php if (($user->id_users == Yii::$app->user->id) && (!$user->isAdminFreeze())) : ?>
         <?php
             echo Html::a(
@@ -238,13 +244,14 @@ $this->title = 'Профиль ' . strval($user->users_name);
         ?>
     <?php endif; ?>
 <?php endif; ?>
-
 <?php
     Modal::begin([
-        'header' => '<h4>Сменить пароль</h4>',
+        'header' => '<h4>
+                        Сменить пароль
+                    </h4>',
         'id' => 'modal2',
         'size' => 'modal-lg',
     ]);
         echo "<div id='modalContent2'></div>";
     Modal::end();
-
+    ?>

@@ -1,6 +1,5 @@
 <?php
 
-
 namespace app\models;
 
 use yii\data\ActiveDataProvider;
@@ -26,10 +25,10 @@ class SearchIdeas extends Ideas
 
     public function search($params, $id, $ideasSearch)
     {
-        if ($ideasSearch != Null){
+        if ($ideasSearch != null) {
             $this->ideasSearch = $ideasSearch;
         }
-        if ($id != Null) {
+        if ($id != null) {
             $query = Ideas::find()
                 ->joinWith('ideas_tags')
                 ->joinWith('users')
@@ -42,7 +41,7 @@ class SearchIdeas extends Ideas
                 ->orderBy('id_ideas');
         }
         $query->andWhere(['status' => 0]);
-        if ($ideasSearch != Null) {
+        if ($ideasSearch != null) {
             $query->andWhere(
                 [
                     'AND',
@@ -58,7 +57,8 @@ class SearchIdeas extends Ideas
                         ['users_name' => $this->ideasSearch],
                         ['tag' => $this->ideasSearch],
                     ]
-                ]);
+                ]
+            );
         }
         $query->andFilterWhere(['id_ideas' => $this->id_ideas])
             ->andFilterWhere(['like', 'ideas_name', $this->ideas_name])
@@ -76,7 +76,7 @@ class SearchIdeas extends Ideas
             return $dataProvider;
         }
         // изменяем запрос добавляя в его фильтрацию
-        if ($ideasSearch != Null) {
+        if ($ideasSearch != null) {
             $query->andWhere(
                 [
                     'AND',
@@ -92,7 +92,8 @@ class SearchIdeas extends Ideas
                         ['users_name' => $this->ideasSearch],
                         ['tag' => $this->ideasSearch],
                     ]
-                ]);
+                ]
+            );
         }
 
         $query->andFilterWhere(['id_ideas' => $this->id_ideas])

@@ -16,7 +16,13 @@ $form = ActiveForm::begin([
         echo $form->field($model, 'newPassword')->passwordInput();
         echo $form->field($model, 'reNewPassword')->passwordInput();
     ?>
-    <?= Html::submitButton('Подтвердить', ['class' => 'btn btn-primary', 'name' => 're-pass-button']) ?>
-    <?= Html::resetButton('Отмена', ['class' => 'btn btn-warning', 'data-dismiss' => 'modal', 'name' => 're-pass-cancel-button']) ?>
+    <?= Html::submitButton(
+        'Подтвердить',
+        ['class' => 'btn btn-primary', 'name' => 're-pass-button']
+    ) ?>
+    <?= Html::resetButton(
+        'Отмена',
+        ['class' => 'btn btn-warning', 'data-dismiss' => 'modal', 'name' => 're-pass-cancel-button']
+    ) ?>
 </div>
 <?php ActiveForm::end(); ?>

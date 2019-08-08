@@ -60,10 +60,15 @@ class IdeasController extends Controller
         $imageModel = new ImagesForm();
         $images = $model->getImages();
         $carousel = [];
-        foreach($images as $image) {
+        foreach ($images as $image) {
             $newImage = Yii::getAlias('@app/web/images/' . $image->images_name);
             Image::resize($newImage, 1400, 400)
-                ->save(Yii::getAlias('@app/web/images/' . $model->ideas_name . '.' . $image->images_name), ['quality' => 80]);
+                ->save(
+                    Yii::getAlias(
+                        '@app/web/images/' . $model->ideas_name . '.' . $image->images_name
+                    ),
+                    ['quality' => 80]
+                );
             $carousel[] = [
                 'content' => Html::img('@web/images/' . $model->ideas_name . '.' .$image->images_name, [
                     'width' => '1400px',
@@ -73,7 +78,12 @@ class IdeasController extends Controller
         };
 
         $commentsSearch = new SearchComments();
-        $commentsProvider = $commentsSearch->search(Yii::$app->request->get(), $id, true, Null);
+        $commentsProvider = $commentsSearch->search(
+            Yii::$app->request->get(),
+            $id,
+            true,
+            null
+        );
 
         $ideasModel = new IdeasForm();
         $ideasModelName = new IdeasForm();
@@ -109,8 +119,7 @@ class IdeasController extends Controller
         }
         if ($imageModel->load(Yii::$app->request->post())) {
             $imageModel->imageFile = UploadedFile::getInstance($imageModel, 'imageFile');
-            if ($imageModel->imageFile != Null)
-            {
+            if ($imageModel->imageFile != null) {
                 $idea_image = new Images();
                 $idea_image->ideas_id = $id;
                 $idea_image->images_name = $model->ideas_name . $imageModel->imageFile->baseName . '.jpg';
@@ -120,32 +129,35 @@ class IdeasController extends Controller
                 return $this->redirect('idea?id='.strval($id));
             }
         }
-        return $this->render('idea',[
-            'model' => $model,
-            'ideasModelName' => $ideasModelName,
-            'ideasModel' => $ideasModel,
-            'tagModel' => $tagModel,
-            'carousel' => $carousel,
-            'imageModel' => $imageModel,
-            'commentModel' => $commentModel,
-            'commentsProvider' => $commentsProvider,
-        ]);
+        return $this->render(
+            'idea',
+            [
+                'model' => $model,
+                'ideasModelName' => $ideasModelName,
+                'ideasModel' => $ideasModel,
+                'tagModel' => $tagModel,
+                'carousel' => $carousel,
+                'imageModel' => $imageModel,
+                'commentModel' => $commentModel,
+                'commentsProvider' => $commentsProvider,
+            ]
+        );
     }
 
     /**
      * Displays AddProjectForm
      *
+     * @param $bool
      * @return string
      */
 
     public function actionAddIdea($bool)
     {
-        if(!(User::findIdentity(Yii::$app->user->id))->isActive()) {
+        if (!(User::findIdentity(Yii::$app->user->id))->isActive()) {
             return $this->redirect('/site');
         }
         $ideasModel = new IdeasForm();
-        if ($ideasModel->load(Yii::$app->request->post()) && $ideasModel->validate())
-        {
+        if ($ideasModel->load(Yii::$app->request->post()) && $ideasModel->validate()) {
             $model = new Ideas();
             $model->ideas_name = $ideasModel->ideas_name;
             $model->info_short = $ideasModel->info_short;
@@ -157,29 +169,33 @@ class IdeasController extends Controller
             $model->save(false);
 
             return $this->redirect('/ideas');
-        }
-        else
-        {
-            return $this->renderAjax('add-idea',[
-                'ideasModel' => $ideasModel,
-            ]);
+        } else {
+            return $this->renderAjax(
+                'add-idea',
+                [
+                    'ideasModel' => $ideasModel,
+                ]
+            );
         }
     }
 
     /**
      * Displays DeleteIdeaForm
      *
+     * @param $id
+     * @param $bool
+     * @throws \Throwable
      * @return string
      */
 
     public function actionDeleteIdea($id, $bool)
     {
-        if(!(User::findIdentity(Yii::$app->user->id))->isActive()) {
+        if (!(User::findIdentity(Yii::$app->user->id))->isActive()) {
             return $this->redirect('/site');
         }
         $model = Ideas::find()->where(['id_ideas' => $id])->one();
         if ($model != null) {
-            if (Yii::$app->user->id != $model->creators_id){
+            if (Yii::$app->user->id != $model->creators_id) {
                 return $this->redirect('idea?id='.strval($id));
             } else {
                 $model->delete();
@@ -200,20 +216,23 @@ class IdeasController extends Controller
 
     public function actionDeleteIdeaImages($id)
     {
-        if(!(User::findIdentity(Yii::$app->user->id))->isActive()) {
+        if (!(User::findIdentity(Yii::$app->user->id))->isActive()) {
             return $this->redirect('/site');
         }
         $ideasModel = Ideas::find()->where(['id_ideas' => $id])->one();
         if ($ideasModel != null) {
-            if (Yii::$app->user->id != $ideasModel->creators_id){
+            if (Yii::$app->user->id != $ideasModel->creators_id) {
                 return $this->redirect('idea?id='.strval($id));
             } else {
                 $imagesSearch = new SearchImages();
                 $imagesProvider = $imagesSearch->search(Yii::$app->request->get(), $id);
-                return $this->render('delete-idea-images',[
-                    'ideasModel' => $ideasModel,
-                    'imagesProvider' => $imagesProvider,
-                ]);
+                return $this->render(
+                    'delete-idea-images',
+                    [
+                        'ideasModel' => $ideasModel,
+                        'imagesProvider' => $imagesProvider,
+                    ]
+                );
             }
         }
         return $this->redirect('ideas');

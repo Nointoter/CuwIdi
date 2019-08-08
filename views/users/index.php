@@ -45,7 +45,9 @@ $this->title = 'Пользователи';
             [
                 'attribute' => 'id_users',
                 'label' => 'Id',
-                'contentOptions'=>['style'=>'width : 95px; background-color: #fff; color: #000'],
+                'contentOptions' => [
+                    'style' => 'width : 95px; background-color: #fff; color: #000'
+                ],
                 'filter' => Select2::widget([
                     'name' => 'id_users',
                     'model' => $model,
@@ -66,10 +68,7 @@ $this->title = 'Пользователи';
             [
                 'label' => 'Имя',
                 'contentOptions' => [
-                        'style'=>'white-space: normal; 
-                        width : 150px; 
-                        background-color: #fff; 
-                        color: #000'
+                    'style'=>'white-space: normal; width : 150px; background-color: #fff; color: #000'
                 ],
                 'value' => function ($data) {
                     return Html::a(
@@ -81,7 +80,9 @@ $this->title = 'Пользователи';
             ],
             [
                 'label' => 'Информация',
-                'contentOptions' => ['style'=>'width : 250px; background-color: #fff; color: #000'],
+                'contentOptions' => [
+                    'style' => 'width : 250px; background-color: #fff; color: #000'
+                ],
                 'value' => function ($model) {
                     if ($model->users_info != null) {
                         return $model->users_info;
@@ -93,7 +94,9 @@ $this->title = 'Пользователи';
             [
                 'label' => 'Изображение',
                 'format' => 'html',
-                'contentOptions' => ['style'=>'width : 170px; background-color: #FFFFFF; color: #000000'],
+                'contentOptions' => [
+                    'style' => 'width : 170px; background-color: #FFFFFF; color: #000000'
+                ],
                 'value' => function ($model) {
                     if ($model->users_image != null) {
                         return Html::img($model->getImageUrl(), [
@@ -124,12 +127,17 @@ $this->title = 'Пользователи';
                         'allowClear' => true,
                     ]
                 ]),
-                'contentOptions' => ['style'=>'width : 170px; background-color: #FFFFFF; color: #000000'],
-                'visible' => ((User::find()->where(['id_users' => Yii::$app->user->id])->one())->users_role == 'admin'),
+                'contentOptions' => [
+                    'style' => 'width : 170px; background-color: #FFFFFF; color: #000000'
+                ],
+                'visible' => ((User::find()->where(['id_users' => Yii::$app->user->id])
+                    ->one())->users_role == 'admin'),
             ],
             [
                 'class' => 'yii\grid\ActionColumn',
-                'contentOptions' => ['style' => 'width : 60px; background-color: #FFFFFF; color: #000000'],
+                'contentOptions' => [
+                    'style' => 'width : 60px; background-color: #FFFFFF; color: #000000'
+                ],
                 'buttons' => [
                     'view' => function ($url, $model, $key) {
                         return Html::a(
@@ -174,7 +182,8 @@ $this->title = 'Пользователи';
                         $comments = Comments::find()->where(['users_id' => $key])->all();
                         if ($ideas || $comments) {
                             return Html::a(
-                                '<span class="glyphicon glyphicon-trash"></span>',
+                                '<span class="glyphicon glyphicon-trash">
+                                </span>',
                                 '',
                                 [
                                     'class' => 'modalButton3',
@@ -191,17 +200,22 @@ $this->title = 'Пользователи';
                         }
                     },
                 ],
-                'visible' => ((User::find()->where(['id_users' => Yii::$app->user->id])->one())->users_role == 'admin'),
+                'visible' => ((User::find()->where(['id_users' => Yii::$app->user->id])
+                    ->one())->users_role == 'admin'),
             ],
         ],
     ])?>
 </div>
-
 <?php
     Modal::begin([
-        'header' => '<h4>Невозможно удалить пользователя</h4>',
+        'header' => '<h4>
+                        Невозможно удалить пользователя
+                    </h4>',
         'id' => 'modal3',
         'size' => 'modal-lg',
     ]);
-    echo "<div id='modalContent3'>У пользователя остались идеи</div>";
+    echo "<div id='modalContent3'>
+            У пользователя остались идеи
+         </div>";
     Modal::end();
+    ?>

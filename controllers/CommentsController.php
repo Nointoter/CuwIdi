@@ -14,11 +14,9 @@ class CommentsController extends Controller
 
     public function actionDeleteComment($id, $bool)
     {
-        /*echo '<pre>';
-        var_dump($id);*/
         $model = Comments::find()->where(['id_comments' => $id])->one();
         $ideasModel = Ideas::find()->where(['id_ideas' => $model->ideas_id])->one();
-        if (Yii::$app->user->id == $model->users_id){
+        if (Yii::$app->user->id == $model->users_id) {
             $model->delete();
         }
         if (Yii::$app->request->isAjax) {

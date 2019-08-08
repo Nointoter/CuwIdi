@@ -1,13 +1,10 @@
 <?php
 
-use app\models\IdeasForm;
 use yii\bootstrap\ActiveForm;
 use yii\helpers\Html;
-use yii\widgets\Pjax;
 
 /* @var $form yii\bootstrap\ActiveForm */
 /* @var $ideasModel app\models\IdeasForm */
-
 
 /*$this->title = 'Добавить идею';
 $this->params['breadcrumbs'][] = $this->title;*/
@@ -22,12 +19,34 @@ $this->params['breadcrumbs'][] = $this->title;*/
         <div class="col-lg-12">
             <?php /*Pjax::begin(['id' => 'add-idea']) */?>
                 <?php $form = ActiveForm::begin(['options' => ['data-pjax' => true], 'id' => 'addNewIdeaForm']); ?>
-                    <?= $form->field($ideasModel, 'ideas_name')->textInput(['autofocus' => true])->label('Имя') ?>
-                    <?= $form->field($ideasModel, 'info_short')->textInput(['autofocus' => true])->label('Описание') ?>
-                    <?= $form->field($ideasModel, 'info_long')->textarea(['rows' => 8, 'autofocus' => true])->label('Информация') ?>
+                    <?= $form->field(
+                        $ideasModel,
+                        'ideas_name'
+                    )->textInput(['autofocus' => true])->label('Имя') ?>
+                    <?= $form->field(
+                        $ideasModel,
+                        'info_short'
+                    )->textInput(['autofocus' => true])->label('Описание') ?>
+                    <?= $form->field(
+                        $ideasModel,
+                        'info_long'
+                    )->textarea(['rows' => 8, 'autofocus' => true])->label('Информация') ?>
                     <div class="form-group">
-                        <?= Html::submitButton('Добавить', ['class' => 'btn btn-primary', 'name' => 'add-project-button']) ?>
-                        <?= Html::resetButton('Отмена', ['class' => 'btn btn-warning', 'data-dismiss' => 'modal', 'name' => 'add-project-cancel-button']) ?>
+                        <?= Html::submitButton(
+                            'Добавить',
+                            [
+                                'class' => 'btn btn-primary',
+                                'name' => 'add-project-button'
+                            ]
+                        ) ?>
+                        <?= Html::resetButton(
+                            'Отмена',
+                            [
+                                'class' => 'btn btn-warning',
+                                'data-dismiss' => 'modal',
+                                'name' => 'add-project-cancel-button'
+                            ]
+                        ) ?>
                     </div>
                 <?php ActiveForm::end(); ?>
             <?php /*Pjax::end(); */?>

@@ -1,8 +1,6 @@
 <?php
 
-
 namespace app\controllers;
-
 
 use app\models\Ideas;
 use app\models\Images;
@@ -13,7 +11,7 @@ class ImagesController extends Controller
 {
     /**
      * Displays DeleteImagesForm
-     *
+     * @throws \Throwable
      * @return string
      */
 
@@ -21,7 +19,7 @@ class ImagesController extends Controller
     {
         $model = Images::find()->where(['id_ideas_images' => $id])->one();
         $ideasModel = Ideas::find()->where(['id_ideas' => $model->ideas_id])->one();
-        if (Yii::$app->user->id == $ideasModel->creators_id){
+        if (Yii::$app->user->id == $ideasModel->creators_id) {
             $model->delete();
             return $this->redirect('/ideas/delete-idea-images?id='.strval($ideasModel->id_ideas));
         }

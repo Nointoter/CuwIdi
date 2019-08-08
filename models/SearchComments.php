@@ -1,8 +1,6 @@
 <?php
 
-
 namespace app\models;
-
 
 use yii\data\ActiveDataProvider;
 
@@ -23,10 +21,10 @@ class SearchComments extends Comments
 
     public function search($params, $id, $bool, $target)
     {
-        if ($target != Null){
+        if ($target != null) {
             $this->commentsSearch = $target;
         }
-        if ($id != Null) {
+        if ($id != null) {
             if (!$bool) {
                 $query = Comments::find()
                     ->joinWith('users')

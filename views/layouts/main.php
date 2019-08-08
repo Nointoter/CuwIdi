@@ -3,15 +3,13 @@
 /* @var $this \yii\web\View */
 /* @var $content string */
 
+use app\assets\AppAsset;
 use app\widgets\Alert;
-use yii\helpers\Html;
 use yii\bootstrap\Nav;
 use yii\bootstrap\NavBar;
-use yii\widgets\Breadcrumbs;
-use app\assets\AppAsset;
+use yii\helpers\Html;
 use yii\helpers\Url;
-use yii\widgets\ActiveForm;
-use app\models\User;
+use yii\widgets\Breadcrumbs;
 
 AppAsset::register($this);
 ?>
@@ -75,18 +73,27 @@ AppAsset::register($this);
                     ],
                 ]);
                 $term = 'asd';
-            ?>
-        <form class="navbar-form navbar-right" name = "target" action="/site/search-results" method="get" id="main-global-search-form">
+                ?>
+        <form
+            class="navbar-form navbar-right"
+            name = "target"
+            action="/site/search-results"
+            method="get"
+            id="main-global-search-form">
             <div class="form-group has-feedback search field-globalsearchform-target">
                 <p>
-                    <input type="target" id ="globalsearchform-target" class="form-control" name = "GlobalSearchForm[target]" placeholder="Найти" >
+                    <input
+                        type="target"
+                        id ="globalsearchform-target"
+                        class="form-control"
+                        name = "GlobalSearchForm[target]"
+                        placeholder="Найти">
                 </p>
-                <i class="glyphicon glyphicon-search form-control-feedback"></i>
+                <i class="glyphicon glyphicon-search form-control-feedback">
+                </i>
             </div>
         </form>
-        <?php
-            NavBar::end();
-        ?>
+        <?php NavBar::end(); ?>
         <div class="container">
             <?= Breadcrumbs::widget([
                 'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
@@ -97,10 +104,27 @@ AppAsset::register($this);
     </div>
     <footer class="modal-footer">
         <div class="containe">
-            <p class="pull-left"><a class="invisible"">____</p>
-            <p class="pull-left"><a class="btn-link" href=<?= Url::toRoute("site/about")?>>&copy; Noin <?= date('Y') ?></p>
-            <p class="pull-left"><a class="invisible"">____</p>
-            <p class="pull-left"><a class="btn-link" href=<?= Url::toRoute("site/contact")?>> Связь</a></p>
+            <p class="pull-left">
+                <a class="invisible">
+                ____
+                </a>
+            </p>
+            <p class="pull-left">
+                <a class="btn-link" href=<?= Url::toRoute("site/about")?>>
+                &copy; Noin
+                <?= date('Y') ?>
+                </a>
+            </p>
+            <p class="pull-left">
+                <a class="invisible">
+                ____
+                </a>
+            </p>
+            <p class="pull-left">
+                <a class="btn-link" href=<?= Url::toRoute("site/contact")?>>
+                    Связь
+                </a>
+            </p>
         </div>
     </footer>
     <?php $this->endBody() ?>

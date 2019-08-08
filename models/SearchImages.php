@@ -1,8 +1,6 @@
 <?php
 
-
 namespace app\models;
-
 
 use yii\data\ActiveDataProvider;
 
@@ -10,7 +8,7 @@ class SearchImages extends Images
 {
     public function search($params, $id)
     {
-        if ($id != Null) {
+        if ($id != null) {
             $query = Images::find()
                 ->where(['ideas_id' => $id]);
         } else {

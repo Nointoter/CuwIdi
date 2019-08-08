@@ -5,6 +5,7 @@ use yii\helpers\Html;
 /* @var $idea \app\models\Ideas*/
 
 $this->title = 'CuwIdi';
+
 ?>
 <h1>Пять последних идей</h1>
 <div class="row">

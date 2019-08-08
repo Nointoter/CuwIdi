@@ -3,16 +3,15 @@
 namespace app\controllers;
 
 
+use app\models\ContactForm;
+use app\models\GlobalSearchForm;
 use app\models\Ideas;
 use app\models\SearchComments;
+use app\models\SearchIdeas;
+use app\models\SearchUsers;
 use Yii;
 use yii\web\Controller;
 use yii\web\Response;
-use app\models\ContactForm;
-use app\models\GlobalSearchForm;
-use app\models\User;
-use app\models\SearchUsers;
-use app\models\SearchIdeas;
 
 class SiteController extends Controller
 {
@@ -61,21 +60,38 @@ class SiteController extends Controller
         $target = $model->target;
 
         $ideasModel = new SearchIdeas();
-        $ideasProvider = $ideasModel->search(Yii::$app->request->get(), Null, $target);
+        $ideasProvider = $ideasModel->search(
+            Yii::$app->request->get(),
+            null,
+            $target
+        );
         $usersModel = new SearchUsers();
-        $usersProvider = $usersModel->search(Yii::$app->request->get(), Null, $target, true);
+        $usersProvider = $usersModel->search(
+            Yii::$app->request->get(),
+            null,
+            $target,
+            true
+        );
         $commentsModel = new SearchComments();
-        $commentsProvider = $commentsModel->search(Yii::$app->request->get(), Null,false,  $target);
+        $commentsProvider = $commentsModel->search(
+            Yii::$app->request->get(),
+            null,
+            false,
+            $target
+        );
 
-        return $this->render('search-results',[
-            'target' => $target,
-            'ideasProvider'=> $ideasProvider,
-            'ideasModel' => $ideasModel,
-            'usersProvider'=> $usersProvider,
-            'usersModel' => $usersModel,
-            'commentsProvider' => $commentsProvider,
-            'commentsModel' => $commentsModel,
-        ]);
+        return $this->render(
+            'search-results',
+            [
+                'target' => $target,
+                'ideasProvider'=> $ideasProvider,
+                'ideasModel' => $ideasModel,
+                'usersProvider'=> $usersProvider,
+                'usersModel' => $usersModel,
+                'commentsProvider' => $commentsProvider,
+                'commentsModel' => $commentsModel,
+            ]
+        );
     }
 
     /**

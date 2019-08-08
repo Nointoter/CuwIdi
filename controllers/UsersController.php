@@ -87,6 +87,7 @@ class UsersController extends Controller
     /**
      * Displays profile.
      *
+     * @param $id
      * @return string
      */
     public function actionProfile($id)
@@ -97,31 +98,47 @@ class UsersController extends Controller
         }
 
         $ideasSearch = new SearchIdeas();
-        $ideasProvider = $ideasSearch->search(Yii::$app->request->get(), $id, null);
+        $ideasProvider = $ideasSearch->search(
+            Yii::$app->request->get(),
+            $id,
+            null
+        );
 
         $commentsSearch = new SearchComments();
-        $commentsProvider = $commentsSearch->search(Yii::$app->request->get(), $id, false, null);
+        $commentsProvider = $commentsSearch->search(
+            Yii::$app->request->get(),
+            $id,
+            false,
+            null
+        );
 
         $image_model = new ImagesForm();
         if ($image_model->load(Yii::$app->request->post())) {
-            $image_model->imageFile = UploadedFile::getInstance($image_model, 'imageFile');
+            $image_model->imageFile = UploadedFile::getInstance(
+                $image_model,
+                'imageFile'
+            );
             $image_model->imageFile->name = $user->users_name . '_image.jpg';
             $user->users_image = $image_model->imageFile->name;
             $image_model->upload();
         }
-        return $this->render('profile', [
-            'user' => $user,
-            'image_model' => $image_model,
-            'ideasSearch' => $ideasSearch,
-            'ideasProvider' => $ideasProvider,
-            'commentsProvider' => $commentsProvider,
-            'commentsSearch' => $commentsSearch,
-        ]);
+        return $this->render(
+            'profile',
+            [
+                'user' => $user,
+                'image_model' => $image_model,
+                'ideasSearch' => $ideasSearch,
+                'ideasProvider' => $ideasProvider,
+                'commentsProvider' => $commentsProvider,
+                'commentsSearch' => $commentsSearch,
+            ]
+        );
     }
 
     /**
      * Displays reProfile.
      *
+     * @param $id
      * @return string
      */
     public function actionReProfile($id)
@@ -213,6 +230,8 @@ class UsersController extends Controller
     /**
      * Displays reProfile.
      *
+     * @param $id
+     * @param $bool
      * @return string
      */
     public function actionReStatus($id, $bool)

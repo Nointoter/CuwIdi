@@ -1,11 +1,9 @@
 <?php
 
-
 namespace app\models;
 
-use yii\base\Model;
 use Yii;
-
+use yii\base\Model;
 
 class ChangePasswordForm extends Model
 {
@@ -20,8 +18,18 @@ class ChangePasswordForm extends Model
             ['newPassword', 'validateNewPassword'],
             ['reNewPassword', 'validateReNewPassword'],
             [['password', 'newPassword', 'reNewPassword'], 'required'],
-            //['password', 'compare', 'compareAttribute' => (User::findIdentity(Yii::$app->user->id)->password), 'message' => 'Введен неверный пароль'],
-            //['reNewPassword', 'compare', 'compareAttribute' => 'newPassword', 'message' => 'Пароли не совпадают'],
+            //[
+            //  'password',
+            //  'compare',
+            //  'compareAttribute' => User::findIdentity(Yii::$app->user->id)->password,
+            //  'message' => 'Введен неверный пароль'
+            //],
+            //[
+            //  'reNewPassword',
+            //  'compare',
+            //  'compareAttribute' => 'newPassword',
+            //  'message' => 'Пароли не совпадают'
+            //],
         ];
     }
 
@@ -47,7 +55,7 @@ class ChangePasswordForm extends Model
     public function validateNewPassword($attribute, $params)
     {
         if (!$this->hasErrors()) {
-            if ($this->password == $this->newPassword){
+            if ($this->password == $this->newPassword) {
                 $this->addError($attribute, 'Введите новый пароль');
             }
         }
@@ -56,9 +64,9 @@ class ChangePasswordForm extends Model
     public function validateReNewPassword($attribute, $params)
     {
         if (!$this->hasErrors()) {
-            if ($this->newPassword != $this->reNewPassword)
+            if ($this->newPassword != $this->reNewPassword) {
                 $this->addError($attribute, 'Пароли не совпадают');
+            }
         }
     }
-
 }
