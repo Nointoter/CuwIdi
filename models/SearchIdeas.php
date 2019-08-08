@@ -55,7 +55,7 @@ class SearchIdeas extends Ideas
                         ['creations_year' => $this->ideasSearch],
                         ['creators_id' => $this->ideasSearch],
                         ['users_name' => $this->ideasSearch],
-                        ['tag' => $this->ideasSearch],
+                        ['like', 'tag', $this->ideasSearch],
                     ]
                 ]
             );
@@ -90,7 +90,7 @@ class SearchIdeas extends Ideas
                         ['creations_year' => $this->ideasSearch],
                         ['creators_id' => $this->ideasSearch],
                         ['users_name' => $this->ideasSearch],
-                        ['tag' => $this->ideasSearch],
+                        ['like', 'tag', $this->ideasSearch],
                     ]
                 ]
             );

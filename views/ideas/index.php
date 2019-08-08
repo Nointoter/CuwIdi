@@ -62,7 +62,7 @@ $this->title = 'Идеи';
                                     'value' => Url::to('/ideas/add-idea?bool=' . strval(false)),
                                     'class' => 'btn btn-success',
                                     'name' => 'add-idea-button',
-                                    'id' => 'modalButton1'
+                                    'id' => 'modalButtonAddIdea'
                                 ]
                             );
                         } else {
@@ -85,11 +85,11 @@ $this->title = 'Идеи';
                 Modal::begin(
                     [
                         'header' => '<h4>Добавить идею</h4>',
-                        'id' => 'modal1',
+                        'id' => 'modalAddIdea',
                         'size' => 'modal-lg',
                     ]
                 );
-                echo "<div id='modalContent1'></div>";
+                echo "<div id='modalContentAddIdea'></div>";
                 Modal::end();
                 ?>
             </div>

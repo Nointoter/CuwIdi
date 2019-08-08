@@ -1,7 +1,7 @@
 $(function(){
-    $('#modalButton1').click(function(){
-        $('#modal1').modal('show')
-            .find('#modalContent1')
+    $('#modalButtonAddIdea').click(function(){
+        $('#modalAddIdea').modal('show')
+            .find('#modalContentAddIdea')
             .load($(this).attr('value'));
     });
 

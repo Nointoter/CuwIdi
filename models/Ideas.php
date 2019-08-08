@@ -19,7 +19,7 @@ class Ideas extends ActiveRecord
         return ($this->hasOne(User::className(), ['id_users' => 'creators_id']));
     }
 
-    public function getIdeasTags()
+    public function getideas_tags()
     {
         return ($this->hasMany(Tags::className(), ['ideas_id' => 'id_ideas']));
     }
