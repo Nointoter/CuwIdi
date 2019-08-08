@@ -257,7 +257,8 @@ $this->title = 'Просмотр идеи '.strval($model->ideas_name);
                         'label' => 'Комментатор',
                         'contentOptions'=>['style'=>'width : 100px; background-color: #FFFFFF; color: #000000'],
                         'value' => function ($data) {
-                            return Html::a(Html::encode($data->getAuthorsName()), Url::toRoute(['/users/profile', 'id' => $data->users_id]));
+                            return Html::a(Html::encode($data->getAuthorsName()),
+                                Url::toRoute(['/users/profile', 'id' => $data->users_id]));
                         },
                         'format' => 'raw',
                     ],

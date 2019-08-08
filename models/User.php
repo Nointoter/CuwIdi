@@ -25,6 +25,21 @@ class User extends ActiveRecord implements \yii\web\IdentityInterface
         return Url::to('@web/images/' . $this->users_image, true);
     }
 
+    public function isActive()
+    {
+        return (0 == $this->status);
+    }
+
+    public function isFreeze()
+    {
+        return (1 == $this->status);
+    }
+
+    public function isAdminFreeze()
+    {
+        return (2 == $this->status);
+    }
+
 
     public function getComments()
     {

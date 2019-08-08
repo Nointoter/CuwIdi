@@ -41,7 +41,7 @@ class SiteController extends Controller
 
     public function actionIndex()
     {
-        $ideas = Ideas::find()->limit(5)->all();
+        $ideas = Ideas::find()->orderBy('id_ideas DESC')->limit(5)->all();
 
         return $this->render('index', [
             'ideas' => $ideas,

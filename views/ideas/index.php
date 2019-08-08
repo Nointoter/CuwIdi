@@ -39,7 +39,7 @@ $this->title = 'Идеи';
                     <div class="form-group">
                         <?php if (!Yii::$app->user->isGuest)
                                 {
-                                    if (!(User::findIdentity(Yii::$app->user->id))->status) {
+                                    if (User::findIdentity(Yii::$app->user->id)->isActive()) {
                                         echo Html::button('Добавить идею', ['value' => Url::to('/ideas/add-idea?bool=' . strval(false)), 'class' => 'btn btn-success', 'name' => 'add-idea-button', 'id' => 'modalButton1']);
                                     } else {
                                         echo '<html> 
@@ -129,7 +129,7 @@ $this->title = 'Идеи';
                         'label' => 'Создатель',
                         'contentOptions'=>['style'=>'white-space: normal; width : 150px; background-color: #FFFFFF; color: #000000'],
                         'value' => function ($data) {
-                            if (!(User::findIdentity($data->creators_id))->status){
+                            if ((User::findIdentity($data->creators_id))->isActive()){
                                 return Html::a(Html::encode($data->getAuthorsName()), Url::toRoute(['/users/profile', 'id' => $data->creators_id]));
                             } else {
                                 return "заблокирован";

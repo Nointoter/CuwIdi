@@ -1,6 +1,5 @@
 <?php
 
-
 namespace app\controllers;
 
 use app\models\AddCommentForm;
@@ -8,20 +7,18 @@ use app\models\AddTagForm;
 use app\models\Comments;
 use app\models\Ideas;
 use app\models\IdeasForm;
+use app\models\Images;
 use app\models\ImagesForm;
 use app\models\SearchComments;
 use app\models\SearchIdeas;
 use app\models\SearchImages;
+use app\models\Tags;
+use app\models\User;
 use Yii;
-use yii\helpers\ArrayHelper;
-use yii\web\Controller;
-use yii\web\UploadedFile;
 use yii\helpers\Html;
 use yii\imagine\Image;
-use app\models\Images;
-use app\models\User;
-use app\models\Tags;
-
+use yii\web\Controller;
+use yii\web\UploadedFile;
 
 class IdeasController extends Controller
 {
@@ -38,9 +35,9 @@ class IdeasController extends Controller
         $allIdeas = Ideas::find()->all();
 
         $ideasSearch = new SearchIdeas();
-        $ideasProvider = $ideasSearch->search(Yii::$app->request->get(), NULL, $model->ideasSearch);
+        $ideasProvider = $ideasSearch->search(Yii::$app->request->get(), null, $model->ideasSearch);
 
-        return $this->render('index',[
+        return $this->render('index', [
             'model' => $model,
             'ideasSearch' => $ideasSearch,
             'ideasProvider' => $ideasProvider,
@@ -57,7 +54,7 @@ class IdeasController extends Controller
     public function actionIdea($id)
     {
         $model = Ideas::find()->where(['id_ideas' => $id])->one();
-        if (($model->getUser())->status) {
+        if (!($model->getUser())->isActive()) {
             $this->redirect('/ideas');
         }
         $imageModel = new ImagesForm();
@@ -143,7 +140,7 @@ class IdeasController extends Controller
 
     public function actionAddIdea($bool)
     {
-        if((User::findIdentity(Yii::$app->user->id))->status) {
+        if(!(User::findIdentity(Yii::$app->user->id))->isActive()) {
             return $this->redirect('/site');
         }
         $ideasModel = new IdeasForm();
@@ -177,7 +174,7 @@ class IdeasController extends Controller
 
     public function actionDeleteIdea($id, $bool)
     {
-        if((User::findIdentity(Yii::$app->user->id))->status) {
+        if(!(User::findIdentity(Yii::$app->user->id))->isActive()) {
             return $this->redirect('/site');
         }
         $model = Ideas::find()->where(['id_ideas' => $id])->one();
@@ -203,7 +200,7 @@ class IdeasController extends Controller
 
     public function actionDeleteIdeaImages($id)
     {
-        if((User::findIdentity(Yii::$app->user->id))->status) {
+        if(!(User::findIdentity(Yii::$app->user->id))->isActive()) {
             return $this->redirect('/site');
         }
         $ideasModel = Ideas::find()->where(['id_ideas' => $id])->one();

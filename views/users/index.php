@@ -139,7 +139,7 @@ $this->title = 'Пользователи';
                         );
                     },
                     'update' => function ($url, $model, $key) {
-                        if ((User::findIdentity($key))->status) {
+                        if (!(User::findIdentity($key))->isActive()) {
                             return Html::a(
                                 '',
                                 Url::toRoute([

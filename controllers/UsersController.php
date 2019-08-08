@@ -130,7 +130,7 @@ class UsersController extends Controller
         if (!$user) {
             return $this->redirect('/users/index');
         }
-        if (Yii::$app->user->id != $id || (User::findIdentity($id))->status != 0) {
+        if (Yii::$app->user->id != $id || !(User::findIdentity($id))->isActive()) {
             return $this->redirect('profile?id=' . strval($id));
         }
         $image = Html::img('@web/images/' . $user->users_image, [
@@ -172,7 +172,7 @@ class UsersController extends Controller
      */
     public function actionDelete($id)
     {
-        if ((User::findIdentity(Yii::$app->user->id))->status) {
+        if (!(User::findIdentity(Yii::$app->user->id))->isActive()) {
             return $this->redirect('profile?id=' . strval($id));
         }
         $ideas = Ideas::find()->where(['creators_id' => $id])->all();
@@ -194,7 +194,7 @@ class UsersController extends Controller
      */
     public function actionFreeze($id, $bool)
     {
-        if ((User::findIdentity(Yii::$app->user->id))->status) {
+        if (!(User::findIdentity(Yii::$app->user->id))->isActive()) {
             return $this->redirect('profile?id=' . strval($id));
         }
         if ((User::findIdentity(Yii::$app->user->id)->users_role == 'admin') || (Yii::$app->user->id == $id)) {
@@ -237,7 +237,7 @@ class UsersController extends Controller
      */
     public function actionChangePassword()
     {
-        if ((User::findIdentity(Yii::$app->user->id))->status) {
+        if (!(User::findIdentity(Yii::$app->user->id))->isActive()) {
             return $this->redirect('profile?id=' . strval(Yii::$app->user->id));
         }
         $model = new ChangePasswordForm();

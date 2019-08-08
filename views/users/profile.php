@@ -19,7 +19,7 @@ $form = ActiveForm::begin();
 
 $this->title = 'Профиль ' . strval($user->users_name);
 ?>
-<?php if (!$user->status) : ?>
+<?php if ($user->isActive()) : ?>
     <div class="row" style="background-color: #fff; color: #000">
         <div class="col-lg-5">
             <h3>Профиль <?= Html::encode($user->users_name) ?></h3>
@@ -222,7 +222,7 @@ $this->title = 'Профиль ' . strval($user->users_name);
     <?php endif; ?>
 <?php else : ?>
     <h1>Аккаунт временно заблокирован</h1>
-    <?php if (($user->id_users == Yii::$app->user->id) && ($user->status != 2)) : ?>
+    <?php if (($user->id_users == Yii::$app->user->id) && (!$user->isAdminFreeze())) : ?>
         <?php
             echo Html::a(
                 'Востановить профиль',
