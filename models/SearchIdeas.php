@@ -53,7 +53,6 @@ class SearchIdeas extends Ideas
                         ['creations_day' => $this->ideasSearch],
                         ['creations_month'=> $this->ideasSearch],
                         ['creations_year' => $this->ideasSearch],
-                        ['creators_id' => $this->ideasSearch],
                         ['users_name' => $this->ideasSearch],
                         ['like', 'tag', $this->ideasSearch],
                     ]
@@ -65,8 +64,7 @@ class SearchIdeas extends Ideas
             ->andFilterWhere(['like', 'info_short', $this->info_short])
             ->andFilterWhere(['creations_day' => $this->creations_day])
             ->andFilterWhere(['creations_month' => $this->creations_month])
-            ->andFilterWhere(['creations_year' => $this->creations_year])
-            ->andFilterWhere(['creators_id' => $this->creators_id]);
+            ->andFilterWhere(['creations_year' => $this->creations_year]);
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
         ]);
@@ -88,7 +86,6 @@ class SearchIdeas extends Ideas
                         ['creations_day' => $this->ideasSearch],
                         ['creations_month' => $this->ideasSearch],
                         ['creations_year' => $this->ideasSearch],
-                        ['creators_id' => $this->ideasSearch],
                         ['users_name' => $this->ideasSearch],
                         ['like', 'tag', $this->ideasSearch],
                     ]
@@ -101,8 +98,7 @@ class SearchIdeas extends Ideas
             ->andFilterWhere(['like', 'info_short', $this->info_short])
             ->andFilterWhere(['creations_day' => $this->creations_day])
             ->andFilterWhere(['creations_month' => $this->creations_month])
-            ->andFilterWhere(['creations_year' => $this->creations_year])
-            ->andFilterWhere(['creators_id' => $this->creators_id]);
+            ->andFilterWhere(['creations_year' => $this->creations_year]);
 
         return $dataProvider;
     }

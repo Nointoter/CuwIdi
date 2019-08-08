@@ -42,6 +42,14 @@ class SearchUsers extends User
             'query' => $query,
         ]);
 
+        $query->orFilterWhere(['id_users' => $this->usersSearch])
+            ->orFilterWhere(['like', 'users_name', $this->usersSearch]);
+
+        $query->andFilterWhere(['id_users' => $this->id_users])
+            ->andFilterWhere(['like', 'users_name', $this->users_name]);
+
+        $query->andFilterWhere(['users_role' => $this->users_role]);
+
         // загружаем данные формы поиска и производим валидацию
         if (!($this->load($params) && $this->validate())) {
             return $dataProvider;
