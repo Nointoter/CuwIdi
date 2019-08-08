@@ -1,8 +1,6 @@
 <?php
 
-
 namespace app\models;
-
 
 use yii\data\ActiveDataProvider;
 
@@ -26,7 +24,7 @@ class SearchUsers extends User
 
     public function search($params, $id, $target, $bool)
     {
-        if ($id != Null){
+        if ($id != null) {
             $query = User::find()
                 ->where(['id_users' => $id]);
         } else {
@@ -35,9 +33,8 @@ class SearchUsers extends User
         if (!$bool) {
             $query->andWhere(['status' => 0]);
         }
-        //echo '<pre>';
-        //var_dump($params);
-        if ($target != Null){
+
+        if ($target != null) {
             $this->usersSearch = $target;
         }
 
@@ -45,11 +42,6 @@ class SearchUsers extends User
             'query' => $query,
         ]);
 
-        $query->orFilterWhere(['id_users' => $this->usersSearch])
-            ->orFilterWhere(['like', 'users_name', $this->usersSearch]);
-
-        $query->andFilterWhere(['id_users' => $this->id_users])
-            ->andFilterWhere(['like', 'users_name', $this->users_name]);
         // загружаем данные формы поиска и производим валидацию
         if (!($this->load($params) && $this->validate())) {
             return $dataProvider;
@@ -59,6 +51,8 @@ class SearchUsers extends User
 
         $query->andFilterWhere(['id_users' => $this->id_users])
             ->andFilterWhere(['like', 'users_name', $this->users_name]);
+
+        $query->andFilterWhere(['users_role' => $this->users_role]);
 
         return $dataProvider;
     }

@@ -74,14 +74,11 @@ class UsersController extends Controller
     {
         $model = new SearchUsers();
         $model->load(Yii::$app->request->get());
+        $usersProvider = $model->search(Yii::$app->request->get(), null, null, true);
         $allUsers = User::find()->all();
-
-        $usersSearch = new SearchUsers();
-        $usersProvider = $usersSearch->search(Yii::$app->request->get(), null, null, true);
 
         return $this->render('index', [
             'model' => $model,
-            'usersSearch' => $usersSearch,
             'usersProvider' => $usersProvider,
             'allUsers' => $allUsers,
         ]);

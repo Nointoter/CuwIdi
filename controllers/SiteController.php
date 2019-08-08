@@ -41,8 +41,8 @@ class SiteController extends Controller
 
     public function actionIndex()
     {
-        $ideas = Ideas::find()->all();
-        //$ideas =  array_slice($ideas, -5);
+        $ideas = Ideas::find()->limit(5)->all();
+
         return $this->render('index', [
             'ideas' => $ideas,
         ]);
