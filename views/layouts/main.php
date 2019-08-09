@@ -43,6 +43,7 @@ AppAsset::register($this);
                         ],
                     'items' => [
                         ['label' => 'Идеи', 'url' => ['/ideas']],
+                        ['label' => 'Тэги', 'url' =>['/tags']],
                         ],
                     ]);
                 echo Nav::widget([

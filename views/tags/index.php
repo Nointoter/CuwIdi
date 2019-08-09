@@ -1,110 +1,41 @@
 <?php
 
-use app\models\Ideas;
+use app\models\SearchIdeas;
 use app\models\User;
 use kartik\select2\Select2;
-use yii\bootstrap\ActiveForm;
-use yii\bootstrap\Modal;
 use yii\grid\GridView;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
+use app\models\Ideas;
 use yii\helpers\Url;
-use yii\widgets\Pjax;
 
-/* @var $this yii\web\View */
-/* @var $form yii\bootstrap\ActiveForm */
-/* @var $model app\models\Ideas */
-/* @var Ideas[] $allIdeas */
-/* @var Ideas[] $ideasProvider */
-/* @var $ideasSearch \app\models\SearchIdeas*/
+/* @var $idea \app\models\Tags*/
 
-$this->title = 'Идеи';
+$this->title = 'Тэги';
+
 ?>
-<?php Pjax::begin(['id' => 'new_search']); ?>
-    <div class="search-ideas">
+<div class="row">
+    <?php foreach ($tags as $tag) : ?>
+        <?php
+
+        /*if (($idea->getUser())->isActive()) : */?>
         <div class="row">
-            <div class="col-lg-6">
-                <?php
-                $form = ActiveForm::begin(
-                    [
-                        'options' => [
-                            'data-pjax' => true
-                        ],
-                        'action' => '/ideas',
-                        'method' => 'get',
-                        'id' => 'searchInIndex'
-                    ]
-                );
-                ?>
-                <?= $form->field($model, 'ideasSearch')->label('Поиск Идей') ?>
-                <div class="form-group">
-                    <?=
-                    Html::submitButton(
-                        'Поиск',
-                        [
-                            'class' => 'btn btn-primary',
-                            'name' => 'search-ideas-button'
-                        ]
-                    ) ?>
-                    <a href="ideas" class="btn btn-default" role="button">Очистить</a>
-                </div>
-                <?php ActiveForm::end(); ?>
-            </div>
+            <h2>
+                <?= $tag->tag ?>
+            </h2>
         </div>
-    </div>
-    <div class="add-ideas">
-        <div class="row">
-            <div class="col-lg-6">
-                <div class="form-group">
-                    <?php
-                    if (!Yii::$app->user->isGuest) {
-                        if (User::findIdentity(Yii::$app->user->id)->isActive()) {
-                            echo Html::button(
-                                'Добавить идею',
-                                [
-                                    'value' => Url::to('/ideas/add-idea?bool=' . strval(false)),
-                                    'class' => 'btn btn-success',
-                                    'name' => 'add-idea-button',
-                                    'id' => 'modalButtonAddIdea'
-                                ]
-                            );
-                        } else {
-                            echo '<html> 
-                                     <body> 
-                                         <h4>Для добавления идеи востановите свой аккаунт </h4> 
-                                     </body> 
-                                 </html>';
-                        }
-                    } else {
-                        echo '<html>
-                                 <body> 
-                                     <h4>Для добавления идеи войдите в аккаунт </h4> 
-                                 </body> 
-                             </html>';
-                    }
-                    ?>
-                    </div>
-                <?php
-                Modal::begin(
-                    [
-                        'header' => '<h4>Добавить идею</h4>',
-                        'id' => 'modalAddIdea',
-                        'size' => 'modal-lg',
-                    ]
-                );
-                echo "<div id='modalContentAddIdea'></div>";
-                Modal::end();
-                ?>
-            </div>
-        </div>
-    </div>
-    <div class="view-ideas">
-        <?= GridView::widget(
-            [
-                'dataProvider' => $ideasProvider,
-                'filterModel' => $ideasSearch,
-                'layout' => '{items}{pager}',
-                'columns' => [
+        <?php
+        $ideasSearch = new SearchIdeas();
+        $ideasProvider = $ideasSearch->search(Yii::$app->request->get(), null, $model->ideasSearch, $tag->tag);
+        $allIdeas = Ideas::find()->all();
+        ?>
+        <div class="view-ideas">
+            <?= GridView::widget(
+                [
+                    'dataProvider' => $ideasProvider,
+                    'filterModel' => $ideasSearch,
+                    'layout' => '{items}{pager}',
+                    'columns' => [
                     [
                         'attribute' => 'id_ideas',
                         'label' => 'Id',
@@ -135,7 +66,7 @@ $this->title = 'Идеи';
                             'model' => $ideasSearch,
                             'attribute' => 'ideas_name',
                             'data' =>  ArrayHelper::map($allIdeas, 'ideas_name', 'ideas_name'),
-                                'theme' => Select2::THEME_BOOTSTRAP,
+                            'theme' => Select2::THEME_BOOTSTRAP,
                             'value' => $ideasSearch->ideas_name,
                             'hideSearch' => true,
                             'options' => [
@@ -323,8 +254,9 @@ $this->title = 'Идеи';
                             }
                         ]
                     ],
-                ],
-            ]
-        ) ?>
-    </div>
-<?php Pjax::end(); ?>
+                    ],
+                ]
+            ) ?>
+        </div>
+    <?php endforeach; ?>
+</div>

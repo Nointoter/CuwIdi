@@ -101,6 +101,7 @@ class UsersController extends Controller
         $ideasProvider = $ideasSearch->search(
             Yii::$app->request->get(),
             $id,
+            null,
             null
         );
 
