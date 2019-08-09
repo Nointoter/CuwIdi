@@ -232,7 +232,7 @@ $this->title = 'Профиль ' . strval($user->users_name);
         <?php
             echo Html::a(
                 'Востановить профиль',
-                Url::toRoute(['/users/re-status', 'id' => strval($user->id_users),]),
+                Url::toRoute(['/users/re-status', 'id' => strval($user->id_users), 'bool' => strval(false)]),
                 [
                     'data-confirm' => 'Вы уверены, что хотите востановить профиль?',
                     'data-method' => 'post',

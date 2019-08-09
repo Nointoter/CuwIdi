@@ -98,28 +98,39 @@ $this->title = 'Просмотр идеи '.strval($model->ideas_name);
             <div class="form-group">
                 <div class="col-lg-9 col-lg-offset-3">
                     <?php
-                    if (Yii::$app->user->id == $model->creators_id || $user->users_role == 'admin') {
-                        echo '<h1>'
-                            . $form->field(
-                                $tagModel,
-                                'tag'
-                            )->textarea(
-                                [
-                                    'autofocus' => true,
-                                    'cols' => 1,
-                                    'rows' => 1
-                                ]
-                            )->label(false)
-                            . '</h1>'.
-                            Html::submitButton(
-                                'Добавить Тэг',
-                                [
-                                    'class' => 'btn btn-primary',
-                                    'name' => 'add-idea-tag-button'
-                                ]
-                            );
-                    }
-                    ?>
+                    if (Yii::$app->user->id == $model->creators_id || $user->users_role == 'admin') : ?>
+                        <?php
+                            echo '<h1>'
+                                . $form->field(
+                                    $tagModel,
+                                    'tag'
+                                )->textarea(
+                                    [
+                                        'autofocus' => true,
+                                        'cols' => 1,
+                                        'rows' => 1
+                                    ]
+                                )->label(false) . '</h1>' ?>
+                        <?=
+                                Html::submitButton(
+                                    'Добавить Тэг',
+                                    [
+                                        'class' => 'btn btn-primary',
+                                        'name' => 'add-idea-tag-button'
+                                    ]
+                                ) ?>
+                        <div class="pull-right">
+                        <?=
+                                Html::a(
+                                    'Удаление Тэгов',
+                                    Url::toRoute(['/ideas/delete-idea-tags', 'id' => strval($model->id_ideas)]),
+                                    [
+                                        'class' => 'btn btn-danger',
+                                    ]
+                                ) ?>
+
+                    <?php endif; ?>
+                        </div>
                 </div>
             </div>
         </div>
@@ -341,7 +352,7 @@ $this->title = 'Просмотр идеи '.strval($model->ideas_name);
             </div>
         </div>
     <?php ActiveForm::end(); ?>
-<?php $this->registerJs("
+<?php /*$this->registerJs("
         $(document).on('ready pjax:success', function() {
             $('.pjax-delete-link').on('click', function(e) {
                 e.preventDefault();
@@ -362,7 +373,7 @@ $this->title = 'Просмотр идеи '.strval($model->ideas_name);
             });
 
         });
-    ");
+    ");*/
 ?>
     <?php if ($commentsProvider->totalCount > 0) : ?>
         <div class="view-idea-comments">
@@ -453,7 +464,7 @@ $this->title = 'Просмотр идеи '.strval($model->ideas_name);
     <?php
         echo Html::a(
             'Удалить Идею',
-            Url::toRoute(['/ideas/delete-idea', 'id' => strval($user->id_users), 'bool' => strval(false)]),
+            Url::toRoute(['/ideas/delete-idea', 'id' => strval($model->id_ideas), 'bool' => strval(false)]),
             [
                 'data-confirm' => 'Вы уверены, что хотите удалить идею?',
                 'data-method' => 'post',

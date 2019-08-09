@@ -12,6 +12,7 @@ use app\models\ImagesForm;
 use app\models\SearchComments;
 use app\models\SearchIdeas;
 use app\models\SearchImages;
+use app\models\SearchTags;
 use app\models\Tags;
 use app\models\User;
 use Yii;
@@ -259,6 +260,40 @@ class IdeasController extends Controller
                 );
             }
         }
-        return $this->redirect('ideas');
+        return $this->redirect('/ideas');
+    }
+
+    /**
+     * Displays DeleteIdeaImagesForm
+     *
+     * @return string
+     */
+
+    public function actionDeleteIdeaTags($id)
+    {
+        if (!Yii::$app->user->isGuest) {
+            if (!(User::findIdentity(Yii::$app->user->id))->isActive()) {
+                return $this->redirect('/site');
+            }
+        } else {
+            return $this->redirect('/site');
+        }
+        $ideasModel = Ideas::find()->where(['id_ideas' => $id])->one();
+        if ($ideasModel != null) {
+            if (Yii::$app->user->id != $ideasModel->creators_id) {
+                return $this->redirect('idea?id='.strval($id));
+            } else {
+                $tagsSearch = new SearchTags();
+                $tagsProvider = $tagsSearch->search(Yii::$app->request->get(), $id);
+                return $this->render(
+                    'delete-idea-tags',
+                    [
+                        'ideasModel' => $ideasModel,
+                        'tagsProvider' => $tagsProvider,
+                    ]
+                );
+            }
+        }
+        return $this->redirect('/ideas');
     }
 }

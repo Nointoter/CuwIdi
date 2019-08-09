@@ -63,7 +63,8 @@ class SiteController extends Controller
         $ideasProvider = $ideasModel->search(
             Yii::$app->request->get(),
             null,
-            $target
+            $target,
+            null
         );
         $usersModel = new SearchUsers();
         $usersProvider = $usersModel->search(
