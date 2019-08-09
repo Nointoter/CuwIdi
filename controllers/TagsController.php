@@ -63,7 +63,7 @@ class TagsController extends Controller
         }
         $tags = Tags::find()->where(['tag' => $tag])->all();
         foreach ($tags as $tag) {
-            $tag->delete(false);
+            $tag->delete();
         }
         return $this->redirect('/tags');
     }

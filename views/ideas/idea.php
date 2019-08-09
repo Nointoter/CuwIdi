@@ -313,9 +313,11 @@ $this->title = 'Просмотр идеи '.strval($model->ideas_name);
                     </h3>
                 </div>
                 <?php else : ?>
-                <h3>
-                    Для добавления комментариев войдите в аккаунт
-                </h3>
+                <div class="col-lg-9">
+                    <h3>
+                        Для добавления комментариев войдите в аккаунт
+                    </h3>
+                </div>
                 <?php endif ?>
             </div>
         </div>
@@ -445,4 +447,22 @@ $this->title = 'Просмотр идеи '.strval($model->ideas_name);
         </div>
     <?php endif; ?>
 <?php Pjax::end(); ?>
-
+<?php if (!Yii::$app->user->isGuest) : ?>
+<?php if (Yii::$app->user->id == $model->creators_id || (User::findIdentity(Yii::$app->user->id))->isAdmin()) : ?>
+<div class="col-lg-offset-5">
+    <?php
+        echo Html::a(
+            'Удалить Идею',
+            Url::toRoute(['/ideas/delete-idea', 'id' => strval($user->id_users), 'bool' => strval(false)]),
+            [
+                'data-confirm' => 'Вы уверены, что хотите удалить идею?',
+                'data-method' => 'post',
+                'data-pjax' => '0',
+                'class' => 'btn btn-danger btn-lg',
+                'name' => 'delete-idea-button',
+            ]
+        );
+    ?>
+</div>
+<?php endif; ?>
+<?php endif; ?>

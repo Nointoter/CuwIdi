@@ -153,7 +153,11 @@ class IdeasController extends Controller
 
     public function actionAddIdea($bool)
     {
-        if (!(User::findIdentity(Yii::$app->user->id))->isActive()) {
+        if (!Yii::$app->user->isGuest) {
+            if (!(User::findIdentity(Yii::$app->user->id))->isActive()) {
+                return $this->redirect('/site');
+            }
+        } else {
             return $this->redirect('/site');
         }
         $ideasModel = new IdeasForm();
@@ -190,14 +194,30 @@ class IdeasController extends Controller
 
     public function actionDeleteIdea($id, $bool)
     {
-        if (!(User::findIdentity(Yii::$app->user->id))->isActive()) {
+        if (!Yii::$app->user->isGuest) {
+            if (!(User::findIdentity(Yii::$app->user->id))->isActive()) {
+                return $this->redirect('/site');
+            }
+        } else {
             return $this->redirect('/site');
         }
         $model = Ideas::find()->where(['id_ideas' => $id])->one();
+        $tags = Tags::find()->where(['ideas_id' => $id])->all();
+        $comments = Comments::find()->where(['ideas_id' => $id])->all();
+        $images = Images::find()->where(['ideas_id' => $id])->all();
         if ($model != null) {
-            if (Yii::$app->user->id != $model->creators_id) {
+            if (Yii::$app->user->id != $model->creators_id && !(User::findIdentity(Yii::$app->user->id))->isAdmin()) {
                 return $this->redirect('idea?id='.strval($id));
             } else {
+                foreach ($tags as $tag) {
+                    $tag->delete();
+                }
+                foreach ($comments as $comment) {
+                    $comment->delete();
+                }
+                foreach ($images as $image) {
+                    $image->delete();
+                }
                 $model->delete();
             }
         }
@@ -216,7 +236,11 @@ class IdeasController extends Controller
 
     public function actionDeleteIdeaImages($id)
     {
-        if (!(User::findIdentity(Yii::$app->user->id))->isActive()) {
+        if (!Yii::$app->user->isGuest) {
+            if (!(User::findIdentity(Yii::$app->user->id))->isActive()) {
+                return $this->redirect('/site');
+            }
+        } else {
             return $this->redirect('/site');
         }
         $ideasModel = Ideas::find()->where(['id_ideas' => $id])->one();

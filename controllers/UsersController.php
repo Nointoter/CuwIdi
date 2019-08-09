@@ -148,8 +148,12 @@ class UsersController extends Controller
         if (!$user) {
             return $this->redirect('/users/index');
         }
-        if (Yii::$app->user->id != $id || !(User::findIdentity($id))->isActive()) {
-            return $this->redirect('profile?id=' . strval($id));
+        if (!Yii::$app->user->isGuest) {
+            if (Yii::$app->user->id != $id || !(User::findIdentity($id))->isActive()) {
+                return $this->redirect('profile?id=' . strval($id));
+            }
+        } else {
+            return $this->redirect('/site');
         }
         $image = Html::img('@web/images/' . $user->users_image, [
             'width' => '140px',
@@ -190,8 +194,12 @@ class UsersController extends Controller
      */
     public function actionDelete($id)
     {
-        if (!(User::findIdentity(Yii::$app->user->id))->isActive()) {
-            return $this->redirect('profile?id=' . strval($id));
+        if (!Yii::$app->user->isGuest) {
+            if (!(User::findIdentity(Yii::$app->user->id))->isActive()) {
+                return $this->redirect('profile?id=' . strval($id));
+            }
+        } else {
+            return $this->redirect('/site');
         }
         $ideas = Ideas::find()->where(['creators_id' => $id])->all();
         $comments = Comments::find()->where(['users_id' => $id])->all();
@@ -212,8 +220,12 @@ class UsersController extends Controller
      */
     public function actionFreeze($id, $bool)
     {
-        if (!(User::findIdentity(Yii::$app->user->id))->isActive()) {
-            return $this->redirect('profile?id=' . strval($id));
+        if (!Yii::$app->user->isGuest) {
+            if (!(User::findIdentity(Yii::$app->user->id))->isActive()) {
+                return $this->redirect('profile?id=' . strval($id));
+            }
+        } else {
+            return $this->redirect('/site');
         }
         if ((User::findIdentity(Yii::$app->user->id)->users_role == 'admin') || (Yii::$app->user->id == $id)) {
             $user = User::find()->where(['id_users' => $id])->one();
@@ -237,15 +249,19 @@ class UsersController extends Controller
      */
     public function actionReStatus($id, $bool)
     {
-        if ((User::findIdentity(Yii::$app->user->id)->users_role == 'admin') || (Yii::$app->user->id == $id)) {
-            $user = User::find()->where(['id_users' => $id])->one();
-            $user->status = 0;
-            $user->save(false);
-            if ($bool) {
-                return $this->redirect('/users');
-            } else {
-                return $this->redirect('/users/profile?id='.strval($id));
+        if (!Yii::$app->user->isGuest) {
+            if ((User::findIdentity(Yii::$app->user->id)->users_role == 'admin') || (Yii::$app->user->id == $id)) {
+                $user = User::find()->where(['id_users' => $id])->one();
+                $user->status = 0;
+                $user->save(false);
+                if ($bool) {
+                    return $this->redirect('/users');
+                } else {
+                    return $this->redirect('/users/profile?id=' . strval($id));
+                }
             }
+        } else {
+            return $this->redirect('/site');
         }
         return $this->redirect('/users');
     }
@@ -257,8 +273,12 @@ class UsersController extends Controller
      */
     public function actionChangePassword()
     {
-        if (!(User::findIdentity(Yii::$app->user->id))->isActive()) {
-            return $this->redirect('profile?id=' . strval(Yii::$app->user->id));
+        if (!Yii::$app->user->isGuest) {
+            if (!(User::findIdentity(Yii::$app->user->id))->isActive()) {
+                return $this->redirect('profile?id=' . strval(Yii::$app->user->id));
+            }
+        } else {
+            return $this->redirect('/site');
         }
         $model = new ChangePasswordForm();
         if ($model->load(Yii::$app->request->post()) && $model->validate()) {
@@ -336,6 +356,9 @@ class UsersController extends Controller
      */
     public function actionLogout()
     {
+        if (!Yii::$app->user->isGuest) {
+            return $this->goHome();
+        }
         Yii::$app->user->logout();
         return $this->goHome();
     }
