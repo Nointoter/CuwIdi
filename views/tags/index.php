@@ -25,13 +25,26 @@ $this->title = 'Тэги';
             <h2>
                 <?php
                 $ideasSearch = new SearchIdeas();
-                $ideasProvider = $ideasSearch->search(Yii::$app->request->get(), null, null, $tag);
+                $ideasProvider = $ideasSearch->search(Yii::$app->request->get(), null, null, $tag->tag);
                 ?>
                 <?php
                 echo Html::a(
                     $tag->tag . '(' . $ideasProvider->totalCount . ')',
                     Url::toRoute(['/tags/tag', 'tag' => $tag->tag])
-                ) ?>
+                );
+                ?>
+                &nbsp;
+                <?php
+                if ((User::findIdentity(Yii::$app->user->id))->isAdmin()) {
+                    echo Html::a(
+                        'Удалить',
+                        Url::toRoute(
+                            ['/tags/delete-tag', 'tag' => $tag->tag, 'bool' => strval(false)]
+                        ),
+                        ['class' => 'btn btn-warning']
+                    );
+                }
+                ?>
             </h2>
         </div>
     <?php endforeach; ?>

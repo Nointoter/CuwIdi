@@ -5,6 +5,7 @@ namespace app\controllers;
 use app\models\Ideas;
 use app\models\SearchIdeas;
 use app\models\Tags;
+use app\models\User;
 use Yii;
 use yii\web\Controller;
 
@@ -42,5 +43,28 @@ class TagsController extends Controller
             'ideasProvider' => $ideasProvider,
             'allIdeas' => $allIdeas,
         ]);
+    }
+
+    /**
+     * Displays delete_tag
+     *
+     * @param $tag
+     * @return string
+     */
+
+    public function actionDeleteTag($tag, $bool)
+    {
+        if (!(User::findIdentity(Yii::$app->user->id))->isAdmin()) {
+            if ($bool) {
+                return $this->redirect('/tags/tag?tag=' . $tag);
+            } else {
+                return $this->redirect('/tags');
+            }
+        }
+        $tags = Tags::find()->where(['tag' => $tag])->all();
+        foreach ($tags as $tag) {
+            $tag->delete(false);
+        }
+        return $this->redirect('/tags');
     }
 }
