@@ -310,6 +310,7 @@ $this->title = 'Идеи';
                                                 [
                                                     '/ideas/delete-idea',
                                                     'id' => strval($key),
+                                                    'bool' => strval(false),
                                                 ]
                                             ),
                                             ['class' => 'glyphicon glyphicon-trash']
