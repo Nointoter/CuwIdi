@@ -56,7 +56,7 @@ class SearchIdeas extends Ideas
                         ['creations_day' => $this->ideasSearch],
                         ['creations_month'=> $this->ideasSearch],
                         ['creations_year' => $this->ideasSearch],
-                        ['like', 'users_name' => $this->ideasSearch],
+                        ['like', 'users_name', $this->ideasSearch],
                         ['like', 'tag', $this->ideasSearch],
                     ]
                 ]

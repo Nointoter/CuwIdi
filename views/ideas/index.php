@@ -281,9 +281,9 @@ $this->title = 'Идеи';
                                     ['class' => '']
                                 );
                             },
-                            'delete' => function ($url, $model, $key){
+                            'delete' => function ($url, $model, $key) {
                                 $user = User::find()->where(['id_users' => Yii::$app->user->id])->one();
-                                if ($user->users_role == 'admin'){
+                                if ($user->users_role == 'admin') {
                                     return Html::a(
                                         '',
                                         Url::toRoute(
