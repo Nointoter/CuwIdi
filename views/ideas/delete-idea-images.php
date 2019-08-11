@@ -12,24 +12,22 @@ $this->title = 'Удаление изображений идеи : '.strval($ide
 
  ?>
 <div class="row">
-    <h2><?= $this->title ?></h2>
+    <div class="col-lg-5 col-lg-offset-2">
+        <h2>
+            <?= $this->title ?>
+        </h2>
+    </div>
+    <div class="col-lg-5 pull-right">
+        <?php
+        echo '<br>
+            <a href="idea?id=' . strval($ideasModel->id_ideas) . '" class="btn btn-primary" role="button">
+                Вернуться на страницу идеи
+            </a>';
+        ?>
+    </div>
 </div>
 <div class="row">
-    <div class="col-lg-6">
-        <div class="col-lg-4 col-lg-offset-4">
-            <?php
-                echo '<br>
-                      <br>
-                      <br>
-                      <br>
-                      <br>
-                      <a href="idea?id=' . strval($ideasModel->id_ideas) . '" class="btn btn-primary" role="button">
-                        Вернуться на<br>страницу идеи
-                      </a>';
-            ?>
-        </div>
-    </div>
-    <div class="col-lg-6">
+    <div class="col-lg-8 col-lg-offset-2">
         <?= GridView::widget([
             'dataProvider' => $imagesProvider,
             'layout' => '{items}{pager}',
@@ -40,8 +38,8 @@ $this->title = 'Удаление изображений идеи : '.strval($ide
                     'value' => function ($model) {
                         if ($model->images_name != null) {
                             return Html::img($model->getImageUrl(), [
-                                'width' => '160px',
-                                'height' => '160px'
+                                'width' => '300px',
+                                'height' => '300px'
                             ]);
                         } else {
                             return '';

@@ -33,7 +33,7 @@ class IdeasController extends Controller
     {
         $model = new SearchIdeas();
         $model->load(Yii::$app->request->get());
-        $allIdeas = Ideas::find()->all();
+        $allIdeas = Ideas::find()->joinWith('users')->where(['status' => 0])->orderBy('id_ideas')->all();
 
         $ideasSearch = new SearchIdeas();
         $ideasProvider = $ideasSearch->search(Yii::$app->request->get(), null, $model->ideasSearch, null);
@@ -246,7 +246,8 @@ class IdeasController extends Controller
         }
         $ideasModel = Ideas::find()->where(['id_ideas' => $id])->one();
         if ($ideasModel != null) {
-            if (Yii::$app->user->id != $ideasModel->creators_id) {
+            $user = User::findIdentity(Yii::$app->user->id);
+            if (Yii::$app->user->id != $ideasModel->creators_id && !$user->isAdmin()) {
                 return $this->redirect('idea?id='.strval($id));
             } else {
                 $imagesSearch = new SearchImages();
@@ -280,7 +281,8 @@ class IdeasController extends Controller
         }
         $ideasModel = Ideas::find()->where(['id_ideas' => $id])->one();
         if ($ideasModel != null) {
-            if (Yii::$app->user->id != $ideasModel->creators_id) {
+            $user = User::findIdentity(Yii::$app->user->id);
+            if (Yii::$app->user->id != $ideasModel->creators_id && !$user->isAdmin()) {
                 return $this->redirect('idea?id='.strval($id));
             } else {
                 $tagsSearch = new SearchTags();
