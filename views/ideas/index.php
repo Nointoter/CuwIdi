@@ -22,7 +22,7 @@ $this->title = 'Идеи';
 ?>
 <?php Pjax::begin(['id' => 'new_search']); ?>
     <div class="search-ideas">
-        <div class="row">
+        <div class="row ideas-index-style">
             <div class="col-lg-6">
                 <?php
                 $form = ActiveForm::begin(
@@ -53,7 +53,7 @@ $this->title = 'Идеи';
         </div>
     </div>
     <div class="add-ideas">
-        <div class="row">
+        <div class="row ideas-index-style">
             <div class="col-lg-6">
                 <div class="form-group">
                     <?php
@@ -109,7 +109,8 @@ $this->title = 'Идеи';
                         'attribute' => 'id_ideas',
                         'label' => 'Id',
                         'contentOptions'=>[
-                            'style'=>'width : 95px; background-color: #FFFFFF; color: #000000'
+                            'style'=>'width : 95px;',
+                            'class' => 'ideas-index-style',
                         ],
                         'filter' => Select2::widget([
                             'name' => 'id_ideas',
@@ -132,7 +133,8 @@ $this->title = 'Идеи';
                         'attribute' => 'ideas_name',
                         'label' => 'Имя',
                         'contentOptions'=>[
-                            'style'=>'width : 170px; background-color: #FFFFFF; color: #000000'
+                            'style' => 'width : 170px;',
+                            'class' => 'ideas-index-style',
                         ],
                         'filter' => Select2::widget([
                             'name' => 'ideas_name',
@@ -155,14 +157,16 @@ $this->title = 'Идеи';
                         'attribute' => 'info_short',
                         'label' => 'Описание',
                         'contentOptions'=>[
-                            'style'=>'width : 170px; background-color: #FFFFFF; color: #000000'
+                            'style'=>'width : 170px;',
+                            'class' => 'ideas-index-style',
                         ],
                     ],
                     [
                         'attribute' => 'users_name',
                         'label' => 'Создатель',
                         'contentOptions' => [
-                            'style' => 'white-space: normal; width : 150px; background-color: #FFFFFF; color: #000000'
+                            'style' => 'white-space: normal; width : 150px;',
+                            'class' => 'ideas-index-style',
                         ],
                         'value' => function ($data) {
                             if ((User::findIdentity($data->creators_id))->isActive()) {
@@ -179,7 +183,8 @@ $this->title = 'Идеи';
                     [
                         'label' => 'Тэги',
                         'contentOptions' => [
-                            'style' => 'width : 150px; background-color: #FFFFFF; color: #000000'
+                            'style' => 'width : 150px;',
+                            'class' => 'ideas-index-style',
                         ],
                         'format' => 'raw',
                         'value' => function ($data) {
@@ -194,7 +199,8 @@ $this->title = 'Идеи';
                         'attribute' => 'creations_day',
                         'label' => 'День',
                         'contentOptions' => [
-                            'style' => 'width : 90px; background-color: #FFFFFF; color: #000000'
+                            'style' => 'width : 90px;',
+                            'class' => 'ideas-index-style',
                         ],
                         'filter' => Select2::widget([
                             'name' => 'creations_day',
@@ -217,7 +223,8 @@ $this->title = 'Идеи';
                         'attribute' => 'creations_month',
                         'label' => 'Месяц',
                         'contentOptions' => [
-                            'style' => 'width : 95px; background-color: #FFFFFF; color: #000000'
+                            'style' => 'width : 95px;',
+                            'class' => 'ideas-index-style',
                         ],
                         'filter' => Select2::widget([
                             'name' => 'creations_month',
@@ -240,7 +247,8 @@ $this->title = 'Идеи';
                         'attribute' => 'creations_year',
                         'label' => 'Год',
                         'contentOptions' => [
-                            'style' => 'width : 90px; background-color: #FFFFFF; color: #000000'
+                            'style' => 'width : 90px;',
+                            'class' => 'ideas-index-style',
                         ],
                         'filter' => Select2::widget([
                             'name' => 'creations_year',
@@ -262,7 +270,8 @@ $this->title = 'Идеи';
                     [
                         'class' => 'yii\grid\ActionColumn',
                         'contentOptions' => [
-                            'style' => 'width : 60px; background-color: #FFFFFF; color: #000000'
+                            'style' => 'width : 60px;',
+                            'class' => 'ideas-index-style',
                         ],
                         'buttons' => [
                             'view' => function ($url, $model, $key) {
@@ -299,7 +308,12 @@ $this->title = 'Идеи';
                                                 'bool' => strval(false),
                                             ]
                                         ),
-                                        ['class' => 'glyphicon glyphicon-trash']
+                                        [
+                                            'class' => 'glyphicon glyphicon-trash',
+                                            'data-confirm' => 'Вы уверены, что хотите удалить идею?',
+                                            'data-method' => 'post',
+                                            'data-pjax' => '0',
+                                        ]
                                     );
                                 } else {
                                     if (Yii::$app->user->id != $model->creators_id) {
@@ -311,7 +325,9 @@ $this->title = 'Идеи';
                                                     'id' => strval($key),
                                                 ]
                                             ),
-                                            ['class' => '']
+                                            [
+                                                'class' => ''
+                                            ]
                                         );
                                     } else {
                                         return Html::a(
@@ -323,7 +339,12 @@ $this->title = 'Идеи';
                                                     'bool' => strval(false),
                                                 ]
                                             ),
-                                            ['class' => 'glyphicon glyphicon-trash']
+                                            [
+                                                'class' => 'glyphicon glyphicon-trash',
+                                                'data-confirm' => 'Вы уверены, что хотите удалить идею?',
+                                                'data-method' => 'post',
+                                                'data-pjax' => '0',
+                                            ]
                                         );
                                     }
                                 }

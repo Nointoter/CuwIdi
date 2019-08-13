@@ -123,3 +123,33 @@ a.desc:after {
     background-color: #fff;
     color: #000;
 }
+
+.delete-idea-images-style {
+    background-color: #fff;
+    color: #000;
+}
+
+.delete-idea-tags-style {
+    background-color: #fff;
+    color: #000;
+}
+
+.ideas-index-style {
+    background-color: #fff;
+    color: #000;
+}
+
+.search-results-style {
+    background-color: #fff;
+    color: #000;
+}
+
+.tag-style {
+    background-color: #fff;
+    color: #000;
+}
+
+.users-index-style {
+    background-color: #fff;
+    color: #000;
+}

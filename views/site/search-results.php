@@ -29,28 +29,32 @@ $this->params['breadcrumbs'][] = $this->title;
                     'attribute' => 'id_ideas',
                     'label' => 'Id',
                     'contentOptions' => [
-                        'style'=>'width : 95px; background-color: #FFFFFF; color: #000000'
+                        'style'=>'width : 95px;',
+                        'class' => 'search-results-style',
                     ],
                 ],
                 [
                     'attribute' => 'ideas_name',
                     'label' => 'Имя',
                     'contentOptions' => [
-                        'style'=>'width : 170px; background-color: #FFFFFF; color: #000000'
+                        'style'=>'width : 170px;',
+                        'class' => 'search-results-style',
                     ],
                 ],
                 [
                     'attribute' => 'info_short',
                     'label' => 'Описание',
                     'contentOptions' => [
-                        'style' => 'width : 170px; background-color: #FFFFFF; color: #000000'
+                        'style' => 'width : 170px;',
+                        'class' => 'search-results-style',
                     ],
                 ],
                 [
                     'attribute' => 'creators_id',
                     'label' => 'Создатель',
                     'contentOptions' => [
-                            'style' => 'white-space: normal; width : 150px; background-color: #FFFFFF; color: #000000'
+                        'style' => 'white-space: normal; width : 150px;',
+                        'class' => 'search-results-style',
                     ],
                     'value' => function ($data) {
                         return Html::a(
@@ -63,7 +67,8 @@ $this->params['breadcrumbs'][] = $this->title;
                 [
                     'label' => 'Тэги',
                     'contentOptions' => [
-                         'style' => 'width : 150px; background-color: #FFFFFF; color: #000000'
+                         'style' => 'width : 150px;',
+                        'class' => 'search-results-style',
                     ],
                     'format' => 'raw',
                     'value' => function ($data) {
@@ -78,27 +83,31 @@ $this->params['breadcrumbs'][] = $this->title;
                     'attribute' => 'creations_day',
                     'label' => 'День',
                     'contentOptions' => [
-                       'style' => 'width : 90px; background-color: #FFFFFF; color: #000000'
+                        'style' => 'width : 90px;',
+                        'class' => 'search-results-style',
                     ],
                 ],
                 [
                     'attribute' => 'creations_month',
                     'label' => 'Месяц',
                     'contentOptions' => [
-                       'style'=>'width : 95px; background-color: #FFFFFF; color: #000000'
+                        'style'=>'width : 95px;',
+                        'class' => 'search-results-style',
                     ],
                 ],
                 [
                     'attribute' => 'creations_year',
                     'label' => 'Год',
                     'contentOptions' => [
-                       'style'=>'width : 90px; background-color: #FFFFFF; color: #000000'
+                        'style'=>'width : 90px;',
+                        'class' => 'search-results-style',
                     ],
                 ],
                 [
                     'class' => 'yii\grid\ActionColumn',
                     'contentOptions' => [
-                        'style' => 'width : 60px; background-color: #FFFFFF; color: #000000'
+                        'style' => 'width : 60px;',
+                        'class' => 'search-results-style',
                     ],
                     'buttons' => [
                         'view' => function ($url, $model, $key) {
@@ -162,13 +171,15 @@ $this->params['breadcrumbs'][] = $this->title;
                     'attribute' => 'id_users',
                     'label' => 'Id',
                     'contentOptions' => [
-                        'style'=>'width : 95px; background-color: #FFFFFF; color: #000000'
+                        'style'=>'width : 95px;',
+                        'class' => 'search-results-style',
                     ],
                 ],
                 [
                     'label' => 'Имя',
                     'contentOptions' => [
-                        'style' => 'white-space: normal; width : 150px; background-color: #FFFFFF; color: #000000'
+                        'style' => 'white-space: normal; width : 150px;',
+                        'class' => 'search-results-style',
                     ],
                     'value' => function ($data) {
                         return Html::a(
@@ -181,7 +192,8 @@ $this->params['breadcrumbs'][] = $this->title;
                 [
                     'label' => 'Информация',
                     'contentOptions' => [
-                        'style'=>'width : 250px; background-color: #FFFFFF; color: #000000'
+                        'style'=>'width : 250px;',
+                        'class' => 'search-results-style',
                     ],
                     'value' => function ($model) {
                         if ($model->users_info != null) {
@@ -195,7 +207,8 @@ $this->params['breadcrumbs'][] = $this->title;
                     'label' => 'Изображение',
                     'format' => 'html',
                     'contentOptions' => [
-                        'style' => 'width : 170px; background-color: #FFFFFF; color: #000000'
+                        'style' => 'width : 170px;',
+                        'class' => 'search-results-style',
                     ],
                     'value' => function ($model) {
                         if ($model->users_image != null) {
@@ -212,7 +225,8 @@ $this->params['breadcrumbs'][] = $this->title;
                     'attribute' => 'users_role',
                     'label' => 'Роль',
                     'contentOptions' => [
-                        'style' => 'width : 170px; background-color: #FFFFFF; color: #000000'
+                        'style' => 'width : 170px;',
+                        'class' => 'search-results-style',
                     ],
                     'visible' => ((User::find()->where(['id_users' => Yii::$app->user->id])->one())
                         ->users_role == 'admin'),
@@ -220,7 +234,8 @@ $this->params['breadcrumbs'][] = $this->title;
                 [
                     'class' => 'yii\grid\ActionColumn',
                     'contentOptions' => [
-                        'style' => 'width : 60px; background-color: #FFFFFF; color: #000000'
+                        'style' => 'width : 60px;',
+                        'class' => 'search-results-style',
                     ],
                     'buttons' => [
                         'view' => function ($url, $model, $key) {
@@ -297,13 +312,15 @@ $this->params['breadcrumbs'][] = $this->title;
                     'attribute' => 'id_comments',
                     'label' => 'Id',
                     'contentOptions' => [
-                        'style' => 'width : 95px; background-color: #FFFFFF; color: #000000'
+                        'style' => 'width : 95px;',
+                        'class' => 'search-results-style',
                     ],
                 ],
                 [
                     'label' => 'Комментрарий',
                     'contentOptions' => [
-                        'style' => 'width : 250px; background-color: #FFFFFF; color: #000000'
+                        'style' => 'width : 250px;',
+                        'class' => 'search-results-style',
                     ],
                     'value' => function ($model) {
                         if ($model->comment != null) {
@@ -317,7 +334,8 @@ $this->params['breadcrumbs'][] = $this->title;
                     'attribute' => 'creators_id',
                     'label' => 'Комментатор',
                     'contentOptions' => [
-                        'style' => 'width : 100px; background-color: #FFFFFF; color: #000000'
+                        'style' => 'width : 100px;',
+                        'class' => 'search-results-style',
                     ],
                     'value' => function ($data) {
                         return Html::a(
@@ -330,7 +348,8 @@ $this->params['breadcrumbs'][] = $this->title;
                 [
                     'class' => 'yii\grid\ActionColumn',
                     'contentOptions' => [
-                         'style' => 'width : 60px; background-color: #FFFFFF; color: #000000'
+                         'style' => 'width : 60px;',
+                        'class' => 'search-results-style',
                     ],
                     'buttons' => [
                         'view' => function ($url, $model, $key) {

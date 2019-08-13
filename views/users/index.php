@@ -46,7 +46,8 @@ $this->title = 'Пользователи';
                 'attribute' => 'id_users',
                 'label' => 'Id',
                 'contentOptions' => [
-                    'style' => 'width : 95px; background-color: #fff; color: #000'
+                    'style' => 'width : 95px;',
+                    'class' => 'users-index-style'
                 ],
                 'filter' => Select2::widget([
                     'name' => 'id_users',
@@ -68,7 +69,8 @@ $this->title = 'Пользователи';
             [
                 'label' => 'Имя',
                 'contentOptions' => [
-                    'style'=>'white-space: normal; width : 150px; background-color: #fff; color: #000'
+                    'style'=>'white-space: normal; width : 150px;',
+                    'class' => 'users-index-style'
                 ],
                 'value' => function ($data) {
                     return Html::a(
@@ -81,7 +83,8 @@ $this->title = 'Пользователи';
             [
                 'label' => 'Информация',
                 'contentOptions' => [
-                    'style' => 'width : 250px; background-color: #fff; color: #000'
+                    'style' => 'width : 250px;',
+                    'class' => 'users-index-style'
                 ],
                 'value' => function ($model) {
                     if ($model->users_info != null) {
@@ -95,7 +98,8 @@ $this->title = 'Пользователи';
                 'label' => 'Изображение',
                 'format' => 'html',
                 'contentOptions' => [
-                    'style' => 'width : 170px; background-color: #FFFFFF; color: #000000'
+                    'style' => 'width : 170px;',
+                    'class' => 'users-index-style'
                 ],
                 'value' => function ($model) {
                     if ($model->users_image != null) {
@@ -128,7 +132,8 @@ $this->title = 'Пользователи';
                     ]
                 ]),
                 'contentOptions' => [
-                    'style' => 'width : 170px; background-color: #FFFFFF; color: #000000'
+                    'style' => 'width : 170px;',
+                    'class' => 'users-index-style'
                 ],
                 'visible' => ((User::find()->where(['id_users' => Yii::$app->user->id])
                     ->one())->users_role == 'admin'),
@@ -136,7 +141,8 @@ $this->title = 'Пользователи';
             [
                 'class' => 'yii\grid\ActionColumn',
                 'contentOptions' => [
-                    'style' => 'width : 60px; background-color: #FFFFFF; color: #000000'
+                    'style' => 'width : 60px;',
+                    'class' => 'users-index-style'
                 ],
                 'buttons' => [
                     'view' => function ($url, $model, $key) {

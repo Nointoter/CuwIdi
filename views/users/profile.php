@@ -21,7 +21,7 @@ $form = ActiveForm::begin();
 $this->title = 'Профиль ' . strval($user->users_name);
 ?>
 <?php if ($user->isActive()) : ?>
-    <div class="row" style='profile-style'>
+    <div class="row profile-style">
         <div class="col-lg-5">
             <h3>Профиль <?= Html::encode($user->users_name) ?></h3>
             <?php if (Yii::$app->user->id == $user->id_users) : ?>
@@ -50,7 +50,7 @@ $this->title = 'Профиль ' . strval($user->users_name);
             </h2>
         </div>
     </div>
-    <div class="row" style='profile-style'>
+    <div class="row profile-style">
         <?php if ($user->users_info) : ?>
             <div class="col-lg-3">
                 <h3>
@@ -65,7 +65,7 @@ $this->title = 'Профиль ' . strval($user->users_name);
         <?php endif; ?>
     </div>
     <?php ActiveForm::end(); ?>
-    <div class="row" style='profile-style'>
+    <div class="row profile-style">
         <div class="col-lg-12">
             <?php if ($ideasProvider->totalCount > 0) : ?>
                 <h2>
@@ -75,7 +75,7 @@ $this->title = 'Профиль ' . strval($user->users_name);
         </div>
     </div>
     <?php if ($ideasProvider->totalCount > 0) : ?>
-        <div class="view-ideas" style='profile-style'>
+        <div class="view-ideas profile-style">
             <?= GridView::widget([
                 'dataProvider' => $ideasProvider,
                 'filterModel' => $ideasSearch,
@@ -85,20 +85,20 @@ $this->title = 'Профиль ' . strval($user->users_name);
                         'attribute' => 'id_ideas',
                         'label' => 'Id',
                         'contentOptions'=>[
-                            'style'=>'width : 100px; background-color: #FFFFFF; color: #000000'
+                            'style'=>'width : 100px;', 'profile-style'
                         ],
                     ],
                     [
                         'attribute' => 'ideas_name',
                         'label' => 'Имя',
                         'contentOptions'=>[
-                            'style'=>'width : 300px; background-color: #FFFFFF; color: #000000'
+                            'style'=>'width : 300px;', 'profile-style'
                         ],
                     ],
                     [
                         'label' => 'Тэги',
                         'contentOptions'=>[
-                            'style'=>'width : 250px; background-color: #FFFFFF; color: #000000'
+                            'style'=>'width : 250px;', 'profile-style'
                         ],
                         'format' => 'raw',
                         'value' => function ($data) {
@@ -113,27 +113,27 @@ $this->title = 'Профиль ' . strval($user->users_name);
                         'attribute' => 'creations_day',
                         'label' => 'День',
                         'contentOptions'=>[
-                            'style'=>'width : 100px; background-color: #FFFFFF; color: #000000'
+                            'style'=>'width : 100px;', 'profile-style'
                         ],
                     ],
                     [
                         'attribute' => 'creations_month',
                         'label' => 'Месяц',
                         'contentOptions'=>[
-                            'style'=>'width : 150px; background-color: #FFFFFF; color: #000000'
+                            'style'=>'width : 150px;', 'profile-style'
                         ],
                     ],
                     [
                         'attribute' => 'creations_year',
                         'label' => 'Год',
                         'contentOptions'=>[
-                            'style'=>'width : 130px; background-color: #FFFFFF; color: #000000'
+                            'style'=>'width : 130px;', 'profile-style'
                         ],
                     ],
                     [
                         'class' => 'yii\grid\ActionColumn',
                         'contentOptions'=>[
-                            'style'=>'width : 50px; background-color: #FFFFFF; color: #000000'
+                            'style'=>'width : 50px;', 'profile-style'
                         ],
                         'buttons' => [
                             'view' => function ($url, $model, $key) {
@@ -164,7 +164,7 @@ $this->title = 'Профиль ' . strval($user->users_name);
             ])?>
         </div>
     <?php endif; ?>
-    <div class="row" style='profile-style'>
+    <div class="row profile-style">
         <div class="col-lg-12">
             <?php if ($commentsProvider->totalCount > 0) : ?>
             <h2>
@@ -183,14 +183,14 @@ $this->title = 'Профиль ' . strval($user->users_name);
                         'attribute' => 'comment',
                         'label' => 'Комментарий',
                         'contentOptions'=>[
-                            'style'=>'width : 500px; background-color: #FFFFFF; color: #000000'
+                            'style'=>'width : 500px;', 'profile-style'
                         ],
                     ],
                     [
                         'attribute' => 'ideas_id',
                         'label' => 'Идея',
                         'contentOptions'=>[
-                            'style'=>'width : 100px; background-color: #FFFFFF; color: #000000'
+                            'style'=>'width : 100px;', 'profile-style'
                         ],
                         'value' => function ($data) {
                             /** @var Comments $data */
@@ -204,7 +204,7 @@ $this->title = 'Профиль ' . strval($user->users_name);
                     [
                         'class' => 'yii\grid\ActionColumn',
                         'contentOptions' => [
-                            'style' => 'width : 50px; background-color: #FFFFFF; color: #000000'
+                            'style' => 'width : 50px;', 'profile-style'
                         ],
                         'buttons' => [
                             'view' => function ($url, $model, $key) {

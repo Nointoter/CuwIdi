@@ -27,7 +27,8 @@ $this->title = $tag;
                     'attribute' => 'id_ideas',
                     'label' => 'Id',
                     'contentOptions'=>[
-                        'style'=>'width : 95px; background-color: #FFFFFF; color: #000000'
+                        'style'=>'width : 95px;',
+                        'class' => 'tag-style'
                     ],
                     'filter' => Select2::widget([
                         'name' => 'id_ideas',
@@ -50,7 +51,8 @@ $this->title = $tag;
                     'attribute' => 'ideas_name',
                     'label' => 'Имя',
                     'contentOptions'=>[
-                        'style'=>'width : 170px; background-color: #FFFFFF; color: #000000'
+                        'style'=>'width : 170px;',
+                        'class' => 'tag-style'
                     ],
                     'filter' => Select2::widget([
                         'name' => 'ideas_name',
@@ -73,7 +75,8 @@ $this->title = $tag;
                     'attribute' => 'info_short',
                     'label' => 'Описание',
                     'contentOptions'=>[
-                        'style'=>'width : 170px; background-color: #FFFFFF; color: #000000'
+                        'style'=>'width : 170px;',
+                        'class' => 'tag-style'
                     ],
                 ],
                 [
@@ -97,7 +100,8 @@ $this->title = $tag;
                 [
                     'label' => 'Тэги',
                     'contentOptions' => [
-                        'style' => 'width : 150px; background-color: #FFFFFF; color: #000000'
+                        'style' => 'width : 150px;',
+                        'class' => 'tag-style'
                     ],
                     'format' => 'raw',
                     'value' => function ($data) {
@@ -112,7 +116,8 @@ $this->title = $tag;
                     'attribute' => 'creations_day',
                     'label' => 'День',
                     'contentOptions' => [
-                        'style' => 'width : 90px; background-color: #FFFFFF; color: #000000'
+                        'style' => 'width : 90px;',
+                        'class' => 'tag-style'
                     ],
                     'filter' => Select2::widget([
                         'name' => 'creations_day',
@@ -135,7 +140,8 @@ $this->title = $tag;
                     'attribute' => 'creations_month',
                     'label' => 'Месяц',
                     'contentOptions' => [
-                        'style' => 'width : 95px; background-color: #FFFFFF; color: #000000'
+                        'style' => 'width : 95px;',
+                        'class' => 'tag-style'
                     ],
                     'filter' => Select2::widget([
                         'name' => 'creations_month',
@@ -158,7 +164,8 @@ $this->title = $tag;
                     'attribute' => 'creations_year',
                     'label' => 'Год',
                     'contentOptions' => [
-                        'style' => 'width : 90px; background-color: #FFFFFF; color: #000000'
+                        'style' => 'width : 90px;',
+                        'class' => 'tag-style'
                     ],
                     'filter' => Select2::widget([
                         'name' => 'creations_year',
@@ -180,7 +187,8 @@ $this->title = $tag;
                 [
                     'class' => 'yii\grid\ActionColumn',
                     'contentOptions' => [
-                        'style' => 'width : 60px; background-color: #FFFFFF; color: #000000'
+                        'style' => 'width : 60px;',
+                        'class' => 'tag-style'
                     ],
                     'buttons' => [
                         'view' => function ($url, $model, $key) {

@@ -24,7 +24,7 @@ $this->title = 'Просмотр идеи '.strval($model->ideas_name);
 ?>
 <?php Pjax::begin(['id' => 'new_name']); ?>
     <?php $form = ActiveForm::begin(['options' => ['data-pjax' => true], 'id' => 'newNameForm'])?>
-        <div class="row" STYLE='idea-style'>
+        <div class="row idea-style">
             <div class="form-group">
                 <div class="col-lg-3">
                     <h3>Название:</h3>
@@ -51,7 +51,7 @@ $this->title = 'Просмотр идеи '.strval($model->ideas_name);
                 </div>
             </div>
         </div>
-        <div class="row" STYLE='idea-style'>
+        <div class="row idea-style">
             <div class="form-group">
                 <div class="col-lg-3">
                     <h3>Создатель идеи:</h3>
@@ -74,7 +74,7 @@ $this->title = 'Просмотр идеи '.strval($model->ideas_name);
 <?php Pjax::end(); ?>
 <?php Pjax::begin(['id' => 'new_tag']); ?>
     <?php $form = ActiveForm::begin(['options' => ['data-pjax' => true], 'id' => 'newTagForm'])?>
-        <div class="row" STYLE='idea-style'>
+        <div class="row idea-style">
             <div class="form-group">
                 <div class="col-lg-3">
                     <h3>
@@ -94,7 +94,7 @@ $this->title = 'Просмотр идеи '.strval($model->ideas_name);
                 </div>
             </div>
         </div>
-        <div class="row" STYLE="background-color: #FFFFFF; color: #000000">
+        <div class="row idea-style">
             <div class="form-group">
                 <div class="col-lg-9 col-lg-offset-3">
                     <?php if (Yii::$app->user->id == $model->creators_id || $user->users_role == 'admin') : ?>
@@ -136,7 +136,7 @@ $this->title = 'Просмотр идеи '.strval($model->ideas_name);
         </div>
     <?php ActiveForm::end(); ?>
 <?php Pjax::end(); ?>
-<div class="row" STYLE="background-color: #FFFFFF; color: #000000">
+<div class="row idea-style">
     <div class="form-group">
         <p>
         </p>
@@ -145,7 +145,7 @@ $this->title = 'Просмотр идеи '.strval($model->ideas_name);
 <?php Pjax::begin(['id' => 'new_image']); ?>
     <?php $form = ActiveForm::begin(['options' => ['data-pjax' => true], 'id' => 'newImageForm'])?>
         <?php if ($carousel != null) : ?>
-            <div class="row" STYLE='idea-style'>
+            <div class="row idea-style">
                 <div class="form-group">
                     <table class="table table-hover">
                         <div class="col-lg-12">
@@ -179,7 +179,7 @@ $this->title = 'Просмотр идеи '.strval($model->ideas_name);
                 </div>
             </div>
         <?php endif ?>
-        <div class="row" STYLE='idea-style'>
+        <div class="row idea-style">
             <div class="form-group">
                 <div class="col-lg-3">
                     <?php if (Yii::$app->user->id == $model->creators_id || $user->users_role == 'admin') : ?>
@@ -224,7 +224,7 @@ $this->title = 'Просмотр идеи '.strval($model->ideas_name);
 <?php Pjax::end(); ?>
 <?php Pjax::begin(['id' => 'new_info']); ?>
     <?php $form = ActiveForm::begin(['options' => ['data-pjax' => true], 'id' => 'newInfoForm'])?>
-        <div class="row " STYLE='idea-style'>
+        <div class="row idea-style">
             <div class="form-group">
                 <div class="col-lg-3">
                     <h3>Описание:</h3>
@@ -253,7 +253,7 @@ $this->title = 'Просмотр идеи '.strval($model->ideas_name);
                 </div>
             </div>
         </div>
-        <div class="row" STYLE='idea-style'>
+        <div class="row idea-style">
             <div class="form-group">
                 <div class="col-lg-3">
                     <h3>Информация:</h3>
@@ -282,7 +282,7 @@ $this->title = 'Просмотр идеи '.strval($model->ideas_name);
                 </div>
             </div>
         </div>
-        <div class="row" STYLE='idea-style'>
+        <div class="row idea-style">
             <div class="form-group">
                 <div class="pull-right">
                     <?php
@@ -303,7 +303,7 @@ $this->title = 'Просмотр идеи '.strval($model->ideas_name);
 <?php Pjax::end(); ?>
 <?php Pjax::begin(['id' => 'new_comment']); ?>
     <?php $form = ActiveForm::begin(['options' => ['data-pjax' => true], 'id' => 'commentsForm'])?>
-        <div class="row" STYLE='idea-style'>
+        <div class="row idea-style">
             <div class="form-group">
                 <div class="col-lg-3">
                     <h3>
@@ -334,7 +334,7 @@ $this->title = 'Просмотр идеи '.strval($model->ideas_name);
                 <?php endif ?>
             </div>
         </div>
-        <div class="row" STYLE='idea-style'>
+        <div class="row idea-style">
             <div class="form-group">
                 <div class="pull-right">
                     <?php if (!Yii::$app->user->isGuest) {
@@ -386,12 +386,18 @@ $this->title = 'Просмотр идеи '.strval($model->ideas_name);
                     [
                         'attribute' => 'comment',
                         'label' => 'Комментарий',
-                        'contentOptions'=>['style'=>'width : 500px; background-color: #FFFFFF; color: #000000'],
+                        'contentOptions'=>[
+                            'style'=>'width : 500px;',
+                            'class' => 'idea-style'
+                        ],
                     ],
                     [
                         'attribute' => 'creators_id',
                         'label' => 'Комментатор',
-                        'contentOptions'=>['style'=>'width : 100px; background-color: #FFFFFF; color: #000000'],
+                        'contentOptions'=>[
+                            'style'=>'width : 100px;',
+                            'class' => 'idea-style'
+                        ],
                         'value' => function ($data) {
                             return Html::a(
                                 Html::encode(
@@ -409,7 +415,10 @@ $this->title = 'Просмотр идеи '.strval($model->ideas_name);
                     ],
                     [
                         'class' => 'yii\grid\ActionColumn',
-                        'contentOptions' => ['style' => 'width : 50px; background-color: #FFFFFF; color: #000000'],
+                        'contentOptions' => [
+                            'style' => 'width : 50px;',
+                            'class' => 'idea-style'
+                        ],
                         'buttons' => [
                             'view' => function ($url, $model, $key) {
                                 return Html::a(
