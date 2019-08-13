@@ -284,7 +284,7 @@ $this->title = 'Просмотр идеи '.strval($model->ideas_name);
         </div>
         <div class="row" STYLE="background-color: #FFFFFF; color: #000000">
             <div class="form-group">
-                <div class="col-lg-3 col-lg-offset-9">
+                <div class="pull-right">
                     <?php
                     if (Yii::$app->user->id == $model->creators_id || $user->users_role == 'admin') {
                         echo Html::submitButton(
@@ -462,7 +462,7 @@ $this->title = 'Просмотр идеи '.strval($model->ideas_name);
 <?php Pjax::end(); ?>
 <?php if (!Yii::$app->user->isGuest) : ?>
     <?php if (Yii::$app->user->id == $model->creators_id || (User::findIdentity(Yii::$app->user->id))->isAdmin()) : ?>
-    <div class="col-lg-offset-5">
+        <div class="pull-right">
         <?php
             echo Html::a(
                 'Удалить Идею',
