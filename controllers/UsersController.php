@@ -74,7 +74,11 @@ class UsersController extends Controller
     {
         $model = new SearchUsers();
         $model->load(Yii::$app->request->get());
-        $usersProvider = $model->search(Yii::$app->request->get(), null, null, true);
+        if (User::findIdentity(Yii::$app->user->id)->users_role == 'admin') {
+            $usersProvider = $model->search(Yii::$app->request->get(), null, null, true);
+        } else {
+            $usersProvider = $model->search(Yii::$app->request->get(), null, null, false);
+        }
         $allUsers = User::find()->all();
 
         return $this->render('index', [
