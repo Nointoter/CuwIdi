@@ -120,15 +120,16 @@ $this->title = 'Просмотр идеи '.strval($model->ideas_name);
                                     ]
                                 ) ?>
                         <div class="pull-right">
-                        <?=
-                                Html::a(
-                                    'Удаление Тэгов',
-                                    Url::toRoute(['/ideas/delete-idea-tags', 'id' => strval($model->id_ideas)]),
-                                    [
-                                        'class' => 'btn btn-danger',
-                                    ]
-                                ) ?>
-
+                        <?php
+                        if (Yii::$app->user->id == $model->creators_id || $user->users_role == 'admin') {
+                            echo Html::a(
+                                'Удаление Тэгов',
+                                Url::toRoute(['/ideas/delete-idea-tags', 'id' => strval($model->id_ideas)]),
+                                [
+                                    'class' => 'btn btn-danger',
+                                ]
+                            );
+                        }   ?>
                     <?php endif; ?>
                         </div>
                 </div>
