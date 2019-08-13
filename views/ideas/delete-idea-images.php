@@ -47,6 +47,7 @@ $this->title = 'Удаление изображений идеи : '.strval($ide
                     },
                 ],
                 [
+                    'contentOptions'=>['style'=>'width : 50px; background-color: #FFFFFF; color: #000000'],
                     'class' => 'yii\grid\ActionColumn',
                     'buttons' => [
                         'view' => function ($url, $model, $key) {

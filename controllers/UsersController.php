@@ -356,7 +356,7 @@ class UsersController extends Controller
      */
     public function actionLogout()
     {
-        if (!Yii::$app->user->isGuest) {
+        if (Yii::$app->user->isGuest) {
             return $this->goHome();
         }
         Yii::$app->user->logout();

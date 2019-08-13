@@ -39,6 +39,7 @@ $this->title = 'Удаление тэгов идеи : '.strval($ideasModel->ide
                     'attribute' => 'tag',
                 ],
                 [
+                    'contentOptions'=>['style'=>'width : 50px; background-color: #FFFFFF; color: #000000'],
                     'class' => 'yii\grid\ActionColumn',
                     'buttons' => [
                         'view' => function ($url, $model, $key) {

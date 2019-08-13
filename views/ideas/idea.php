@@ -97,28 +97,27 @@ $this->title = 'Просмотр идеи '.strval($model->ideas_name);
         <div class="row" STYLE="background-color: #FFFFFF; color: #000000">
             <div class="form-group">
                 <div class="col-lg-9 col-lg-offset-3">
-                    <?php
-                    if (Yii::$app->user->id == $model->creators_id || $user->users_role == 'admin') : ?>
+                    <?php if (Yii::$app->user->id == $model->creators_id || $user->users_role == 'admin') : ?>
                         <?php
-                            echo '<h1>'
-                                . $form->field(
-                                    $tagModel,
-                                    'tag'
-                                )->textarea(
-                                    [
-                                        'autofocus' => true,
-                                        'cols' => 1,
-                                        'rows' => 1
-                                    ]
-                                )->label(false) . '</h1>' ?>
-                        <?=
-                                Html::submitButton(
-                                    'Добавить Тэг',
-                                    [
-                                        'class' => 'btn btn-primary',
-                                        'name' => 'add-idea-tag-button'
-                                    ]
-                                ) ?>
+                        echo '<h1>'
+                            . $form->field(
+                                $tagModel,
+                                'tag'
+                            )->textarea(
+                                [
+                                    'autofocus' => true,
+                                    'cols' => 1,
+                                    'rows' => 1
+                                ]
+                            )->label(false) . '</h1>'; ?>
+                        <?php
+                        echo Html::submitButton(
+                            'Добавить Тэг',
+                            [
+                                'class' => 'btn btn-primary',
+                                'name' => 'add-idea-tag-button'
+                            ]
+                        ); ?>
                         <div class="pull-right">
                         <?php
                         if (Yii::$app->user->id == $model->creators_id || $user->users_role == 'admin') {
@@ -130,8 +129,8 @@ $this->title = 'Просмотр идеи '.strval($model->ideas_name);
                                 ]
                             );
                         }   ?>
-                    <?php endif; ?>
                         </div>
+                    <?php endif; ?>
                 </div>
             </div>
         </div>
@@ -147,31 +146,37 @@ $this->title = 'Просмотр идеи '.strval($model->ideas_name);
     <?php $form = ActiveForm::begin(['options' => ['data-pjax' => true], 'id' => 'newImageForm'])?>
         <?php if ($carousel != null) : ?>
             <div class="row" STYLE="background-color: #FFFFFF; color: #000000">
-                <table class="table table-hover">
-                    <body>
-                        <tr>
-                            <td>
-                                <div style="height: 500px; overflow:auto;">
-                                    <?php
-                                        echo Carousel::widget([
-                                            'items' => $carousel,
-                                            'options' => [
-                                                'class' => 'carousel slide',
-                                                'data-interval' => '12000'
-                                            ],
-                                            'controls' => [
-                                                '<span class="glyphicon glyphicon-chevron-left" aria-hidden="true">
-                                                </span>',
-                                                '<span class="glyphicon glyphicon-chevron-right" aria-hidden="true">
-                                                </span>'
-                                            ]
-                                        ]);
-                                    ?>
-                                </div>
-                            </td>
-                        </tr>
-                  </body>
-                </table>
+                <div class="form-group">
+                    <table class="table table-hover">
+                        <div class="col-lg-12">
+                            <body>
+                                <tr>
+                                    <td>
+                                        <div style="height: 500px; overflow:auto;">
+                                            <?php
+                                                echo Carousel::widget([
+                                                    'items' => $carousel,
+                                                    'options' => [
+                                                        'class' => 'carousel slide',
+                                                        'data-interval' => '12000'
+                                                    ],
+                                                    'controls' => [
+                                                        '<span class="glyphicon glyphicon-chevron-left"
+                                                        aria-hidden="true">
+                                                        </span>',
+                                                        '<span class="glyphicon glyphicon-chevron-right"
+                                                        aria-hidden="true">
+                                                        </span>'
+                                                    ]
+                                                ]);
+                                            ?>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </body>
+                        </div>
+                    </table>
+                </div>
             </div>
         <?php endif ?>
         <div class="row" STYLE="background-color: #FFFFFF; color: #000000">
@@ -179,6 +184,8 @@ $this->title = 'Просмотр идеи '.strval($model->ideas_name);
                 <div class="col-lg-3">
                     <?php if (Yii::$app->user->id == $model->creators_id || $user->users_role == 'admin') : ?>
                     <h3>Изображения:</h3>
+                    <?php else : ?>
+                    <h3></h3>
                     <?php endif ?>
                 </div>
                 <div class="col-lg-2">
@@ -196,7 +203,7 @@ $this->title = 'Просмотр идеи '.strval($model->ideas_name);
                     }
                     ?>
                 </div>
-                <div class="col-lg-2 col-lg-offset-3">
+                <div class="pull-right">
                     <p>
                     </p>
                     <?php
@@ -206,12 +213,10 @@ $this->title = 'Просмотр идеи '.strval($model->ideas_name);
                                 '<a 
                                     href="delete-idea-images?id=' . strval($model->id_ideas) . '" 
                                     class="btn btn-danger" 
-                                    role="button"
-                                    >
+                                    role="button">
                                     Удалить изображения
                                 </a>';
-                        }
-                    ?>
+                    }   ?>
                 </div>
             </div>
         </div>
@@ -219,7 +224,7 @@ $this->title = 'Просмотр идеи '.strval($model->ideas_name);
 <?php Pjax::end(); ?>
 <?php Pjax::begin(['id' => 'new_info']); ?>
     <?php $form = ActiveForm::begin(['options' => ['data-pjax' => true], 'id' => 'newInfoForm'])?>
-        <div class="row" STYLE="background-color: #FFFFFF; color: #000000">
+        <div class="row " STYLE="background-color: #FFFFFF; color: #000000">
             <div class="form-group">
                 <div class="col-lg-3">
                     <h3>Описание:</h3>
@@ -240,11 +245,9 @@ $this->title = 'Просмотр идеи '.strval($model->ideas_name);
                             )->label(false)
                             . '</h3>';
                     } else {
-                        echo '<h3>
-                                <!--<div style="border: 1px solid #c0c0c0;">-->' .
-                                    Html::encode($model->info_short)
-                                . '<!--</div>-->
-                                </h3>';
+                        echo '<h3>' .
+                             Html::encode($model->info_short)
+                             . '</h3>';
                     }
                     ?>
                 </div>
@@ -271,11 +274,9 @@ $this->title = 'Просмотр идеи '.strval($model->ideas_name);
                             )->label(false)
                             . '</h3>';
                     } else {
-                        echo '<h3>
-                                <!--<div style="border: 1px solid #c0c0c0;">-->' .
-                                    Html::encode($model->info_long)
-                                . '<!--</div>-->
-                                </h3>';
+                        echo '<h3>' .
+                             Html::encode($model->info_long)
+                             . '</h3>';
                     }
                     ?>
                 </div>
@@ -460,21 +461,21 @@ $this->title = 'Просмотр идеи '.strval($model->ideas_name);
     <?php endif; ?>
 <?php Pjax::end(); ?>
 <?php if (!Yii::$app->user->isGuest) : ?>
-<?php if (Yii::$app->user->id == $model->creators_id || (User::findIdentity(Yii::$app->user->id))->isAdmin()) : ?>
-<div class="col-lg-offset-5">
-    <?php
-        echo Html::a(
-            'Удалить Идею',
-            Url::toRoute(['/ideas/delete-idea', 'id' => strval($model->id_ideas), 'bool' => strval(false)]),
-            [
-                'data-confirm' => 'Вы уверены, что хотите удалить идею?',
-                'data-method' => 'post',
-                'data-pjax' => '0',
-                'class' => 'btn btn-danger btn-lg',
-                'name' => 'delete-idea-button',
-            ]
-        );
-    ?>
-</div>
-<?php endif; ?>
+    <?php if (Yii::$app->user->id == $model->creators_id || (User::findIdentity(Yii::$app->user->id))->isAdmin()) : ?>
+    <div class="col-lg-offset-5">
+        <?php
+            echo Html::a(
+                'Удалить Идею',
+                Url::toRoute(['/ideas/delete-idea', 'id' => strval($model->id_ideas), 'bool' => strval(false)]),
+                [
+                  'data-confirm' => 'Вы уверены, что хотите удалить идею?',
+                    'data-method' => 'post',
+                    'data-pjax' => '0',
+                    'class' => 'btn btn-danger btn-lg',
+                    'name' => 'delete-idea-button',
+                ]
+            );
+        ?>
+    </div>
+    <?php endif; ?>
 <?php endif; ?>
