@@ -54,31 +54,36 @@ class TagsController extends Controller
 
     public function actionDeleteTag($tag, $bool, $id)
     {
-        if ($id != null) {
-            $intag = Tags::find()->where(['id_tags' => $id])->one();
-            $idea = Ideas::find()->where(['id_ideas' => $intag->ideas_id])->one();
-            if (Yii::$app->user->id != $idea->creators_id) {
-                return $this->redirect('/ideas');
-            }
-        } elseif (!(User::findIdentity(Yii::$app->user->id))->isAdmin()) {
-            if ($tag != null) {
-                if ($bool) {
-                    return $this->redirect('/tags/tag?tag=' . $tag);
-                } else {
-                    return $this->redirect('/tags');
-                }
-            } elseif ($id != null) {
-                if ($bool) {
-                    $tag = Tags::find()->where(['id_tags' => $id])->one();
-                    return $this->redirect('/ideas/delete-idea-tags?id=' . $tag->ideas_id);
-                } else {
+        if (!Yii::$app->user->isGuest) {
+            if ($id != null) {
+                $intag = Tags::find()->where(['id_tags' => $id])->one();
+                $idea = Ideas::find()->where(['id_ideas' => $intag->ideas_id])->one();
+                if (Yii::$app->user->id != $idea->creators_id) {
                     return $this->redirect('/ideas');
                 }
-            } else {
-                return $this->redirect('/site');
-            }
+            } elseif (!(User::findIdentity(Yii::$app->user->id))->isAdmin()) {
+                if ($tag != null) {
+                    if ($bool) {
+                        return $this->redirect('/tags/tag?tag=' . $tag);
+                    } else {
+                        return $this->redirect('/tags');
+                    }
+                } elseif ($id != null) {
+                    if ($bool) {
+                        $tag = Tags::find()->where(['id_tags' => $id])->one();
+                        return $this->redirect('/ideas/delete-idea-tags?id=' . $tag->ideas_id);
+                    } else {
+                        return $this->redirect('/ideas');
+                    }
+                } else {
+                    return $this->redirect('/site');
+                }
 
+            }
+        } else {
+            return $this->redirect('site');
         }
+
         if ($tag != null) {
             $tags = Tags::find()->where(['tag' => $tag])->all();
             foreach ($tags as $tag) {

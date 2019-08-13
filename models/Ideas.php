@@ -14,6 +14,11 @@ class Ideas extends ActiveRecord
         return '{{ideas}}';
     }
 
+    public static function findIdentity($id_ideas)
+    {
+        return static::findOne($id_ideas);
+    }
+
     public function getUsers()
     {
         return ($this->hasOne(User::className(), ['id_users' => 'creators_id']));

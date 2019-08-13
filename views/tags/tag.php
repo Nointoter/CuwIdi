@@ -26,7 +26,9 @@ $this->title = $tag;
                 [
                     'attribute' => 'id_ideas',
                     'label' => 'Id',
-                    'contentOptions'=>['style'=>'width : 95px; background-color: #FFFFFF; color: #000000'],
+                    'contentOptions'=>[
+                        'style'=>'width : 95px; background-color: #FFFFFF; color: #000000'
+                    ],
                     'filter' => Select2::widget([
                         'name' => 'id_ideas',
                         'model' => $ideasSearch,
@@ -47,7 +49,9 @@ $this->title = $tag;
                 [
                     'attribute' => 'ideas_name',
                     'label' => 'Имя',
-                    'contentOptions'=>['style'=>'width : 170px; background-color: #FFFFFF; color: #000000'],
+                    'contentOptions'=>[
+                        'style'=>'width : 170px; background-color: #FFFFFF; color: #000000'
+                    ],
                     'filter' => Select2::widget([
                         'name' => 'ideas_name',
                         'model' => $ideasSearch,
@@ -68,7 +72,9 @@ $this->title = $tag;
                 [
                     'attribute' => 'info_short',
                     'label' => 'Описание',
-                    'contentOptions'=>['style'=>'width : 170px; background-color: #FFFFFF; color: #000000'],
+                    'contentOptions'=>[
+                        'style'=>'width : 170px; background-color: #FFFFFF; color: #000000'
+                    ],
                 ],
                 [
                     'attribute' => 'users_name',

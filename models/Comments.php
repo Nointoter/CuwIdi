@@ -25,4 +25,9 @@ class Comments extends ActiveRecord
     {
         return User::findIdentity($this->users_id)->users_name;
     }
+
+    public function getIdeasName()
+    {
+        return Ideas::findIdentity($this->ideas_id)->ideas_name;
+    }
 }

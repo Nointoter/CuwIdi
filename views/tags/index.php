@@ -35,14 +35,16 @@ $this->title = 'Тэги';
                 ?>
                 &nbsp;
                 <?php
-                if ((User::findIdentity(Yii::$app->user->id))->isAdmin()) {
-                    echo Html::a(
-                        'Удалить',
-                        Url::toRoute(
-                            ['/tags/delete-tag', 'tag' => $tag->tag, 'bool' => strval(false), 'id' => null]
-                        ),
-                        ['class' => 'btn btn-warning']
-                    );
+                if (!Yii::$app->user->isGuest) {
+                    if ((User::findIdentity(Yii::$app->user->id))->isAdmin()) {
+                        echo Html::a(
+                            'Удалить',
+                            Url::toRoute(
+                                ['/tags/delete-tag', 'tag' => $tag->tag, 'bool' => strval(false), 'id' => null]
+                            ),
+                            ['class' => 'btn btn-warning']
+                        );
+                    }
                 }
                 ?>
             </h2>

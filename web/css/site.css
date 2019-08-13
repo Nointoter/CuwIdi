@@ -113,3 +113,13 @@ a.desc:after {
 .nav > li > form > button.logout:focus {
     outline: none;
 }
+
+.profile-style {
+    background-color: #fff;
+    color: #000;
+}
+
+.idea-style {
+    background-color: #fff;
+    color: #000;
+}
