@@ -23,7 +23,7 @@ $this->title = 'Профиль ' . strval($user->users_name);
 <?php if ($user->isActive()) : ?>
     <div class="row profile-style">
         <div class="col-lg-5">
-            <h3>Профиль <?= Html::encode($user->users_name) ?></h3>
+            <h2>Профиль <?= Html::encode($user->users_name) ?></h2>
             <?php if (Yii::$app->user->id == $user->id_users) : ?>
                 <a href="re-profile?id=<?= strval($user->id_users) ?>" class="btn btn-primary" role="button">
                     Редактировать
