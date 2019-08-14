@@ -22,19 +22,25 @@ class SearchUsers extends User
         ];
     }
 
-    public function search($params, $id, $target, $bool)
+    /**
+     * @param $params
+     * @param null $id
+     * @param null $target
+     * @param null $bool
+     * @return ActiveDataProvider
+     */
+    public function search($params, $id = null, $target = null, $bool = null)
     {
+        $query = User::find();
         if ($id != null) {
-            $query = User::find()
+            $query
                 ->where(['id_users' => $id]);
-        } else {
-            $query = User::find();
         }
         if (!$bool) {
             $query->andWhere(['status' => 0]);
         }
 
-        if ($target != null) {
+        if ($target) {
             $this->usersSearch = $target;
         }
 

@@ -23,28 +23,33 @@ class SearchIdeas extends Ideas
         ];
     }
 
-    public function search($params, $id, $ideasSearch, $tagSearch)
+    /**
+     * @param $params
+     * @param null $id
+     * @param null $ideasSearch
+     * @param null $tagSearch
+     * @return ActiveDataProvider
+     */
+    public function search($params, $id = null, $ideasSearch = null, $tagSearch = null)
     {
-        if ($ideasSearch != null) {
+        if ($ideasSearch) {
             $this->ideasSearch = $ideasSearch;
         }
-        if ($id != null) {
-            $query = Ideas::find()
-                ->joinWith('tags')
-                ->joinWith('user')
-                ->where(['creators_id' => $id])
-                ->orderBy('id_ideas');
-        } else {
-            $query = Ideas::find()
-                ->joinWith('tags')
-                ->joinWith('user')
-                ->orderBy('id_ideas');
+        $query = Ideas::find()
+            ->joinWith('tags')
+            ->joinWith('user')
+            ->orderBy('id_ideas');
+
+        if ($id) {
+            $query
+                ->where(['creators_id' => $id]);
         }
-        if ($tagSearch != null) {
+        if ($tagSearch) {
             $query->andWhere(['tag' => $tagSearch]);
         }
         $query->andWhere(['status' => 0]);
-        if ($ideasSearch != null) {
+
+        if ($ideasSearch) {
             $query->andWhere(
                 [
                     'AND',
@@ -80,7 +85,7 @@ class SearchIdeas extends Ideas
             return $dataProvider;
         }
         // изменяем запрос добавляя в его фильтрацию
-        if ($ideasSearch != null) {
+        if ($ideasSearch) {
             $query->andWhere(
                 [
                     'AND',
