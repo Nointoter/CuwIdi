@@ -21,7 +21,6 @@ class IdeasForm extends Model
             [['ideas_name'], 'string'],
             [['info_short'], 'string'],
             [['info_long'], 'string'],
-            [['images_name'], 'string'],
             [['imageFile'], 'file',  'skipOnEmpty' => true, 'extensions' => 'png, jpg, jfif'],
         ];
     }

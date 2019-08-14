@@ -160,8 +160,10 @@ class IdeasController extends Controller
         } else {
             return $this->redirect('/site');
         }
+        $imageModel = new ImagesForm();
         $ideasModel = new IdeasForm();
         if ($ideasModel->load(Yii::$app->request->post()) && $ideasModel->validate()) {
+            $imageModel->imageFile = UploadedFile::getInstance($ideasModel, 'imageFile');
             $model = new Ideas();
             $model->ideas_name = $ideasModel->ideas_name;
             $model->info_short = $ideasModel->info_short;
@@ -171,7 +173,14 @@ class IdeasController extends Controller
             $model->creations_year = date('y');
             $model->creators_id = Yii::$app->user->id;
             $model->save(false);
-
+            if ($imageModel->imageFile) {
+                $idea_image = new Images();
+                $idea_image->ideas_id = $model->id_ideas;
+                $idea_image->images_name = $model->ideas_name . $imageModel->imageFile->baseName . '.jpg';
+                $imageModel->imageFile->name = $idea_image->images_name;
+                $idea_image->save(false);
+                $imageModel->imageFile->saveAs('images/' . $imageModel->imageFile->baseName . '.jpg');
+            }
             return $this->redirect('/ideas');
         } else {
             return $this->renderAjax(

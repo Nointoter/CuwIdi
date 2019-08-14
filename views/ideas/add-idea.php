@@ -31,6 +31,9 @@ $this->params['breadcrumbs'][] = $this->title;*/
                         $ideasModel,
                         'info_long'
                     )->textarea(['rows' => 8, 'autofocus' => true])->label('Информация') ?>
+                    <?= $form->field($ideasModel, 'imageFile')
+                        ->fileInput(['autofocus' => true])
+                        ->label('Изображение') ?>
                     <div class="form-group">
                         <?= Html::submitButton(
                             'Добавить',
