@@ -475,7 +475,7 @@ $this->title = 'Просмотр идеи '.strval($model->ideas_name);
         <?php
             echo Html::a(
                 'Удалить Идею',
-                Url::toRoute(['/ideas/delete-idea', 'id' => strval($model->id_ideas), 'bool' => strval(false)]),
+                Url::toRoute(['/ideas/delete-idea', 'id' => strval($model->id_ideas)]),
                 [
                   'data-confirm' => 'Вы уверены, что хотите удалить идею?',
                     'data-method' => 'post',

@@ -191,40 +191,34 @@ class IdeasController extends Controller
      * @throws \Throwable
      * @return string
      */
-
-    public function actionDeleteIdea($id, $bool)
+    public function actionDeleteIdea($id)
     {
-        if (!Yii::$app->user->isGuest) {
-            if (!(User::findIdentity(Yii::$app->user->id))->isActive()) {
-                return $this->redirect('/site');
-            }
-        } else {
+        if (Yii::$app->user->isGuest || !User::findOne(Yii::$app->user->id)->isActive()) {
             return $this->redirect('/site');
-        }
-        $model = Ideas::find()->where(['id_ideas' => $id])->one();
-        $tags = Tags::find()->where(['ideas_id' => $id])->all();
-        $comments = Comments::find()->where(['ideas_id' => $id])->all();
-        $images = Images::find()->where(['ideas_id' => $id])->all();
-        if ($model != null) {
-            if (Yii::$app->user->id != $model->creators_id && !(User::findIdentity(Yii::$app->user->id))->isAdmin()) {
-                return $this->redirect('idea?id='.strval($id));
-            } else {
-                foreach ($tags as $tag) {
-                    $tag->delete();
-                }
-                foreach ($comments as $comment) {
-                    $comment->delete();
-                }
-                foreach ($images as $image) {
-                    $image->delete();
-                }
-                $model->delete();
-            }
-        }
-        if (!$bool) {
-            return $this->redirect('index');
         } else {
-            return $this->redirect('/users/profile?id='.strval(Yii::$app->user->id));
+            $model = Ideas::find()->where(['id_ideas' => $id])->one();
+            if ($model == null
+                || (Yii::$app->user->id != $model->creators_id
+                && !(User::findIdentity(Yii::$app->user->id))->isAdmin())) {
+                return $this->redirect('idea?id=' . strval($id));
+            }
+
+            $tags = Tags::find()->where(['ideas_id' => $id])->all();
+            $comments = Comments::find()->where(['ideas_id' => $id])->all();
+            $images = Images::find()->where(['ideas_id' => $id])->all();
+            foreach ($tags as $tag) {
+                $tag->delete();
+            }
+            foreach ($comments as $comment) {
+                $comment->delete();
+            }
+            foreach ($images as $image) {
+                $image->delete();
+            }
+
+            $model->delete();
+
+            return $this->redirect('index');
         }
     }
 
