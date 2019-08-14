@@ -85,7 +85,7 @@ $this->title = 'Удаление тэгов идеи : '.strval($ideasModel->ide
                                     [
                                         '/tags/delete-tag',
                                         'tag' => '',
-                                        'id' => strval($key),
+                                        'tags_id' => strval($key),
                                         'bool' => 'true'
                                     ]
                                 ),

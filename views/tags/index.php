@@ -43,7 +43,7 @@ $this->title = 'Тэги';
                                 [
                                     '/tags/delete-tag',
                                     'tag' => $tag->tag,
-                                    'bool' => strval(false),
+                                    'bool' => false,
                                     'tags_id' => 0,
                                 ]
                             ),

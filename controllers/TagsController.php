@@ -36,7 +36,7 @@ class TagsController extends Controller
     {
         $ideasSearch = new SearchIdeas();
         $ideasProvider = $ideasSearch->search(Yii::$app->request->get(), null, null, $tag);
-        $allIdeas = Ideas::find()->joinWith('ideas_tags')->where(['tag' => $tag])->all();
+        $allIdeas = Ideas::find()->joinWith('tags')->where(['tag' => $tag])->all();
         return $this->render('tag', [
             'tag' => $tag,
             'ideasSearch' => $ideasSearch,
@@ -58,7 +58,7 @@ class TagsController extends Controller
             if ($tags_id != 0) {
                 $intag = Tags::find()->where(['id_tags' => $tags_id])->one();
                 $idea = Ideas::find()->where(['id_ideas' => $intag->ideas_id])->one();
-                if (Yii::$app->user->id != $idea->creators_id) {
+                if (Yii::$app->user->id != $idea->creators_id || !(User::findIdentity(Yii::$app->user->id))->isAdmin()) {
                     return $this->redirect('/ideas');
                 }
             } elseif (!(User::findIdentity(Yii::$app->user->id))->isAdmin()) {
@@ -93,6 +93,7 @@ class TagsController extends Controller
         if ($tags_id != 0) {
             $tag = Tags::find()->where(['id_tags' => $tags_id])->one();
             $tag->delete();
+            return $this->redirect('/ideas/delete-idea-tags?id=' . $idea->id_ideas);
         }
         return $this->redirect('/tags');
     }
