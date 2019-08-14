@@ -171,7 +171,7 @@ $this->title = 'Идеи';
                         'value' => function ($data) {
                             if ((User::findIdentity($data->creators_id))->isActive()) {
                                 return Html::a(
-                                    $data->getUser()->users_name,
+                                    $data->user->users_name,
                                     Url::toRoute(['/users/profile', 'id' => $data->creators_id])
                                 );
                             } else {
@@ -189,7 +189,7 @@ $this->title = 'Идеи';
                         'format' => 'raw',
                         'value' => function ($data) {
                             $array_tags = [];
-                            foreach ($data->ideas_tags as $tag) {
+                            foreach ($data->tags as $tag) {
                                 $array_tags[] = strval($tag->tag) . ' ';
                             }
                             return implode(", ", $array_tags);

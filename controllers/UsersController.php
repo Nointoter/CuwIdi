@@ -112,9 +112,7 @@ class UsersController extends Controller
         $commentsSearch = new SearchComments();
         $commentsProvider = $commentsSearch->search(
             Yii::$app->request->get(),
-            $id,
-            false,
-            null
+            $id
         );
 
         $image_model = new ImagesForm();

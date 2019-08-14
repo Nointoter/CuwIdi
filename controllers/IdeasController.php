@@ -33,7 +33,7 @@ class IdeasController extends Controller
     {
         $model = new SearchIdeas();
         $model->load(Yii::$app->request->get());
-        $allIdeas = Ideas::find()->joinWith('users')->where(['status' => 0])->orderBy('id_ideas')->all();
+        $allIdeas = Ideas::find()->joinWith('user')->where(['status' => 0])->orderBy('id_ideas')->all();
 
         $ideasSearch = new SearchIdeas();
         $ideasProvider = $ideasSearch->search(Yii::$app->request->get(), null, $model->ideasSearch, null);
@@ -55,11 +55,11 @@ class IdeasController extends Controller
     public function actionIdea($id)
     {
         $model = Ideas::find()->where(['id_ideas' => $id])->one();
-        if (!($model->getUser())->isActive()) {
+        if (!$model->user->isActive()) {
             $this->redirect('/ideas');
         }
         $imageModel = new ImagesForm();
-        $images = $model->getImages();
+        $images = $model->images;
         $carousel = [];
         foreach ($images as $image) {
             $newImage = Yii::getAlias('@app/web/images/' . $image->images_name);
@@ -81,9 +81,8 @@ class IdeasController extends Controller
         $commentsSearch = new SearchComments();
         $commentsProvider = $commentsSearch->search(
             Yii::$app->request->get(),
-            $id,
-            true,
-            null
+            null,
+            $id
         );
 
         $ideasModel = new IdeasForm();

@@ -30,14 +30,14 @@ class SearchIdeas extends Ideas
         }
         if ($id != null) {
             $query = Ideas::find()
-                ->joinWith('ideas_tags')
-                ->joinWith('users')
+                ->joinWith('tags')
+                ->joinWith('user')
                 ->where(['creators_id' => $id])
                 ->orderBy('id_ideas');
         } else {
             $query = Ideas::find()
-                ->joinWith('ideas_tags')
-                ->joinWith('users')
+                ->joinWith('tags')
+                ->joinWith('user')
                 ->orderBy('id_ideas');
         }
         if ($tagSearch != null) {
@@ -69,7 +69,7 @@ class SearchIdeas extends Ideas
             ->andFilterWhere(['creations_day' => $this->creations_day])
             ->andFilterWhere(['creations_month' => $this->creations_month])
             ->andFilterWhere(['creations_year' => $this->creations_year])
-            ->andFilterWhere(['like', 'users_name', $this->getUser()->users_name]);
+            ->andFilterWhere(['like', 'users_name', $this->user->users_name]);
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
@@ -105,7 +105,7 @@ class SearchIdeas extends Ideas
             ->andFilterWhere(['creations_day' => $this->creations_day])
             ->andFilterWhere(['creations_month' => $this->creations_month])
             ->andFilterWhere(['creations_year' => $this->creations_year])
-            ->andFilterWhere(['like', 'users_name', $this->getUser()->users_name]);
+            ->andFilterWhere(['like', 'users_name', $this->user->users_name]);
 
         return $dataProvider;
     }

@@ -11,9 +11,9 @@ $this->title = 'CuwIdi';
 <div class="row">
     <?php foreach ($ideas as $idea) : ?>
         <?php
-            if (($idea->getUser())->isActive()) : ?>
+            if ($idea->user->isActive()) : ?>
             <?php
-                $image = array_shift($idea->getImages());
+                $image = array_shift($idea->images);
             ?>
             <div class="row" style="border: 1px solid #000;"></div>
             <div class="row">
@@ -28,7 +28,7 @@ $this->title = 'CuwIdi';
                     <h4>Информация : <?= $idea->info_long ?></h4>
                 </div>
                 <div class="col-lg-4">
-                    <?php if ($tags = $idea->getTags()) : ?>
+                    <?php if ($tags = $idea->tags) : ?>
                     <h3>
                         Тэги:
                         <?php foreach ($tags as $tag) : ?>

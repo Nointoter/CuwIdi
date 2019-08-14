@@ -77,7 +77,7 @@ class SiteController extends Controller
         $commentsProvider = $commentsModel->search(
             Yii::$app->request->get(),
             null,
-            false,
+            null,
             $target
         );
 

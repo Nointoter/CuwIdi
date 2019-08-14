@@ -4,6 +4,24 @@ namespace app\models;
 
 use yii\db\ActiveRecord;
 
+/**
+ * This is the model class for table "ideas".
+ *
+ * @property int $id_ideas
+ * @property string $ideas_name
+ * @property string $info_short
+ * @property string $info_long
+ * @property int $creators_id
+ * @property string $creations_day
+ * @property string $creations_month
+ * @property string $creations_year
+ * @property Tags $tags
+ * @property Images $images
+ * @property Comments $comments
+ * @property User $user
+ *
+ * @package app\models
+ */
 class Ideas extends ActiveRecord
 {
     /**
@@ -19,56 +37,43 @@ class Ideas extends ActiveRecord
         return static::findOne($id_ideas);
     }
 
-    public function getUsers()
-    {
-        return ($this->hasOne(User::className(), ['id_users' => 'creators_id']));
-    }
-
-    public function getideas_tags()
-    {
-        return ($this->hasMany(Tags::className(), ['ideas_id' => 'id_ideas']));
-    }
-
+    /**
+     * @return mixed
+     */
     public function getAuthorsName()
     {
-        return User::findIdentity($this->creators_id)->users_name;
+        return $this->user->users_name;
     }
 
+    /**
+     * @return \yii\db\ActiveQuery
+     */
     public function getUser()
     {
-        return User::findIdentity($this->creators_id);
+        return $this->hasOne(User::className(), ['id_users' => 'creators_id']);
     }
 
+    /**
+     * @return \yii\db\ActiveQuery
+     */
     public function getImages()
     {
-        $images = Images::find()->where(['ideas_id' => $this->id_ideas])->all();
-        return $images;
+        return $this->hasMany(Images::className(), ['ideas_id' => 'id_ideas']);
     }
 
+    /**
+     * @return \yii\db\ActiveQuery
+     */
     public function getTags()
     {
-        $tags = Tags::find()->where(['ideas_id' => $this->id_ideas])->all();
-        return $tags;
+        return $this->hasMany(Tags::className(), ['ideas_id' => 'id_ideas']);
     }
 
+    /**
+     * @return \yii\db\ActiveQuery
+     */
     public function getComments()
     {
         return ($this->hasMany(Comments::className(), ['ideas_id' => 'id_ideas']));
-    }
-
-    public function searchWhere($target)
-    {
-        if ($target != null) {
-            return Ideas::find()
-                ->where(['id_ideas' => $target])
-                ->orWhere(['ideas_name' => $target])
-                ->orWhere(['info_short' => $target])
-                ->orWhere(['creators_id' => $target])
-                ->orWhere(['creations_day' => $target])
-                ->orWhere(['creations_month' => $target])
-                ->orWhere(['creations_year' => $target]);
-        } else {
-            return Ideas::find()->all();
-        }
     }
 }
