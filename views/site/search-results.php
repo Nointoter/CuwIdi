@@ -1,11 +1,13 @@
 <?php
 
+use app\models\Comments;
 use app\models\Ideas;
 use app\models\User;
 use yii\bootstrap\Modal;
 use yii\grid\GridView;
 use yii\helpers\Html;
 use yii\helpers\Url;
+use yii\widgets\Pjax;
 
 /* @var $ideasProvider \yii\data\ActiveDataProvider*/
 /* @var $ideasModel \app\models\SearchIdeas*/
@@ -21,6 +23,7 @@ $this->params['breadcrumbs'][] = $this->title;
 <?php if ($ideasProvider->totalCount > 0) : ?>
     <h2>Идеи</h2>
     <div class="view-ideas-results">
+        <?php Pjax::begin(['id' => 'ideaListPjax']); ?>
         <?= GridView::widget([
             'dataProvider' => $ideasProvider,
             'filterModel' => $ideasModel,
@@ -126,32 +129,36 @@ $this->params['breadcrumbs'][] = $this->title;
                         },
                         'delete' => function ($url, $model, $key) {
                             $user = User::find()->where(['id_users' => Yii::$app->user->id])->one();
-                            if ($user->users_role == 'admin') {
+                            if ($user->users_role == 'admin' || Yii::$app->user->id == $model->creators_id) {
                                 return Html::a(
                                     '',
-                                    Url::toRoute(['/ideas/delete-idea', 'id' => strval($key),]),
-                                    ['class' => 'glyphicon glyphicon-trash']
+                                    false,
+                                    [
+                                        'class' => 'glyphicon glyphicon-trash pjax-delete-link',
+                                        'delete-url' => Url::toRoute(
+                                            [
+                                                '/ideas/delete-idea',
+                                                'id' => strval($key),
+                                            ]
+                                        ),
+                                        'pjax-confirm' => 'Вы уверены, что хотите удалить идею?',
+                                        'pjax-container' => 'ideaListPjax',
+                                        'title' => Yii::t('yii', 'Delete')
+                                    ]
                                 );
                             } else {
-                                if (Yii::$app->user->id != $model->creators_id) {
-                                    return Html::a(
-                                        '',
-                                        Url::toRoute(['/ideas/delete-idea', 'id' => strval($key)]),
-                                        ['class' => '']
-                                    );
-                                } else {
-                                    return Html::a(
-                                        '',
-                                        Url::toRoute(['/ideas/delete-idea', 'id' => strval($key)]),
-                                        ['class' => 'glyphicon glyphicon-trash']
-                                    );
-                                }
+                                return Html::a(
+                                    '',
+                                    Url::toRoute(['/site/delete-idea', 'id' => strval($key), 'bool' => 'false']),
+                                    ['class' => '']
+                                );
                             }
                         }
                     ]
                 ],
             ],
         ])?>
+        <?php Pjax::end(); ?>
     </div>
 <?php else : ?>
     <h2>
@@ -163,6 +170,7 @@ $this->params['breadcrumbs'][] = $this->title;
         Пользователи
     </h2>
     <div class="view-users-results">
+        <?php Pjax::begin(['id' => 'userListPjax']); ?>
         <?= GridView::widget([
             'dataProvider' => $usersProvider,
             'filterModel' => $usersModel,
@@ -260,26 +268,38 @@ $this->params['breadcrumbs'][] = $this->title;
                         },
                         'delete' => function ($url, $model, $key) {
                             $ideas = Ideas::find()->where(['creators_id' => $key])->all();
-                            if ($ideas) {
-                                return Html::a('', '', [
-                                    'class' => 'glyphicon glyphicon-trash',
-                                    'name' => 'delete-user-button',
-                                    'id' => 'modalButtonDeleteUserSieSearch']);
+                            $comments = Comments::find()->where(['users_id' => $key])->all();
+                            if ($ideas || $comments) {
+                                return Html::a(
+                                    '<span class="glyphicon glyphicon-trash">
+                                </span>',
+                                    '',
+                                    [
+                                        'class' => 'modalButtonDeleteUserUsersIndex',
+                                        'name' => 'delete-user-button',
+                                    ]
+                                );
                             } else {
-                                return Html::a('', Url::toRoute(['/users/delete', 'id' => strval($key),]), [
-                                    'data-confirm' => 'Вы уверены, что хотите удалить профиль?',
-                                    'data-method' => 'post',
-                                    'data-pjax' => '0',
-                                    'class' => 'glyphicon glyphicon-trash',
-                                    'name' => 'delete-user-button',]);
+                                return Html::a(
+                                    '',
+                                    false,
+                                    [
+                                        'class' => 'glyphicon glyphicon-trash pjax-delete-link',
+                                        'delete-url' => Url::toRoute(['/users/delete', 'id' => strval($key),]),
+                                        'pjax-confirm' => 'Вы уверены, что хотите удалить профиль?',
+                                        'pjax-container' => 'userListPjax',
+                                        'title' => Yii::t('yii', 'Delete'),
+                                    ]
+                                );
                             }
-                        }
+                        },
                     ],
                     'visible' => ((User::find()->where(['id_users' => Yii::$app->user->id])
                         ->one())->users_role == 'admin'),
                 ],
             ],
         ])?>
+        <?php Pjax::end(); ?>
     </div>
     <?php
         Modal::begin([
@@ -304,6 +324,7 @@ $this->params['breadcrumbs'][] = $this->title;
         Комментарии
     </h2>
     <div class="view-comments-results">
+        <?php Pjax::begin(['id' => 'commentListPjax']); ?>
         <?= GridView::widget([
             'dataProvider' => $commentsProvider,
             'filterModel' => $commentsModel,
@@ -367,18 +388,46 @@ $this->params['breadcrumbs'][] = $this->title;
                             );
                         },
                         'delete' => function ($url, $model, $key) {
-                            return Html::a(
-                                '',
-                                Url::toRoute(['/site/delete-project', 'id' => strval($key), 'bool' => 'false']),
-                                ['class' => '']
-                            );
-                        }
+                            $user = User::find()->where(['id_users' => Yii::$app->user->id])->one();
+                            if (Yii::$app->user->id == $model->users_id || $user->users_role == 'admin') {
+                                return Html::a(
+                                    '',
+                                    false,
+                                    [
+                                        'class' => 'glyphicon glyphicon-trash pjax-delete-link',
+                                        'delete-url' => Url::toRoute([
+                                            '/comments/delete-comment',
+                                            'id' => strval($key),
+                                            'bool' => strval(false)
+                                        ]),
+                                        'pjax-confirm' => 'Вы уверены, что хотите удалить комментарий?',
+                                        'pjax-container' => 'commentListPjax',
+                                        'title' => Yii::t('yii', 'Delete'),
+                                    ]
+                                );
+                            } else {
+                                return Html::a(
+                                    '',
+                                    Url::toRoute(
+                                        [
+                                            '/comments/delete-comment',
+                                            'id' => strval($key),
+                                            'bool' => strval(false)
+                                        ]
+                                    ),
+                                    [
+                                        'class' => ''
+                                    ]
+                                );
+                            }
+                        },
                     ],
                 ],
             ],
         ])?>
+        <?php Pjax::end(); ?>
     </div>
-<?php else: ?>
+<?php else : ?>
     <h2>
         Комментариев нет
     </h2>

@@ -237,14 +237,8 @@ $this->title = 'Профиль ' . strval($user->users_name);
                                 );
                             },
                             'delete' => function ($url, $model, $key) {
-                                if (Yii::$app->user->id != $model->users_id) {
-                                    return Html::a(
-                                        '',
-                                        Url::toRoute(['/comments/delete-comment', 'id' => strval($key),
-                                            'bool' => strval(false)]),
-                                        ['class' => '']
-                                    );
-                                } else {
+                                $user = User::find()->where(['id_users' => Yii::$app->user->id])->one();
+                                if (Yii::$app->user->id == $model->users_id || $user->users_role == 'admin') {
                                     return Html::a(
                                         '',
                                         false,
@@ -255,10 +249,17 @@ $this->title = 'Профиль ' . strval($user->users_name);
                                                 'id' => strval($key),
                                                 'bool' => strval(false)
                                             ]),
-                                            'pjax-confirm' => 'Вы уверены, что хотите удалить изображение?',
+                                            'pjax-confirm' => 'Вы уверены, что хотите удалить комментарий?',
                                             'pjax-container' => 'commentListPjax',
                                             'title' => Yii::t('yii', 'Delete'),
                                         ]
+                                    );
+                                } else {
+                                    return Html::a(
+                                        '',
+                                        Url::toRoute(['/comments/delete-comment', 'id' => strval($key),
+                                            'bool' => strval(false)]),
+                                        ['class' => '']
                                     );
                                 }
                             },

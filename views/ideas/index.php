@@ -303,6 +303,12 @@ $this->title = 'Идеи';
                                         'title' => Yii::t('yii', 'Delete')
                                     ]
                                 );
+                            } else {
+                                return Html::a(
+                                    '',
+                                    Url::toRoute(['/site/delete-idea', 'id' => strval($key), 'bool' => 'false']),
+                                    ['class' => '']
+                                );
                             }
                         }
                     ]
