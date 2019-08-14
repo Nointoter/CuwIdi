@@ -13,11 +13,6 @@ $(function(){
 
     $('.modalButtonDeleteUserUsersIndex').click(function(){
         event.preventDefault();
-
-        console.log("Ура! Мы здесь.");
-        console.log("Вывод значения атрибута:");
-        console.log($(this).attr('value'));
-
         $('#modalDeleteUserUsersIndex').modal('show')
             .find('#modalContentDeleteUserUsersIndex')
             .load($(this).attr('value'));
@@ -35,5 +30,23 @@ $(function(){
         $('#modalDeleteUserSieSearch').modal('show')
             .find('#modalContentDeleteUserSieSearch')
             .load($(this).attr('value'));
+    });
+
+    $('.pjax-delete-link').on('click', function (e) {
+        e.preventDefault();
+        var deleteUrl = $(this).attr('delete-url');
+        var pjaxContainer = $(this).attr('pjax-container');
+        var result = confirm($(this).attr('pjax-confirm'));
+        if (result) {
+            $.ajax({
+                url: deleteUrl,
+                type: 'post',
+                error: function (xhr, status, error) {
+                    alert('Ошибка удаления.' + xhr.responseText);
+                }
+            }).done(function (data) {
+                $.pjax.reload('#' + $.trim(pjaxContainer), {timeout: 3000});
+            });
+        }
     });
 });
