@@ -136,13 +136,13 @@ $this->params['breadcrumbs'][] = $this->title;
                                 if (Yii::$app->user->id != $model->creators_id) {
                                     return Html::a(
                                         '',
-                                        Url::toRoute(['/ideas/delete-idea', 'id' => strval($key), 'bool' => false]),
+                                        Url::toRoute(['/ideas/delete-idea', 'id' => strval($key)]),
                                         ['class' => '']
                                     );
                                 } else {
                                     return Html::a(
                                         '',
-                                        Url::toRoute(['/ideas/delete-idea', 'id' => strval($key), 'bool' => false]),
+                                        Url::toRoute(['/ideas/delete-idea', 'id' => strval($key)]),
                                         ['class' => 'glyphicon glyphicon-trash']
                                     );
                                 }

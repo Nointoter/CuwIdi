@@ -273,6 +273,7 @@ $this->title = 'Идеи';
                             'style' => 'width : 60px;',
                             'class' => 'ideas-index-style',
                         ],
+                        'template' => '{delete}',
                         'buttons' => [
                             'view' => function ($url, $model, $key) {
                                 return Html::a(
@@ -283,22 +284,9 @@ $this->title = 'Идеи';
                                     ['class' => 'glyphicon glyphicon-eye-open']
                                 );
                             },
-                            'update' => function ($url, $model, $key) {
-                                return Html::a(
-                                    '',
-                                    Url::toRoute(
-                                        [
-                                            '/site/re-project',
-                                            'id' => strval($key),
-                                            'bool' => 'false'
-                                        ]
-                                    ),
-                                    ['class' => '']
-                                );
-                            },
                             'delete' => function ($url, $model, $key) {
                                 $user = User::find()->where(['id_users' => Yii::$app->user->id])->one();
-                                if ($user->users_role == 'admin') {
+                                if ($user->users_role == 'admin' || Yii::$app->user->id == $model->creators_id) {
                                     return Html::a(
                                         '',
                                         Url::toRoute(
@@ -315,38 +303,6 @@ $this->title = 'Идеи';
                                             'data-pjax' => '0',
                                         ]
                                     );
-                                } else {
-                                    if (Yii::$app->user->id != $model->creators_id) {
-                                        return Html::a(
-                                            '',
-                                            Url::toRoute(
-                                                [
-                                                    '/ideas/delete-idea',
-                                                    'id' => strval($key),
-                                                ]
-                                            ),
-                                            [
-                                                'class' => ''
-                                            ]
-                                        );
-                                    } else {
-                                        return Html::a(
-                                            '',
-                                            Url::toRoute(
-                                                [
-                                                    '/ideas/delete-idea',
-                                                    'id' => strval($key),
-                                                    'bool' => strval(false),
-                                                ]
-                                            ),
-                                            [
-                                                'class' => 'glyphicon glyphicon-trash',
-                                                'data-confirm' => 'Вы уверены, что хотите удалить идею?',
-                                                'data-method' => 'post',
-                                                'data-pjax' => '0',
-                                            ]
-                                        );
-                                    }
                                 }
                             }
                         ]

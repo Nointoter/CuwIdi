@@ -245,7 +245,6 @@ $this->title = $tag;
                                             [
                                                 '/ideas/delete-idea',
                                                 'id' => strval($key),
-                                                'bool' => strval(false),
                                             ]
                                         ),
                                         ['class' => 'glyphicon glyphicon-trash']
