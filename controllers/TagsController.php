@@ -47,7 +47,7 @@ class TagsController extends Controller
 
     /**
      * Displays delete_tag
-     *
+     * @return array|\yii\web\Response
      * @param $tag
      * @return string
      */
@@ -84,17 +84,31 @@ class TagsController extends Controller
             return $this->redirect('site');
         }
 
+
         if ($tag != null) {
             $tags = Tags::find()->where(['tag' => $tag])->all();
             foreach ($tags as $tag) {
                 $tag->delete();
             }
         }
+
         if ($tags_id != 0) {
             $tag = Tags::find()->where(['id_tags' => $tags_id])->one();
             $tag->delete();
+
+            if (Yii::$app->request->isAjax) {
+                Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
+                return ['success' => true];
+            }
+
             return $this->redirect('/ideas/delete-idea-tags?id=' . $idea->id_ideas);
         }
+
+        if (Yii::$app->request->isAjax) {
+            Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
+            return ['success' => true];
+        }
+
         return $this->redirect('/tags');
     }
 }

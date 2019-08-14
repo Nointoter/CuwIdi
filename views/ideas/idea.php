@@ -301,7 +301,7 @@ $this->title = 'Просмотр идеи '.strval($model->ideas_name);
         </div>
     <?php ActiveForm::end(); ?>
 <?php Pjax::end(); ?>
-<?php Pjax::begin(['id' => 'new_comment']); ?>
+<?php Pjax::begin(['id' => 'commentListPjax']); ?>
     <?php $form = ActiveForm::begin(['options' => ['data-pjax' => true], 'id' => 'commentsForm'])?>
         <div class="row idea-style">
             <div class="form-group">
@@ -354,29 +354,6 @@ $this->title = 'Просмотр идеи '.strval($model->ideas_name);
             </div>
         </div>
     <?php ActiveForm::end(); ?>
-<?php /*$this->registerJs("
-        $(document).on('ready pjax:success', function() {
-            $('.pjax-delete-link').on('click', function(e) {
-                e.preventDefault();
-                var deleteUrl = $(this).attr('delete-url');
-                var pjaxContainer = $(this).attr('pjax-container');
-                var result = confirm('Delete this item, are you sure?');                                
-                if(result) {
-                    $.ajax({
-                        url: /comments/delete-comment,
-                        type: 'post',
-                        error: function(xhr, status, error) {
-                            alert('There was an error with your request.' + xhr.responseText);
-                        }
-                    }).done(function(data) {
-                        $.pjax.reload('#' + $.trim(pjaxContainer), {timeout: 3000});
-                    });
-                }
-            });
-
-        });
-    ");*/
-?>
     <?php if ($commentsProvider->totalCount > 0) : ?>
         <div class="view-idea-comments">
             <?= GridView::widget([
@@ -449,16 +426,20 @@ $this->title = 'Просмотр идеи '.strval($model->ideas_name);
                                     ]
                                 );
                             },
-                            'delete' => function ($url, $model) {
+                            'delete' => function ($url, $model, $key) {
                                 return Html::a(
-                                    '<span class="glyphicon glyphicon-trash">
-                                    </span>',
+                                    '',
                                     false,
                                     [
-                                        'class' => 'pjax-delete-link',
-                                        'delete-url' => $url,
-                                        'pjax-container' => 'my_pjax',
-                                        'title' => Yii::t('yii', 'Delete')
+                                        'class' => 'glyphicon glyphicon-trash pjax-delete-link',
+                                        'delete-url' => Url::toRoute([
+                                            '/comments/delete-comment',
+                                            'id' => strval($key),
+                                            'bool' => strval(false)
+                                        ]),
+                                        'pjax-confirm' => 'Вы уверены, что хотите удалить изображение?',
+                                        'pjax-container' => 'commentListPjax',
+                                        'title' => Yii::t('yii', 'Delete'),
                                     ]
                                 );
                             }

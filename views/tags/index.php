@@ -8,6 +8,7 @@ use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
 use app\models\Ideas;
 use yii\helpers\Url;
+use yii\widgets\Pjax;
 
 /* @var $tags array*/
 
@@ -20,6 +21,7 @@ $this->title = 'Тэги';
     </h1>
 </div>
 <div class="row">
+    <?php Pjax::begin(['id' => 'tagListPjax']); ?>
     <?php foreach ($tags as $tag) : ?>
         <div class="row">
             <h2>
@@ -39,15 +41,21 @@ $this->title = 'Тэги';
                     if ((User::findIdentity(Yii::$app->user->id))->isAdmin()) {
                         echo Html::a(
                             'Удалить',
-                            Url::toRoute(
-                                [
-                                    '/tags/delete-tag',
-                                    'tag' => $tag->tag,
-                                    'bool' => false,
-                                    'tags_id' => 0,
-                                ]
-                            ),
-                            ['class' => 'btn btn-warning']
+                            false,
+                            [
+                                'class' => 'btn btn-warning pjax-delete-link',
+                                'delete-url' => Url::toRoute(
+                                    [
+                                        '/tags/delete-tag',
+                                        'tag' => $tag->tag,
+                                        'bool' => false,
+                                        'tags_id' => 0,
+                                    ]
+                                ),
+                                'pjax-confirm' => 'Вы уверены, что хотите удалить тэг?',
+                                'pjax-container' => 'tagListPjax',
+                                'title' => Yii::t('yii', 'Delete'),
+                            ]
                         );
                     }
                 }
@@ -55,4 +63,5 @@ $this->title = 'Тэги';
             </h2>
         </div>
     <?php endforeach; ?>
+    <?php Pjax::end(); ?>
 </div>

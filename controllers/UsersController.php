@@ -191,6 +191,7 @@ class UsersController extends Controller
      * Delete User
      *
      * @param $id
+     * @return array|\yii\web\Response
      * @return Response
      * @throws \Throwable
      * @throws \yii\db\StaleObjectException
@@ -211,6 +212,13 @@ class UsersController extends Controller
             $user = User::find()->where(['id_users' => $id])->one();
             $user->delete();
         }
+
+        if (Yii::$app->request->isAjax) {
+            Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
+            return ['success' => true];
+        }
+
+
         return $this->redirect('/users');
     }
 

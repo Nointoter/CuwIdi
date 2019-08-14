@@ -11,6 +11,12 @@ use yii\web\Response;
 class CommentsController extends Controller
 {
 
+    /**
+     * Displays DeleteCommentForm
+     * @return string|array|\yii\web\Response
+     * @throws \Throwable
+     */
+
 
     public function actionDeleteComment($id, $bool)
     {
@@ -23,13 +29,6 @@ class CommentsController extends Controller
             Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
             return ['success' => true];
         }
-        Yii::$app->response->format = Response::FORMAT_JSON;
         return $this->redirect(['/ideas/index']);
     }
-
-    /**
-     * Displays DeleteCommentForm
-     *
-     * @return string array
-     */
 }

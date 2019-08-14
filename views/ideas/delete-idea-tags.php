@@ -5,6 +5,7 @@ use yii\bootstrap\ActiveForm;
 use yii\grid\GridView;
 use yii\helpers\Html;
 use yii\helpers\Url;
+use yii\widgets\Pjax;
 
 /* @var $form yii\bootstrap\ActiveForm */
 /* @var $ideasModel app\models\Ideas */
@@ -29,6 +30,7 @@ $this->title = 'Удаление тэгов идеи : '.strval($ideasModel->ide
     </div>
 </div>
 <div class="row">
+    <?php Pjax::begin(['id' => 'tagListPjax']); ?>
     <div class="col-lg-8 col-lg-offset-2">
         <?= GridView::widget([
             'dataProvider' => $tagsProvider,
@@ -81,23 +83,27 @@ $this->title = 'Удаление тэгов идеи : '.strval($ideasModel->ide
                         'delete' => function ($url, $model, $key) {
                             return Html::a(
                                 '',
-                                Url::toRoute(
-                                    [
-                                        '/tags/delete-tag',
-                                        'tag' => '',
-                                        'tags_id' => strval($key),
-                                        'bool' => 'true'
-                                    ]
-                                ),
+                                false,
                                 [
-                                    'class' => 'glyphicon glyphicon-trash'
+                                    'class' => 'glyphicon glyphicon-trash pjax-delete-link',
+                                    'delete-url' => Url::toRoute(
+                                        [
+                                            '/tags/delete-tag',
+                                            'tag' => '',
+                                            'tags_id' => strval($key),
+                                            'bool' => 'true'
+                                        ]
+                                    ),
+                                    'pjax-confirm' => 'Вы уверены, что хотите удалить тэг?',
+                                    'pjax-container' => 'tagListPjax',
+                                    'title' => Yii::t('yii', 'Delete'),
                                 ]
                             );
                         }
                     ]
                 ],
             ],
-        ]);
-        ?>
+        ]); ?>
     </div>
+    <?php Pjax::end(); ?>
 </div>

@@ -11,6 +11,7 @@ use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
 use yii\helpers\Url;
 use yii\widgets\ActiveForm;
+use yii\widgets\Pjax;
 
 /* @var yii\web\View $this */
 /* @var ActiveForm $form */
@@ -37,6 +38,7 @@ $this->title = 'Пользователи';
     </div>
 </div>
 <div class="view-users">
+    <?php Pjax::begin(['id' => 'userListPjax']); ?>
     <?= GridView::widget([
         'dataProvider' => $usersProvider,
         'filterModel' => $model,
@@ -197,12 +199,17 @@ $this->title = 'Пользователи';
                                 ]
                             );
                         } else {
-                            return Html::a('', Url::toRoute(['/users/delete', 'id' => strval($key),]), [
-                                'data-confirm' => 'Вы уверены, что хотите удалить профиль?',
-                                'data-method' => 'post',
-                                'data-pjax' => '0',
-                                'class' => 'glyphicon glyphicon-trash',
-                                'name' => 'delete-user-button',]);
+                            return Html::a(
+                                '',
+                                false,
+                                [
+                                    'class' => 'glyphicon glyphicon-trash pjax-delete-link',
+                                    'delete-url' => Url::toRoute(['/users/delete', 'id' => strval($key),]),
+                                    'pjax-confirm' => 'Вы уверены, что хотите удалить профиль?',
+                                    'pjax-container' => 'userListPjax',
+                                    'title' => Yii::t('yii', 'Delete'),
+                                ]
+                            );
                         }
                     },
                 ],
@@ -211,6 +218,7 @@ $this->title = 'Пользователи';
             ],
         ],
     ])?>
+    <?php Pjax::end(); ?>
 </div>
 <?php
     Modal::begin([

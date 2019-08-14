@@ -3,6 +3,7 @@
 use yii\grid\GridView;
 use yii\helpers\Html;
 use yii\helpers\Url;
+use yii\widgets\Pjax;
 
 /* @var $form yii\bootstrap\ActiveForm */
 /* @var $ideasModel app\models\Ideas */
@@ -27,6 +28,7 @@ $this->title = 'Удаление изображений идеи : '.strval($ide
     </div>
 </div>
 <div class="row">
+    <?php Pjax::begin(['id' => 'imageListPjax']); ?>
     <div class="col-lg-8 col-lg-offset-2">
         <?= GridView::widget([
             'dataProvider' => $imagesProvider,
@@ -88,21 +90,25 @@ $this->title = 'Удаление изображений идеи : '.strval($ide
                         'delete' => function ($url, $model, $key) {
                             return Html::a(
                                 '',
-                                Url::toRoute(
-                                    [
-                                        '/images/delete-image',
-                                        'id' => strval($key)
-                                    ]
-                                ),
+                                false,
                                 [
-                                    'class' => 'glyphicon glyphicon-trash'
+                                    'class' => 'glyphicon glyphicon-trash pjax-delete-link',
+                                    'delete-url' => Url::toRoute(
+                                        [
+                                            '/images/delete-image',
+                                            'id' => strval($key)
+                                        ]
+                                    ),
+                                    'pjax-confirm' => 'Вы уверены, что хотите удалить изображение?',
+                                    'pjax-container' => 'imageListPjax',
+                                    'title' => Yii::t('yii', 'Delete'),
                                 ]
                             );
                         }
                     ]
                 ],
                 ],
-            ]);
-        ?>
+            ]); ?>
     </div>
+    <?php Pjax::end(); ?>
 </div>

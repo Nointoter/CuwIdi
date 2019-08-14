@@ -7,6 +7,7 @@ use yii\bootstrap\Modal;
 use yii\grid\GridView;
 use yii\helpers\Html;
 use yii\helpers\Url;
+use yii\widgets\Pjax;
 
 /* @var $this yii\web\View */
 /* @var $form yii\bootstrap\ActiveForm */
@@ -175,6 +176,7 @@ $this->title = 'Профиль ' . strval($user->users_name);
     </div>
     <?php if ($commentsProvider->totalCount > 0) : ?>
         <div class="view-idea-comments">
+            <?php Pjax::begin(['id' => 'commentListPjax']); ?>
             <?= GridView::widget([
                 'dataProvider' => $commentsProvider,
                 'layout' => '{items}{pager}',
@@ -231,12 +233,18 @@ $this->title = 'Профиль ' . strval($user->users_name);
                                 } else {
                                     return Html::a(
                                         '',
-                                        Url::toRoute([
-                                            '/comments/delete-comment',
-                                            'id' => strval($key),
-                                            'bool' => strval(false)
-                                        ]),
-                                        ['class' => 'glyphicon glyphicon-trash']
+                                        false,
+                                        [
+                                            'class' => 'glyphicon glyphicon-trash pjax-delete-link',
+                                            'delete-url' => Url::toRoute([
+                                                '/comments/delete-comment',
+                                                'id' => strval($key),
+                                                'bool' => strval(false)
+                                            ]),
+                                            'pjax-confirm' => 'Вы уверены, что хотите удалить изображение?',
+                                            'pjax-container' => 'commentListPjax',
+                                            'title' => Yii::t('yii', 'Delete'),
+                                        ]
                                     );
                                 }
                             },
@@ -245,6 +253,8 @@ $this->title = 'Профиль ' . strval($user->users_name);
                     ],
                 ],
             ])?>
+            <?php
+            Pjax::end(); ?>
         </div>
     <?php endif; ?>
 <?php else : ?>

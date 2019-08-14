@@ -175,7 +175,7 @@ $this->title = 'Идеи';
                                 Url::toRoute(['/users/profile', 'id' => $data->creators_id])
                             );
                         } else {
-                            return "заблокирован";
+                            return "заморожен";
                         }
                     },
                     'format' => 'raw',
@@ -273,7 +273,7 @@ $this->title = 'Идеи';
                         'style' => 'width : 60px;',
                         'class' => 'ideas-index-style',
                     ],
-                    'template' => '{delete}',
+                    'template' => '{view}{delete}',
                     'buttons' => [
                         'view' => function ($url, $model, $key) {
                             return Html::a(
