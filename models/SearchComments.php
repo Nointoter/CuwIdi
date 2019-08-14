@@ -6,58 +6,47 @@ use yii\data\ActiveDataProvider;
 
 class SearchComments extends Comments
 {
-    public $commentsSearch;
-
-    public function rules()
+    /**
+     * @param $params
+     * @param null $users_id
+     * @param null $ideas_id
+     * @param null $target
+     * @return ActiveDataProvider
+     */
+    public function search($params, $users_id = null, $ideas_id = null, $target = null)
     {
-        return[
-            [['id_comments'], 'integer'],
-            [['comment'], 'string'],
-            [['ideas_id'], 'integer'],
-            [['users_id'], 'integer'],
-            [['commentsSearch'], 'string'],
-        ];
-    }
+        $query = Comments::find();
 
-    public function search($params, $id, $bool, $target)
-    {
-        if ($target != null) {
-            $this->commentsSearch = $target;
+        if ($ideas_id) {
+            $query = $query->where(['ideas_id' => $ideas_id]);
         }
-        if ($id != null) {
-            if (!$bool) {
-                $query = Comments::find()
-                    ->joinWith('users')
-                    ->where(['users_id' => $id])
-                    ->andWhere(['status' => 0])
-                    ->orderBy('id_comments DESC');
-            } else {
-                $query = Comments::find()
-                    ->joinWith('ideas')
-                    ->where(['ideas_id' => $id])
-                    ->joinWith('users')
-                    ->andWhere(['status' => 0])
-                    ->orderBy('id_comments DESC');
-            }
-        } else {
-            $query = Comments::find();
+
+        if ($users_id) {
+            $query = $query
+                ->where(['users_id' => $users_id])
+                ->joinWith('user')
+                ->andWhere(['status' => 0]);
         }
+
+        $query = $query->orderBy('id_comments DESC');
+
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
         ]);
-        $query->orFilterWhere(['id_comments' => $this->commentsSearch])
-            ->orFilterWhere(['like', 'comment', $this->commentsSearch]);
-        $query->andFilterWhere(['id_comments' => $this->id_comments])
-            ->andFilterWhere(['like', 'comment', $this->comment]);
-        // загружаем данные формы поиска и производим валидацию
-        if (!($this->load($params) && $this->validate())) {
+
+        $this->load($params);
+        if (!$this->validate()) {
             return $dataProvider;
         }
-        // изменяем запрос добавляя в его фильтрацию
-        $query->orFilterWhere(['id_comments' => $this->commentsSearch])
-            ->orFilterWhere(['like', 'comment', $this->commentsSearch]);
+
+        if ($target) {
+            $query->orFilterWhere(['id_comments' => $target])
+                ->orFilterWhere(['like', 'comment', $target]);
+        }
+
         $query->andFilterWhere(['id_comments' => $this->id_comments])
             ->andFilterWhere(['like', 'comment', $this->comment]);
+
         return $dataProvider;
     }
 }

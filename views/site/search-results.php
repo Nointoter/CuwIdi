@@ -73,7 +73,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     'format' => 'raw',
                     'value' => function ($data) {
                         $array_tags = [];
-                        foreach ($data->ideas_tags as $tag) {
+                        foreach ($data->tags as $tag) {
                             $array_tags[] = strval($tag->tag).' ';
                         }
                         return implode(", ", $array_tags);

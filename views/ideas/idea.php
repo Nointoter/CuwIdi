@@ -84,7 +84,7 @@ $this->title = 'Просмотр идеи '.strval($model->ideas_name);
                 <div class="col-lg-9">
                     <?php
                     $array_tags = [];
-                    foreach ($model->getTags() as $tag) {
+                    foreach ($model->tags as $tag) {
                         $array_tags[] = strval($tag->tag).' ';
                     }
                     ?>
