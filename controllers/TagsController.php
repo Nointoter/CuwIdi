@@ -52,11 +52,11 @@ class TagsController extends Controller
      * @return string
      */
 
-    public function actionDeleteTag($tag, $bool, $id)
+    public function actionDeleteTag($tag, $bool, $tags_id)
     {
         if (!Yii::$app->user->isGuest) {
-            if ($id != null) {
-                $intag = Tags::find()->where(['id_tags' => $id])->one();
+            if ($tags_id != 0) {
+                $intag = Tags::find()->where(['id_tags' => $tags_id])->one();
                 $idea = Ideas::find()->where(['id_ideas' => $intag->ideas_id])->one();
                 if (Yii::$app->user->id != $idea->creators_id) {
                     return $this->redirect('/ideas');
@@ -68,9 +68,9 @@ class TagsController extends Controller
                     } else {
                         return $this->redirect('/tags');
                     }
-                } elseif ($id != null) {
+                } elseif ($tags_id != null) {
                     if ($bool) {
-                        $tag = Tags::find()->where(['id_tags' => $id])->one();
+                        $tag = Tags::find()->where(['id_tags' => $tags_id])->one();
                         return $this->redirect('/ideas/delete-idea-tags?id=' . $tag->ideas_id);
                     } else {
                         return $this->redirect('/ideas');
@@ -90,8 +90,8 @@ class TagsController extends Controller
                 $tag->delete();
             }
         }
-        if ($id != null) {
-            $tag = Tags::find()->where(['id_tags' => $id])->one();
+        if ($tags_id != 0) {
+            $tag = Tags::find()->where(['id_tags' => $tags_id])->one();
             $tag->delete();
         }
         return $this->redirect('/tags');

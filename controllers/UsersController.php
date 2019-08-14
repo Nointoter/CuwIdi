@@ -312,7 +312,7 @@ class UsersController extends Controller
         }
         $model = new SingUpForm();
         if ($model->load(Yii::$app->request->post()) && $model->validate()) {
-            $user = new User();
+                        $user = new User();
             $user->username = $model->username;
             $user->users_name = $model->users_name;
             $user->password = $model->password;

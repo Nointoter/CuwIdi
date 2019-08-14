@@ -40,7 +40,12 @@ $this->title = 'Тэги';
                         echo Html::a(
                             'Удалить',
                             Url::toRoute(
-                                ['/tags/delete-tag', 'tag' => $tag->tag, 'bool' => strval(false), 'id' => null]
+                                [
+                                    '/tags/delete-tag',
+                                    'tag' => $tag->tag,
+                                    'bool' => strval(false),
+                                    'tags_id' => 0,
+                                ]
                             ),
                             ['class' => 'btn btn-warning']
                         );
