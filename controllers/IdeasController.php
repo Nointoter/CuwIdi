@@ -184,12 +184,10 @@ class IdeasController extends Controller
     }
 
     /**
-     * Displays DeleteIdeaForm
-     *
      * @param $id
-     * @param $bool
+     * @return array|\yii\web\Response
      * @throws \Throwable
-     * @return string
+     * @throws \yii\db\StaleObjectException
      */
     public function actionDeleteIdea($id)
     {
@@ -217,6 +215,11 @@ class IdeasController extends Controller
             }
 
             $model->delete();
+
+            if (Yii::$app->request->isAjax) {
+                Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
+                return ['success' => true];
+            }
 
             return $this->redirect('index');
         }
