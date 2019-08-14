@@ -32,7 +32,7 @@ $(function(){
             .load($(this).attr('value'));
     });
 
-    $('.pjax-delete-link').on('click', function (e) {
+    $('body').on('click', '.pjax-delete-link', function (e) {
         e.preventDefault();
         var deleteUrl = $(this).attr('delete-url');
         var pjaxContainer = $(this).attr('pjax-container');
