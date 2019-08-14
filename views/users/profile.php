@@ -76,6 +76,7 @@ $this->title = 'Профиль ' . strval($user->users_name);
         </div>
     </div>
     <?php if ($ideasProvider->totalCount > 0) : ?>
+        <?php Pjax::begin(['id' => 'ideaListPjax']); ?>
         <div class="view-ideas profile-style">
             <?= GridView::widget([
                 'dataProvider' => $ideasProvider,
@@ -154,16 +155,29 @@ $this->title = 'Профиль ' . strval($user->users_name);
                             'delete' => function ($url, $model, $key) {
                                 return Html::a(
                                     '',
-                                    Url::toRoute(['/ideas/delete-idea', 'id' => strval($key)]),
-                                    ['class' => 'glyphicon glyphicon-trash']
+                                    false,
+                                    [
+                                        'class' => 'glyphicon glyphicon-trash pjax-delete-link',
+                                        'delete-url' => Url::toRoute(
+                                            [
+                                                '/ideas/delete-idea',
+                                                'id' => strval($key),
+                                            ]
+                                        ),
+                                        'pjax-confirm' => 'Вы уверены, что хотите удалить идею?',
+                                        'pjax-container' => 'ideaListPjax',
+                                        'title' => Yii::t('yii', 'Delete')
+                                    ]
                                 );
                             }
+
                         ],
                         'visible' => (Yii::$app->user->id == $user->id_users),
                     ],
                 ],
             ])?>
         </div>
+        <?php Pjax::end(); ?>
     <?php endif; ?>
     <div class="row profile-style">
         <div class="col-lg-12">
