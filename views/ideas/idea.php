@@ -9,10 +9,6 @@ use yii\helpers\Url;
 use yii\widgets\Pjax;
 
 /* @var $form yii\bootstrap\ActiveForm */
-/* @var $ideasModel app\models\Ideas */
-/* @var $ideasModelName app\models\Ideas */
-/* @var $tagModel app\models\AddTagForm */
-/* @var $imageModel app\models\ImagesForm */
 /* @var $commentModel app\models\AddCommentForm */
 /* @var $commentsProvider \yii\data\ActiveDataProvider */
 /* @var $carousel []*/
@@ -20,6 +16,13 @@ use yii\widgets\Pjax;
 $user = User::find()->where(['id_users' => Yii::$app->user->id])->one();
 $this->title = 'Просмотр идеи '.strval($model->ideas_name);
 ?>
+<div class="row idea-style">
+    <?php if (Yii::$app->user->id == $model->creators_id || $user->users_role == 'admin') : ?>
+    <a href="re-idea?id=<?= strval($model->id_ideas) ?>" class="btn btn-primary" role="button">
+        Редактировать
+    </a>
+    <?php endif; ?>
+</div>
 <?php Pjax::begin(['id' => 'new_name']); ?>
     <?php $form = ActiveForm::begin(['options' => ['data-pjax' => true], 'id' => 'newNameForm'])?>
         <div class="row idea-style">
@@ -29,22 +32,7 @@ $this->title = 'Просмотр идеи '.strval($model->ideas_name);
                 </div>
                 <div class="col-lg-9">
                     <?php
-                    if (Yii::$app->user->id == $model->creators_id || $user->users_role == 'admin') {
-                        echo '<h3>'
-                            . $form->field(
-                                $ideasModelName,
-                                'ideas_name'
-                            )->textarea(
-                                [
-                                    'autofocus' => true,
-                                    'cols' => 1,
-                                    'rows' => 1
-                                ]
-                            )->label(false)
-                            . '</h3>';
-                    } else {
-                        echo '<h3>'. Html::encode($model->ideas_name).'</h3>';
-                    }
+                    echo '<h3>'. Html::encode($model->ideas_name).'</h3>';
                     ?>
                 </div>
             </div>
@@ -89,46 +77,6 @@ $this->title = 'Просмотр идеи '.strval($model->ideas_name);
                     <h3>
                         <?= implode(", ", $array_tags) ?>
                     </h3>
-                </div>
-            </div>
-        </div>
-        <div class="row idea-style">
-            <div class="form-group">
-                <div class="col-lg-9 col-lg-offset-3">
-                    <?php if (Yii::$app->user->id == $model->creators_id || $user->users_role == 'admin') : ?>
-                        <?php
-                        echo '<h1>'
-                            . $form->field(
-                                $tagModel,
-                                'tag'
-                            )->textarea(
-                                [
-                                    'autofocus' => true,
-                                    'cols' => 1,
-                                    'rows' => 1
-                                ]
-                            )->label(false) . '</h1>'; ?>
-                        <?php
-                        echo Html::submitButton(
-                            'Добавить Тэг',
-                            [
-                                'class' => 'btn btn-primary',
-                                'name' => 'add-idea-tag-button'
-                            ]
-                        ); ?>
-                        <div class="pull-right">
-                        <?php
-                        if (Yii::$app->user->id == $model->creators_id || $user->users_role == 'admin') {
-                            echo Html::a(
-                                'Удаление Тэгов',
-                                Url::toRoute(['/ideas/delete-idea-tags', 'id' => strval($model->id_ideas)]),
-                                [
-                                    'class' => 'btn btn-danger',
-                                ]
-                            );
-                        }   ?>
-                        </div>
-                    <?php endif; ?>
                 </div>
             </div>
         </div>
@@ -180,41 +128,12 @@ $this->title = 'Просмотр идеи '.strval($model->ideas_name);
         <div class="row idea-style">
             <div class="form-group">
                 <div class="col-lg-3">
-                    <?php if (Yii::$app->user->id == $model->creators_id || $user->users_role == 'admin') : ?>
-                    <h3>Изображения:</h3>
-                    <?php else : ?>
-                    <h3></h3>
-                    <?php endif ?>
                 </div>
                 <div class="col-lg-2">
-                    <?php
-                    if (Yii::$app->user->id == $model->creators_id || $user->users_role == 'admin') {
-                        echo $form->field(
-                            $imageModel,
-                            'imageFile'
-                        )->fileInput(
-                            [
-                                'autofocus' => true
-                            ]
-                        )->label('Добавить изображение');
-                        echo Html::submitButton('Добавить', ['class' => 'btn btn-primary', 'name' => 'idea-button']);
-                    }
-                    ?>
                 </div>
                 <div class="pull-right">
                     <p>
                     </p>
-                    <?php
-                    if ((Yii::$app->user->id == $model->creators_id || $user->users_role == 'admin')
-                        && $carousel != null) {
-                            echo
-                                '<a 
-                                    href="delete-idea-images?id=' . strval($model->id_ideas) . '" 
-                                    class="btn btn-danger" 
-                                    role="button">
-                                    Удалить изображения
-                                </a>';
-                    }   ?>
                 </div>
             </div>
         </div>
@@ -229,24 +148,9 @@ $this->title = 'Просмотр идеи '.strval($model->ideas_name);
                 </div>
                 <div class="col-lg-9">
                     <?php
-                    if (Yii::$app->user->id == $model->creators_id || $user->users_role == 'admin') {
-                        echo '<h3>' .
-                            $form->field(
-                                $ideasModel,
-                                'info_short'
-                            )->textarea(
-                                [
-                                   'autofocus' => true,
-                                   'rows' => 2,
-                                   'cols' => 65
-                                ]
-                            )->label(false)
-                            . '</h3>';
-                    } else {
-                        echo '<h3>' .
-                             Html::encode($model->info_short)
-                             . '</h3>';
-                    }
+                    echo '<h3>' .
+                         Html::encode($model->info_short)
+                         . '</h3>';
                     ?>
                 </div>
             </div>
@@ -258,24 +162,9 @@ $this->title = 'Просмотр идеи '.strval($model->ideas_name);
                 </div>
                 <div class="col-lg-9">
                     <?php
-                    if (Yii::$app->user->id == $model->creators_id || $user->users_role == 'admin') {
-                        echo '<h3>' .
-                            $form->field(
-                                $ideasModel,
-                                'info_long'
-                            )->textarea(
-                                [
-                                    'autofocus' => true,
-                                    'rows' => 10,
-                                    'cols' => 65
-                                ]
-                            )->label(false)
-                            . '</h3>';
-                    } else {
-                        echo '<h3>' .
-                             Html::encode($model->info_long)
-                             . '</h3>';
-                    }
+                    echo '<h3>' .
+                         Html::encode($model->info_long)
+                         . '</h3>';
                     ?>
                 </div>
             </div>
@@ -283,17 +172,6 @@ $this->title = 'Просмотр идеи '.strval($model->ideas_name);
         <div class="row idea-style">
             <div class="form-group">
                 <div class="pull-right">
-                    <?php
-                    if (Yii::$app->user->id == $model->creators_id || $user->users_role == 'admin') {
-                        echo Html::submitButton(
-                            'Созранить изменения',
-                            [
-                                'class' => 'btn btn-primary',
-                                'name' => 'change-idea-info-button'
-                            ]
-                        );
-                    }
-                    ?>
                 </div>
             </div>
         </div>
@@ -434,23 +312,5 @@ $this->title = 'Просмотр идеи '.strval($model->ideas_name);
         </div>
     <?php endif; ?>
 <?php Pjax::end(); ?>
-<?php if (!Yii::$app->user->isGuest) : ?>
-    <?php if (Yii::$app->user->id == $model->creators_id || (User::findIdentity(Yii::$app->user->id))->isAdmin()) : ?>
-        <div class="pull-right">
-        <?php
-            echo Html::a(
-                'Удалить Идею',
-                Url::toRoute(['/ideas/delete-idea', 'id' => strval($model->id_ideas)]),
-                [
-                  'data-confirm' => 'Вы уверены, что хотите удалить идею?',
-                    'data-method' => 'post',
-                    'data-pjax' => '0',
-                    'class' => 'btn btn-danger btn-lg',
-                    'name' => 'delete-idea-button',
-                ]
-            );
-        ?>
-    </div>
-    <?php endif; ?>
-<?php endif; ?>
+
 

@@ -61,7 +61,8 @@ class IdeasController extends Controller
         $carousel = [];
         foreach ($images as $image) {
             $newImage = Yii::getAlias('@app/web/images/' . $image->images_name);
-            Image::resize($newImage, 1400, 400)
+            $nimage = Image::resize($newImage, 1400, 500);
+            $nimage
                 ->save(
                     Yii::getAlias(
                         '@app/web/images/' . $model->ideas_name . '.' . $image->images_name
@@ -71,7 +72,7 @@ class IdeasController extends Controller
             $carousel[] = [
                 'content' => Html::img('@web/images/' . $model->ideas_name . '.' .$image->images_name, [
                     'width' => '1400px',
-                    'height' => '400px'
+                    'height' => '500px'
                 ]),
             ];
         };
@@ -82,28 +83,6 @@ class IdeasController extends Controller
             null,
             $id
         );
-
-        $ideasModel = new IdeasForm();
-        $ideasModelName = new IdeasForm();
-        $ideasModelName->ideas_name = $model->ideas_name;
-        $ideasModel->info_short = $model->info_short;
-        $ideasModel->info_long = $model->info_long;
-        if ($ideasModel->load(Yii::$app->request->post()) && $ideasModel->load(Yii::$app->request->post())) {
-            $model->ideas_name = $ideasModelName->ideas_name;
-            $model->info_short = $ideasModel->info_short;
-            $model->info_long = $ideasModel->info_long;
-            $model->save();
-        }
-        $tagModel = new AddTagForm();
-        if ($tagModel->load(Yii::$app->request->post())) {
-            $tag = new Tags();
-            $tag->ideas_id = $id;
-            if ($tagModel->tag != '') {
-                $tag->tag = $tagModel->tag;
-                $tag->save(false);
-                $tagModel = new AddTagForm();
-            }
-        }
         $commentModel = new AddCommentForm();
         if ($commentModel->load(Yii::$app->request->post())) {
             if ($commentModel->comment != '') {
@@ -115,6 +94,70 @@ class IdeasController extends Controller
                 $commentModel = new AddCommentForm();
             }
         }
+        return $this->render(
+            'idea',
+            [
+                'model' => $model,
+                'carousel' => $carousel,
+                'commentModel' => $commentModel,
+                'commentsProvider' => $commentsProvider,
+            ]
+        );
+    }
+
+    /**
+     * Displays re-idea
+     *
+     * @return string
+     */
+    public function actionReIdea($id)
+    {
+        $model = Ideas::find()->where(['id_ideas' => $id])->one();
+        if (!$model->user->isActive()) {
+            $this->redirect('/ideas');
+        }
+        $imageModel = new ImagesForm();
+        $images = $model->images;
+        $carousel = [];
+        foreach ($images as $image) {
+            $newImage = Yii::getAlias('@app/web/images/' . $image->images_name);
+            Image::resize($newImage, 1400, 500)
+                ->save(
+                    Yii::getAlias(
+                        '@app/web/images/' . $model->ideas_name . '.' . $image->images_name
+                    ),
+                    ['quality' => 80]
+                );
+            $carousel[] = [
+                'content' => Html::img('@web/images/' . $model->ideas_name . '.' .$image->images_name, [
+                    'width' => '1400px',
+                    'height' => '500px'
+                ]),
+            ];
+        };
+
+        $ideasModel = new IdeasForm();
+        $ideasModelName = new IdeasForm();
+        $ideasModelName->ideas_name = $model->ideas_name;
+        $ideasModel->info_short = $model->info_short;
+        $ideasModel->info_long = $model->info_long;
+        if ($ideasModel->load(Yii::$app->request->post()) && $ideasModel->load(Yii::$app->request->post())) {
+            $model->ideas_name = $ideasModelName->ideas_name;
+            $model->info_short = $ideasModel->info_short;
+            $model->info_long = $ideasModel->info_long;
+            $model->save();
+            Yii::$app->session->setFlash('success', "Изменения сохранены");
+        }
+        $tagModel = new AddTagForm();
+        if ($tagModel->load(Yii::$app->request->post())) {
+            $tag = new Tags();
+            $tag->ideas_id = $id;
+            if ($tagModel->tag != '') {
+                $tag->tag = $tagModel->tag;
+                $tag->save(false);
+                $tagModel = new AddTagForm();
+            }
+        }
         if ($imageModel->load(Yii::$app->request->post())) {
             $imageModel->imageFile = UploadedFile::getInstance($imageModel, 'imageFile');
             if ($imageModel->imageFile != null) {
@@ -124,11 +167,12 @@ class IdeasController extends Controller
                 $imageModel->imageFile->name = $idea_image->images_name;
                 $idea_image->save(false);
                 $imageModel->imageFile->saveAs('images/' . $imageModel->imageFile->baseName . '.jpg');
-                return $this->redirect('idea?id='.strval($id));
+                Yii::$app->session->setFlash('success', "Изображение добавлено");
+                return $this->redirect('re-idea?id='.strval($id));
             }
         }
         return $this->render(
-            'idea',
+            're-idea',
             [
                 'model' => $model,
                 'ideasModelName' => $ideasModelName,
@@ -136,8 +180,6 @@ class IdeasController extends Controller
                 'tagModel' => $tagModel,
                 'carousel' => $carousel,
                 'imageModel' => $imageModel,
-                'commentModel' => $commentModel,
-                'commentsProvider' => $commentsProvider,
             ]
         );
     }
