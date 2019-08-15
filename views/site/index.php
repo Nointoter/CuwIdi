@@ -10,8 +10,7 @@ $this->title = 'CuwIdi';
 <h1>Пять последних идей</h1>
 <div class="row">
     <?php foreach ($ideas as $idea) : ?>
-        <?php
-            if ($idea->user->isActive()) : ?>
+        <?php if ($idea->user->isActive()) : ?>
             <?php
                 $image = array_shift($idea->images);
             ?>
@@ -39,8 +38,8 @@ $this->title = 'CuwIdi';
                 </div>
                 <div class="col-lg-3">
                     <p>
-                        <br>
-                        <br>
+                        <br/>
+                        <br/>
                         <?php
                         if ($image != null) {
                             echo Html::img($image->getImageUrl(), [

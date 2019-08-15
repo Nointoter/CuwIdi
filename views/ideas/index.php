@@ -273,7 +273,7 @@ $this->title = 'Идеи';
                         'style' => 'width : 60px;',
                         'class' => 'ideas-index-style',
                     ],
-                    'template' => '{view}{delete}',
+                    'template' => '{view} {delete}',
                     'buttons' => [
                         'view' => function ($url, $model, $key) {
                             return Html::a(
@@ -318,4 +318,3 @@ $this->title = 'Идеи';
     ) ?>
     <?php Pjax::end(); ?>
 </div>
-

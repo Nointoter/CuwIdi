@@ -28,7 +28,6 @@ class IdeasController extends Controller
      *
      * @return string
      */
-
     public function actionIndex()
     {
         $model = new SearchIdeas();
@@ -51,7 +50,6 @@ class IdeasController extends Controller
      *
      * @return string
      */
-
     public function actionIdea($id)
     {
         $model = Ideas::find()->where(['id_ideas' => $id])->one();
@@ -150,8 +148,7 @@ class IdeasController extends Controller
      * @param $bool
      * @return string
      */
-
-    public function actionAddIdea($bool)
+    public function actionAddIdea()
     {
         if (!Yii::$app->user->isGuest) {
             if (!(User::findIdentity(Yii::$app->user->id))->isActive()) {
@@ -239,7 +236,6 @@ class IdeasController extends Controller
      *
      * @return string
      */
-
     public function actionDeleteIdeaImages($id)
     {
         if (!Yii::$app->user->isGuest) {
@@ -274,7 +270,6 @@ class IdeasController extends Controller
      *
      * @return string
      */
-
     public function actionDeleteIdeaTags($id)
     {
         if (!Yii::$app->user->isGuest) {

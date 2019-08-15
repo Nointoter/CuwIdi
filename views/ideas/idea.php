@@ -17,10 +17,8 @@ use yii\widgets\Pjax;
 /* @var $commentsProvider \yii\data\ActiveDataProvider */
 /* @var $carousel []*/
 
-
 $user = User::find()->where(['id_users' => Yii::$app->user->id])->one();
 $this->title = 'Просмотр идеи '.strval($model->ideas_name);
-
 ?>
 <?php Pjax::begin(['id' => 'new_name']); ?>
     <?php $form = ActiveForm::begin(['options' => ['data-pjax' => true], 'id' => 'newNameForm'])?>
@@ -396,6 +394,7 @@ $this->title = 'Просмотр идеи '.strval($model->ideas_name);
                             'style' => 'width : 50px;',
                             'class' => 'idea-style'
                         ],
+                        'template' => '{view} {delete}',
                         'buttons' => [
                             'view' => function ($url, $model, $key) {
                                 return Html::a(
@@ -404,21 +403,6 @@ $this->title = 'Просмотр идеи '.strval($model->ideas_name);
                                         [
                                              '/ideas/idea',
                                              'id' => strval($key),
-                                        ]
-                                    ),
-                                    [
-                                        'class' => ''
-                                    ]
-                                );
-                            },
-                            'update' => function ($url, $model, $key) {
-                                return Html::a(
-                                    '',
-                                    Url::toRoute(
-                                        [
-                                            '/comments/re-comment',
-                                            'id' => strval($key),
-                                            'bool' => 'false'
                                         ]
                                     ),
                                     [
@@ -469,3 +453,4 @@ $this->title = 'Просмотр идеи '.strval($model->ideas_name);
     </div>
     <?php endif; ?>
 <?php endif; ?>
+

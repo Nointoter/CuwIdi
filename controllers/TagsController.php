@@ -16,7 +16,6 @@ class TagsController extends Controller
      *
      * @return string
      */
-
     public function actionIndex()
     {
         $tags = Tags::find()->select('tag')->orderBy('id_tags')->distinct()->all();
@@ -31,7 +30,6 @@ class TagsController extends Controller
      * @param $tag
      * @return string
      */
-
     public function actionTag($tag)
     {
         $ideasSearch = new SearchIdeas();
@@ -46,19 +44,21 @@ class TagsController extends Controller
     }
 
     /**
-     * Displays delete_tag
-     * @return array|\yii\web\Response
      * @param $tag
-     * @return string
+     * @param $bool
+     * @param $tags_id
+     * @return array|\yii\web\Response
+     * @throws \Throwable
+     * @throws \yii\db\StaleObjectException
      */
-
     public function actionDeleteTag($tag, $bool, $tags_id)
     {
         if (!Yii::$app->user->isGuest) {
             if ($tags_id != 0) {
                 $intag = Tags::find()->where(['id_tags' => $tags_id])->one();
                 $idea = Ideas::find()->where(['id_ideas' => $intag->ideas_id])->one();
-                if (Yii::$app->user->id != $idea->creators_id || !(User::findIdentity(Yii::$app->user->id))->isAdmin()) {
+                if (Yii::$app->user->id != $idea->creators_id
+                    || !(User::findIdentity(Yii::$app->user->id))->isAdmin()) {
                     return $this->redirect('/ideas');
                 }
             } elseif (!(User::findIdentity(Yii::$app->user->id))->isAdmin()) {
@@ -78,12 +78,10 @@ class TagsController extends Controller
                 } else {
                     return $this->redirect('/site');
                 }
-
             }
         } else {
             return $this->redirect('site');
         }
-
 
         if ($tag != null) {
             $tags = Tags::find()->where(['tag' => $tag])->all();

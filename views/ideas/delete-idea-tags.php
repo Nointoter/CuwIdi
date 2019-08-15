@@ -1,7 +1,5 @@
 <?php
 
-use app\models\Ideas;
-use yii\bootstrap\ActiveForm;
 use yii\grid\GridView;
 use yii\helpers\Html;
 use yii\helpers\Url;
@@ -49,6 +47,7 @@ $this->title = 'Удаление тэгов идеи : '.strval($ideasModel->ide
                         'class' => 'delete-idea-tags-style'
                     ],
                     'class' => 'yii\grid\ActionColumn',
+                    'template' => '{view} {delete}',
                     'buttons' => [
                         'view' => function ($url, $model, $key) {
                             return Html::a(
@@ -57,22 +56,6 @@ $this->title = 'Удаление тэгов идеи : '.strval($ideasModel->ide
                                     [
                                         '/site/project',
                                         'id' => strval($key),
-                                    ]
-                                ),
-                                [
-                                    'class' => ''
-                                ]
-                            );
-                        },
-                        'update' => function ($url, $model, $key) {
-                            return Html::a(
-                                '',
-                                Url::toRoute(
-                                    [
-                                        '/tags/delete-tag',
-                                        'id' => strval($key),
-                                        'bool' => 'true',
-                                        'tag' => null
                                     ]
                                 ),
                                 [

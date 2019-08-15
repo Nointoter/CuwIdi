@@ -4,10 +4,17 @@ namespace app\models;
 
 use yii\data\ActiveDataProvider;
 
+/**
+ * Class SearchUsers
+ * @package app\models
+ */
 class SearchUsers extends User
 {
     public $usersSearch;
 
+    /**
+     * @return array
+     */
     public function rules()
     {
         return[

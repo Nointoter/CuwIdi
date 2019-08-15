@@ -8,6 +8,9 @@ class SearchIdeas extends Ideas
 {
     public $ideasSearch;
 
+    /**
+     * @return array
+     */
     public function rules()
     {
         return[

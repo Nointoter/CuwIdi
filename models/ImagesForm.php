@@ -4,10 +4,17 @@ namespace app\models;
 
 use yii\base\Model;
 
+/**
+ * Class ImagesForm
+ * @package app\models
+ */
 class ImagesForm extends Model
 {
     public $imageFile;
 
+    /**
+     * @return array
+     */
     public function rules()
     {
         return [
@@ -15,6 +22,9 @@ class ImagesForm extends Model
         ];
     }
 
+    /**
+     * @return bool
+     */
     public function upload()
     {
         if ($this->validate()) {

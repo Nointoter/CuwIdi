@@ -4,6 +4,10 @@ namespace app\models;
 
 use yii\data\ActiveDataProvider;
 
+/**
+ * Class SearchImages
+ * @package app\models
+ */
 class SearchImages extends Images
 {
     /**

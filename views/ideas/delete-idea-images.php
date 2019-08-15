@@ -57,6 +57,7 @@ $this->title = 'Удаление изображений идеи : '.strval($ide
                         'class' => 'delete-idea-images-style'
                     ],
                     'class' => 'yii\grid\ActionColumn',
+                    'template' => '{view} {delete}',
                     'buttons' => [
                         'view' => function ($url, $model, $key) {
                             return Html::a(
@@ -69,21 +70,6 @@ $this->title = 'Удаление изображений идеи : '.strval($ide
                                 ),
                                 [
                                     'class' => ''
-                                ]
-                            );
-                        },
-                        'update' => function ($url, $model, $key) {
-                            return Html::a(
-                                '',
-                                Url::toRoute(
-                                    [
-                                        '/site/re-project',
-                                        'id' => strval($key),
-                                        'bool' => 'false'
-                                    ]
-                                ),
-                                [
-                                     'class' => ''
                                 ]
                             );
                         },

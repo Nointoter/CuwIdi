@@ -4,6 +4,10 @@ namespace app\models;
 
 use yii\data\ActiveDataProvider;
 
+/**
+ * Class SearchComments
+ * @package app\models
+ */
 class SearchComments extends Comments
 {
     /**

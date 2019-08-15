@@ -24,22 +24,22 @@ $this->title = 'Профиль ' . strval($user->users_name);
 <?php if ($user->isActive()) : ?>
     <div class="row profile-style">
         <div class="col-lg-5">
-            <h2>Профиль <?= Html::encode($user->users_name) ?></h2>
+            <h2>Профиль: <?= Html::encode($user->users_name) ?></h2>
+            <h4>
+                Логин: <?= Html::encode($user->username) ?>
+            </h4>
             <?php if (Yii::$app->user->id == $user->id_users) : ?>
-                <a href="re-profile?id=<?= strval($user->id_users) ?>" class="btn btn-primary" role="button">
-                    Редактировать
-                </a>
-                <h4>
-                    Логин : <?= Html::encode($user->username) ?>
-                </h4>
-                <h4>
+                <div>
+                    <a href="re-profile?id=<?= strval($user->id_users) ?>" class="btn btn-primary" role="button">
+                        Редактировать
+                    </a>
                     <?= Html::button('Сменить пароль', [
                         'value' => Url::to('/users/change-password'),
                         'class' => 'btn btn-success',
                         'name' => 'change-password-button',
                         'id' => 'modalButtonChangePassword'
                     ]) ?>
-                </h4>
+                </div>
             <?php endif; ?>
         </div>
         <div class="col-lg-4">
@@ -70,7 +70,7 @@ $this->title = 'Профиль ' . strval($user->users_name);
         <div class="col-lg-12">
             <?php if ($ideasProvider->totalCount > 0) : ?>
                 <h2>
-                    Идеи пользователя
+                    Идеи пользователя:
                 </h2>
             <?php endif ?>
         </div>
@@ -137,6 +137,7 @@ $this->title = 'Профиль ' . strval($user->users_name);
                         'contentOptions'=>[
                             'style'=>'width : 50px;', 'profile-style'
                         ],
+                        'template' => '{view} {delete}',
                         'buttons' => [
                             'view' => function ($url, $model, $key) {
                                 return Html::a(
@@ -183,7 +184,7 @@ $this->title = 'Профиль ' . strval($user->users_name);
         <div class="col-lg-12">
             <?php if ($commentsProvider->totalCount > 0) : ?>
             <h2>
-                Комментарии пользователя
+                Комментарии пользователя:
             </h2>
             <?php endif ?>
         </div>
@@ -222,20 +223,8 @@ $this->title = 'Профиль ' . strval($user->users_name);
                         'contentOptions' => [
                             'style' => 'width : 50px;', 'profile-style'
                         ],
+                        'template' => '{delete}',
                         'buttons' => [
-                            'view' => function ($url, $model, $key) {
-                                return Html::a(
-                                    '',
-                                    Url::toRoute(['/ideas/idea' , 'id' => strval($key),])
-                                );
-                            },
-                            'update' => function ($url, $model, $key) {
-                                return Html::a(
-                                    '',
-                                    Url::toRoute(['/comments/re-comment', 'id' => strval($key), 'bool' => 'false']),
-                                    ['class' => '']
-                                );
-                            },
                             'delete' => function ($url, $model, $key) {
                                 $user = User::find()->where(['id_users' => Yii::$app->user->id])->one();
                                 if (Yii::$app->user->id == $model->users_id || $user->users_role == 'admin') {
@@ -302,4 +291,4 @@ $this->title = 'Профиль ' . strval($user->users_name);
     ]);
         echo "<div id='modalContentChangePassword'></div>";
     Modal::end();
-    ?>
+?>

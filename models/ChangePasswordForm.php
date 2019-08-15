@@ -5,12 +5,19 @@ namespace app\models;
 use Yii;
 use yii\base\Model;
 
+/**
+ * Class ChangePasswordForm
+ * @package app\models
+ */
 class ChangePasswordForm extends Model
 {
     public $password;
     public $newPassword;
     public $reNewPassword;
 
+    /**
+     * @return array
+     */
     public function rules()
     {
         return [
@@ -18,21 +25,12 @@ class ChangePasswordForm extends Model
             ['newPassword', 'validateNewPassword'],
             ['reNewPassword', 'validateReNewPassword'],
             [['password', 'newPassword', 'reNewPassword'], 'required'],
-            //[
-            //  'password',
-            //  'compare',
-            //  'compareAttribute' => User::findIdentity(Yii::$app->user->id)->password,
-            //  'message' => 'Введен неверный пароль'
-            //],
-            //[
-            //  'reNewPassword',
-            //  'compare',
-            //  'compareAttribute' => 'newPassword',
-            //  'message' => 'Пароли не совпадают'
-            //],
         ];
     }
 
+    /**
+     * @return array
+     */
     public function attributeLabels()
     {
         return [
@@ -42,6 +40,10 @@ class ChangePasswordForm extends Model
         ];
     }
 
+    /**
+     * @param $attribute
+     * @param $params
+     */
     public function validatePassword($attribute, $params)
     {
         if (!$this->hasErrors()) {
@@ -52,6 +54,10 @@ class ChangePasswordForm extends Model
         }
     }
 
+    /**
+     * @param $attribute
+     * @param $params
+     */
     public function validateNewPassword($attribute, $params)
     {
         if (!$this->hasErrors()) {
@@ -61,6 +67,10 @@ class ChangePasswordForm extends Model
         }
     }
 
+    /**
+     * @param $attribute
+     * @param $params
+     */
     public function validateReNewPassword($attribute, $params)
     {
         if (!$this->hasErrors()) {

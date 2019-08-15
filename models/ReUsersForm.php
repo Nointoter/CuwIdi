@@ -10,6 +10,9 @@ class ReUsersForm extends Model
     public $users_info;
     public $imageFile;
 
+    /**
+     * @return array
+     */
     public function rules()
     {
         return [
@@ -19,6 +22,9 @@ class ReUsersForm extends Model
         ];
     }
 
+    /**
+     * @return bool
+     */
     public function upload()
     {
         if ($this->validate()) {

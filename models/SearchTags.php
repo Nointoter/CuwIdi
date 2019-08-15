@@ -5,6 +5,10 @@ namespace app\models;
 
 use yii\data\ActiveDataProvider;
 
+/**
+ * Class SearchTags
+ * @package app\models
+ */
 class SearchTags extends Tags
 {
     /**

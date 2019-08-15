@@ -1,31 +1,31 @@
-$(function(){
-    $('#modalButtonAddIdea').click(function(){
+$(function () {
+    $('#modalButtonAddIdea').click(function () {
         $('#modalAddIdea').modal('show')
             .find('#modalContentAddIdea')
             .load($(this).attr('value'));
     });
 
-    $('#modalButtonChangePassword').click(function(){
+    $('#modalButtonChangePassword').click(function () {
         $('#modalChangePassword').modal('show')
             .find('#modalContentChangePassword')
             .load($(this).attr('value'));
     });
 
-    $('.modalButtonDeleteUserUsersIndex').click(function(){
+    $('.modalButtonDeleteUserUsersIndex').click(function () {
         event.preventDefault();
         $('#modalDeleteUserUsersIndex').modal('show')
             .find('#modalContentDeleteUserUsersIndex')
             .load($(this).attr('value'));
     });
 
-    $('#modalButtonDeleteProfile').click(function(){
+    $('#modalButtonDeleteProfile').click(function () {
         event.preventDefault();
         $('#modalDeleteProfile').modal('show')
             .find('#modalContentDeleteProfile')
             .load($(this).attr('value'));
     });
 
-    $('#modalButtonDeleteUserSieSearch').click(function(){
+    $('#modalButtonDeleteUserSieSearch').click(function () {
         event.preventDefault();
         $('#modalDeleteUserSieSearch').modal('show')
             .find('#modalContentDeleteUserSieSearch')

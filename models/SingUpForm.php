@@ -4,6 +4,10 @@ namespace app\models;
 
 use yii\base\Model;
 
+/**
+ * Class SingUpForm
+ * @package app\models
+ */
 class SingUpForm extends Model
 {
 
@@ -11,6 +15,9 @@ class SingUpForm extends Model
     public $username;
     public $password;
 
+    /**
+     * @return array
+     */
     public function rules()
     {
         return [
@@ -19,6 +26,9 @@ class SingUpForm extends Model
         ];
     }
 
+    /**
+     * @return array
+     */
     public function attributeLabels()
     {
         return [

@@ -2,7 +2,6 @@
 
 namespace app\controllers;
 
-
 use app\models\ContactForm;
 use app\models\GlobalSearchForm;
 use app\models\Ideas;
@@ -16,9 +15,8 @@ use yii\web\Response;
 class SiteController extends Controller
 {
     /**
-     * {@inheritdoc}
+     * @return array
      */
-
     public function actions()
     {
         return [
@@ -37,7 +35,6 @@ class SiteController extends Controller
      *
      * @return string
     */
-
     public function actionIndex()
     {
         $ideas = Ideas::find()->orderBy('id_ideas DESC')->limit(5)->all();

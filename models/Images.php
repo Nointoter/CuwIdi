@@ -7,7 +7,6 @@ use yii\helpers\Url;
 
 /**
  * This is the model class for table "ideas_images".
- *
  */
 class Images extends ActiveRecord
 {

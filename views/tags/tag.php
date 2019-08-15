@@ -190,6 +190,7 @@ $this->title = $tag;
                         'style' => 'width : 60px;',
                         'class' => 'tag-style'
                     ],
+                    'template' => '{view} {delete}',
                     'buttons' => [
                         'view' => function ($url, $model, $key) {
                             return Html::a(
@@ -198,19 +199,6 @@ $this->title = $tag;
                                     ['/ideas/idea', 'id' => strval($key), ]
                                 ),
                                 ['class' => 'glyphicon glyphicon-eye-open']
-                            );
-                        },
-                        'update' => function ($url, $model, $key) {
-                            return Html::a(
-                                '',
-                                Url::toRoute(
-                                    [
-                                        '/site/re-project',
-                                        'id' => strval($key),
-                                        'bool' => 'false'
-                                    ]
-                                ),
-                                ['class' => '']
                             );
                         },
                         'delete' => function ($url, $model, $key) {

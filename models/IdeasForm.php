@@ -4,6 +4,10 @@ namespace app\models;
 
 use yii\base\Model;
 
+/**
+ * Class IdeasForm
+ * @package app\models
+ */
 class IdeasForm extends Model
 {
     public $imageFile;
@@ -13,7 +17,9 @@ class IdeasForm extends Model
     public $info_long;
     public $images_name;
 
-
+    /**
+     * @return array
+     */
     public function rules()
     {
         return [
@@ -25,6 +31,9 @@ class IdeasForm extends Model
         ];
     }
 
+    /**
+     * @return bool
+     */
     public function upload()
     {
         if ($this->validate()) {

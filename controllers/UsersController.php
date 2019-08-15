@@ -74,6 +74,7 @@ class UsersController extends Controller
     {
         $model = new SearchUsers();
         $model->load(Yii::$app->request->get());
+
         if (User::findIdentity(Yii::$app->user->id)->users_role == 'admin') {
             $usersProvider = $model->search(Yii::$app->request->get(), null, null, true);
         } else {
@@ -81,6 +82,7 @@ class UsersController extends Controller
         }
         $usersSearch = new SearchIdeas();
         $allUsers = User::find()->all();
+
         return $this->render('index', [
             'model' => $model,
             'usersSearch' => $usersSearch,
@@ -126,6 +128,7 @@ class UsersController extends Controller
             $user->users_image = $image_model->imageFile->name;
             $image_model->upload();
         }
+
         return $this->render(
             'profile',
             [

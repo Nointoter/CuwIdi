@@ -2,11 +2,7 @@
 
 use app\models\SearchIdeas;
 use app\models\User;
-use kartik\select2\Select2;
-use yii\grid\GridView;
-use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
-use app\models\Ideas;
 use yii\helpers\Url;
 use yii\widgets\Pjax;
 

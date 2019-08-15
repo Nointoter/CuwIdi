@@ -372,19 +372,13 @@ $this->params['breadcrumbs'][] = $this->title;
                          'style' => 'width : 60px;',
                         'class' => 'search-results-style',
                     ],
+                    'template' => '{view} {delete}',
                     'buttons' => [
                         'view' => function ($url, $model, $key) {
                             return Html::a(
                                 '',
                                 Url::toRoute(['/ideas/idea' , 'id' => strval($model->ideas_id),]),
                                 ['class' => 'glyphicon glyphicon-eye-open']
-                            );
-                        },
-                        'update' => function ($url, $model, $key) {
-                            return Html::a(
-                                '',
-                                Url::toRoute(['/site/re-project', 'id' => strval($key), 'bool' => 'false']),
-                                ['class' => '']
                             );
                         },
                         'delete' => function ($url, $model, $key) {

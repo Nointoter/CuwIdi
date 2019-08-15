@@ -11,11 +11,11 @@ class ImagesController extends Controller
 {
     /**
      * Displays DeleteImagesForm
+     *
      * @return array|\yii\web\Response
      * @throws \Throwable
      * @return string
      */
-
     public function actionDeleteImage($id)
     {
         $model = Images::find()->where(['id_ideas_images' => $id])->one();

@@ -32,6 +32,10 @@ class Ideas extends ActiveRecord
         return '{{ideas}}';
     }
 
+    /**
+     * @param $id_ideas
+     * @return Ideas|null
+     */
     public static function findIdentity($id_ideas)
     {
         return static::findOne($id_ideas);
