@@ -22,7 +22,7 @@ use yii\widgets\Pjax;
 $user = User::find()->where(['id_users' => Yii::$app->user->id])->one();
 $this->title = 'Просмотр идеи '.strval($model->ideas_name);
 ?>
-<div class="row idea-style">
+<div class="row idea-style pull-right">
     <a href="idea?id=<?= strval($model->id_ideas) ?>" class="btn btn-primary" role="button">
         Закончить редактирование
     </a>
