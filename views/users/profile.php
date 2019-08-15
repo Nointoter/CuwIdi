@@ -84,13 +84,6 @@ $this->title = 'Профиль ' . strval($user->users_name);
                 'layout' => '{items}{pager}',
                 'columns' => [
                     [
-                        'attribute' => 'id_ideas',
-                        'label' => 'Id',
-                        'contentOptions'=>[
-                            'style'=>'width : 100px;', 'profile-style'
-                        ],
-                    ],
-                    [
                         'attribute' => 'ideas_name',
                         'label' => 'Имя',
                         'contentOptions'=>[

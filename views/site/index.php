@@ -31,8 +31,9 @@ $this->title = 'CuwIdi';
                     <h3>
                         Тэги:
                         <?php foreach ($tags as $tag) : ?>
-                            <?= $tag->tag . ', ' ?>
+                            <?php $array_tags[] = strval($tag->tag); ?>
                         <?php endforeach; ?>
+                        <?= implode(", ", $array_tags) ?>
                     </h3>
                     <?php endif; ?>
                 </div>

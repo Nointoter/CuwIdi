@@ -24,30 +24,6 @@ $this->title = $tag;
             'layout' => '{items}{pager}',
             'columns' => [
                 [
-                    'attribute' => 'id_ideas',
-                    'label' => 'Id',
-                    'contentOptions'=>[
-                        'style'=>'width : 95px;',
-                        'class' => 'tag-style'
-                    ],
-                    'filter' => Select2::widget([
-                        'name' => 'id_ideas',
-                        'model' => $ideasSearch,
-                        'attribute' => 'id_ideas',
-                        'data' => ArrayHelper::map($allIdeas, 'id_ideas', 'id_ideas'),
-                        'theme' => Select2::THEME_BOOTSTRAP,
-                        'value' => $ideasSearch->id_ideas,
-                        'hideSearch' => true,
-                        'options' => [
-                            'placeholder' => ''
-                        ],
-                        'pluginOptions' => [
-                            'selectOnClose' => true,
-                            'allowClear' => true,
-                        ]
-                    ]),
-                ],
-                [
                     'attribute' => 'ideas_name',
                     'label' => 'Имя',
                     'contentOptions'=>[

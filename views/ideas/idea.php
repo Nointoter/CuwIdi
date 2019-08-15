@@ -83,7 +83,7 @@ $this->title = 'Просмотр идеи '.strval($model->ideas_name);
                     <?php
                     $array_tags = [];
                     foreach ($model->tags as $tag) {
-                        $array_tags[] = strval($tag->tag).' ';
+                        $array_tags[] = strval($tag->tag);
                     }
                     ?>
                     <h3>

@@ -45,30 +45,6 @@ $this->title = 'Пользователи';
         'layout' => '{items}{pager}',
         'columns' => [
             [
-                'attribute' => 'id_users',
-                'label' => 'Id',
-                'contentOptions' => [
-                    'style' => 'width : 95px;',
-                    'class' => 'users-index-style'
-                ],
-                'filter' => Select2::widget([
-                    'name' => 'id_users',
-                    'model' => $model,
-                    'attribute' => 'id_users',
-                    'data' => ArrayHelper::map($allUsers, 'id_users', 'id_users'),
-                    'theme' => Select2::THEME_BOOTSTRAP,
-                    'value' => $model->id_users,
-                    'hideSearch' => true,
-                    'options' => [
-                        'placeholder' => ''
-                    ],
-                    'pluginOptions' => [
-                        'selectOnClose' => true,
-                        'allowClear' => true,
-                    ]
-                ]),
-            ],
-            [
                 'label' => 'Имя',
                 'contentOptions' => [
                     'style'=>'white-space: normal; width : 150px;',

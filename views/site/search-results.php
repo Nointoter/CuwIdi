@@ -28,15 +28,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'dataProvider' => $ideasProvider,
             'filterModel' => $ideasModel,
             'columns' => [
-                [
-                    'attribute' => 'id_ideas',
-                    'label' => 'Id',
-                    'contentOptions' => [
-                        'style'=>'width : 95px;',
-                        'class' => 'search-results-style',
-                    ],
-                ],
-                [
+                                [
                     'attribute' => 'ideas_name',
                     'label' => 'Имя',
                     'contentOptions' => [
@@ -175,14 +167,6 @@ $this->params['breadcrumbs'][] = $this->title;
             'dataProvider' => $usersProvider,
             'filterModel' => $usersModel,
             'columns' => [
-                [
-                    'attribute' => 'id_users',
-                    'label' => 'Id',
-                    'contentOptions' => [
-                        'style'=>'width : 95px;',
-                        'class' => 'search-results-style',
-                    ],
-                ],
                 [
                     'label' => 'Имя',
                     'contentOptions' => [
@@ -329,14 +313,6 @@ $this->params['breadcrumbs'][] = $this->title;
             'dataProvider' => $commentsProvider,
             'filterModel' => $commentsModel,
             'columns' => [
-                [
-                    'attribute' => 'id_comments',
-                    'label' => 'Id',
-                    'contentOptions' => [
-                        'style' => 'width : 95px;',
-                        'class' => 'search-results-style',
-                    ],
-                ],
                 [
                     'label' => 'Комментрарий',
                     'contentOptions' => [
